@@ -965,13 +965,11 @@ def admin_wallet():
         cur.execute("""
             SELECT
                 id,
-                fullname,
                 user_id,
                 user_type,
                 transaction_type,
                 amount,
-                balance,
-                status,
+                description,
                 created_at
             FROM wallet_transactions
             ORDER BY id DESC
