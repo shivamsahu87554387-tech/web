@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<title>My Jobs</title>
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Poppins,sans-serif;
+}
+
+body{
+background:#f5f7fb;
+padding-bottom:90px;
+}
+
+.header{
+
+background:linear-gradient(135deg,#2563eb,#0f172a);
+
+padding:25px;
+
+color:white;
+
+border-radius:0 0 25px 25px;
+
+}
+
+.job{
+
+background:white;
+
+margin:15px;
+
+padding:18px;
+
+border-radius:18px;
+
+box-shadow:0 5px 12px rgba(0,0,0,.08);
+
+}
+
+.title{
+
+font-size:20px;
+
+font-weight:bold;
+
+margin-bottom:10px;
+
+}
+
+.info{
+
+margin-bottom:8px;
+
+color:#555;
+
+}
+
+.status{
+
+display:inline-block;
+
+padding:6px 12px;
+
+border-radius:20px;
+
+background:#fff7cc;
+
+color:#b8860b;
+
+font-size:13px;
+
+margin-top:10px;
+
+}
+
+.buttons{
+
+display:flex;
+
+gap:10px;
+
+margin-top:15px;
+
+}
+
+button{
+
+flex:1;
+
+padding:12px;
+
+border:none;
+
+border-radius:10px;
+
+cursor:pointer;
+
+font-size:15px;
+
+}
+
+.accept{
+
+background:#22c55e;
+
+color:white;
+
+}
+
+.reject{
+
+background:#ef4444;
+
+color:white;
+
+}
+
+.details{
+
+background:#2563eb;
+
+color:white;
+
+width:100%;
+
+margin-top:10px;
+
+}
+
+.empty{
+
+text-align:center;
+
+padding:50px;
+
+color:#777;
+
+}
+
+.bottom{
+
+position:fixed;
+
+bottom:0;
+
+left:0;
+
+width:100%;
+
+height:70px;
+
+background:white;
+
+display:flex;
+
+justify-content:space-around;
+
+align-items:center;
+
+box-shadow:0 -5px 15px rgba(0,0,0,.08);
+
+}
+
+.bottom a{
+
+text-decoration:none;
+
+color:#555;
+
+font-size:14px;
+
+text-align:center;
+
+}
+
+.active{
+
+color:#2563eb;
+
+font-weight:bold;
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="header">
+
+<h2>
+
+💼 My Jobs
+
+</h2>
+
+<p>
+
+All Assigned Jobs
+
+</p>
+
+</div>
+
+{% for job in jobs %}
+
+<div class="job">
+
+<div class="title">
+
+{{ job["service"] }}
+
+</div>
+
+<div class="info">
+
+👤 {{ job["customer_name"] }}
+
+</div>
+
+<div class="info">
+
+📱 {{ job["customer_mobile"] }}
+
+</div>
+
+<div class="info">
+
+📍 {{ job["customer_address"] }}
+
+</div>
+
+<div class="info">
+
+📅 {{ job["booking_date"] }}
+
+</div>
+
+<div class="info">
+
+🕒 {{ job["booking_time"] }}
+
+</div>
+
+<div class="status">
+
+{{ job["job_status"] }}
+
+</div>
+
+<div class="buttons">
+
+<button class="accept">
+
+Accept
+
+</button>
+
+<button class="reject">
+
+Reject
+
+</button>
+
+</div>
+
+<button class="details">
+
+View Details
+
+</button>
+
+</div>
+
+{% else %}
+
+<div class="empty">
+
+No Jobs Available
+
+</div>
+
+{% endfor %}
+
+<div class="bottom">
+
+<a href="/worker/home">
+
+🏠<br>Home
+
+</a>
+
+<a class="active" href="/worker/jobs">
+
+💼<br>Jobs
+
+</a>
+
+<a href="/worker/wallet">
+
+💰<br>Wallet
+
+</a>
+
+<a href="/worker/profile">
+
+👤<br>Profile
+
+</a>
+
+</div>
+
+</body>
+</html>
