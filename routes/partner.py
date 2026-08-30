@@ -194,8 +194,13 @@ def jobs():
     cur.execute("""
         SELECT *
         FROM jobs
+        WHERE partner_id=?
         ORDER BY id DESC
-    """)
+    """,(
+        session["user_id"],
+
+    ))
+                
 
     jobs=cur.fetchall()
 
@@ -325,7 +330,17 @@ def withdraw():
 
     if request.method == "POST":
 
-        amount = float(request.form["amount"])
+        amount_text = request.form.get("amount", "").strip()
+
+        try:
+            amount = float(amount_text)
+        except (ValueError, TypeError):
+            flash(
+                "Please enter a valid withdrawal amount.",
+                "danger"
+            )
+            conn.close()
+            return redirect("/partner/withdraw")
         wallet = float(partner["wallet"] or 0)
 
         if amount <= 0:
