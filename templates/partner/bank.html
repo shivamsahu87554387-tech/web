@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<title>
+
+Bank Details
+
+</title>
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Poppins,sans-serif;
+}
+
+body{
+
+background:#f4f7fb;
+
+padding:20px;
+
+padding-bottom:80px;
+
+}
+
+.header{
+
+text-align:center;
+
+font-size:30px;
+
+font-weight:700;
+
+color:#2563eb;
+
+margin-bottom:25px;
+
+}
+
+.card{
+
+background:linear-gradient(135deg,#2563eb,#0f172a);
+
+color:white;
+
+padding:25px;
+
+border-radius:22px;
+
+box-shadow:0 15px 30px rgba(0,0,0,.18);
+
+margin-bottom:25px;
+
+overflow:hidden;
+
+position:relative;
+
+}
+
+.card::before{
+
+content:"";
+
+position:absolute;
+
+width:180px;
+
+height:180px;
+
+border-radius:50%;
+
+background:rgba(255,255,255,.08);
+
+right:-60px;
+
+top:-60px;
+
+}
+
+.bank{
+
+font-size:24px;
+
+font-weight:bold;
+
+margin-bottom:30px;
+
+position:relative;
+
+z-index:2;
+
+}
+
+.number{
+
+font-size:28px;
+
+letter-spacing:4px;
+
+margin-bottom:30px;
+
+position:relative;
+
+z-index:2;
+
+}
+
+.row{
+
+display:flex;
+
+justify-content:space-between;
+
+position:relative;
+
+z-index:2;
+
+}
+
+.label{
+
+font-size:12px;
+
+opacity:.8;
+
+}
+
+.value{
+
+font-size:17px;
+
+font-weight:bold;
+
+margin-top:6px;
+
+}
+
+.action{
+
+margin-bottom:20px;
+
+}
+
+.change{
+
+width:100%;
+
+padding:15px;
+
+border:none;
+
+border-radius:14px;
+
+background:#16a34a;
+
+color:white;
+
+font-size:17px;
+
+font-weight:bold;
+
+cursor:pointer;
+
+transition:.3s;
+
+}
+
+.change:hover{
+
+transform:translateY(-2px);
+
+}
+
+form{
+
+display:none;
+
+background:white;
+
+padding:22px;
+
+border-radius:20px;
+
+box-shadow:0 10px 20px rgba(0,0,0,.08);
+
+}
+
+input{
+
+width:100%;
+
+padding:15px;
+
+border-radius:12px;
+
+border:1px solid #ddd;
+
+outline:none;
+
+font-size:15px;
+
+margin-bottom:15px;
+
+transition:.3s;
+
+}
+
+input:focus{
+
+border-color:#2563eb;
+
+box-shadow:0 0 0 4px rgba(37,99,235,.12);
+
+}
+
+.save{
+
+width:100%;
+
+padding:15px;
+
+border:none;
+
+border-radius:14px;
+
+background:#2563eb;
+
+color:white;
+
+font-size:17px;
+
+font-weight:bold;
+
+cursor:pointer;
+
+}
+
+.firstForm{
+
+display:block;
+
+background:white;
+
+padding:22px;
+
+border-radius:20px;
+
+box-shadow:0 10px 20px rgba(0,0,0,.08);
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="header">
+
+🏦 Bank Details
+
+</div>
+{% if partner["bank_name"] %}
+
+<div class="card">
+
+<div class="bank">
+
+{{ partner["bank_name"] }}
+
+</div>
+
+<div class="number">
+
+**** **** {{ partner["account_number"][-4:] }}
+
+</div>
+
+<div class="row">
+
+<div>
+
+<div class="label">
+
+Account Holder
+
+</div>
+
+<div class="value">
+
+{{ partner["account_holder"] }}
+
+</div>
+
+</div>
+
+<div>
+
+<div class="label">
+
+IFSC
+
+</div>
+
+<div class="value">
+
+{{ partner["ifsc"] }}
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="action">
+
+<button
+type="button"
+class="change"
+onclick="showForm()">
+
+🔄 Change Bank Account
+
+</button>
+
+</div>
+
+<form
+id="changeForm"
+method="POST"
+action="/partner/change-bank">
+
+<input
+type="text"
+name="bank_name"
+value="{{ partner['bank_name'] }}"
+placeholder="Bank Name"
+required>
+
+<input
+type="text"
+name="account_holder"
+value="{{ partner['account_holder'] }}"
+placeholder="Account Holder Name"
+required>
+
+<input
+type="text"
+name="account_number"
+value="{{ partner['account_number'] }}"
+placeholder="Account Number"
+required>
+
+<input
+type="text"
+name="ifsc"
+value="{{ partner['ifsc'] }}"
+placeholder="IFSC Code"
+required>
+
+<button
+class="save">
+
+Continue
+
+</button>
+
+</form>
+
+{% else %}
+
+<form
+class="firstForm"
+method="POST">
+
+<input
+type="text"
+name="bank_name"
+placeholder="Bank Name"
+required>
+
+<input
+type="text"
+name="account_holder"
+placeholder="Account Holder Name"
+required>
+
+<input
+type="text"
+name="account_number"
+placeholder="Account Number"
+required>
+
+<input
+type="text"
+name="ifsc"
+placeholder="IFSC Code"
+required>
+
+<button
+class="save">
+
+Save Bank Details
+
+</button>
+
+</form>
+
+{% endif %}
+<script>
+
+function showForm(){
+
+document.getElementById("changeForm").style.display="block";
+
+window.scrollTo({
+
+top:document.body.scrollHeight,
+
+behavior:"smooth"
+
+});
+
+}
+
+</script>
+
+</body>
+
+</html>
