@@ -7,6 +7,7 @@ from datetime import datetime, timedelta
 from werkzeug.security import check_password_hash, generate_password_hash
 from utils.email_sender import send_otp
 from database import get_db
+from routes.decorators import worker_required
 
 
 worker_bp = Blueprint(
@@ -23,6 +24,7 @@ UPLOAD_FOLDER = "static/uploads"
 # ======================================
 
 @worker_bp.route("/worker/home")
+@worker_required
 def worker_home():
 
     return render_template(
@@ -35,6 +37,7 @@ def worker_home():
 # ======================================
 
 @worker_bp.route("/worker/jobs")
+@worker_required
 def worker_jobs():
 
     return render_template(
@@ -47,6 +50,7 @@ def worker_jobs():
 # ======================================
 
 @worker_bp.route("/worker/job/<job_id>")
+@worker_required
 def job_details(job_id):
 
     return render_template(
@@ -60,6 +64,7 @@ def job_details(job_id):
 # ======================================
 
 @worker_bp.route("/worker/wallet")
+@worker_required
 def wallet():
 
     conn = get_db()
@@ -92,6 +97,7 @@ def wallet():
 # ======================================
 
 @worker_bp.route("/worker/notifications", methods=["GET", "POST"])
+@worker_required
 def notifications():
 
     conn = get_db()
@@ -167,6 +173,7 @@ def notifications():
 # ======================================
 
 @worker_bp.route("/worker/profile")
+@worker_required
 def profile():
 
     conn = get_db()
@@ -195,6 +202,7 @@ def profile():
 # ======================================
 
 @worker_bp.route("/worker/edit-profile", methods=["GET", "POST"])
+@worker_required
 def edit_profile():
 
     conn = get_db()
@@ -371,6 +379,7 @@ def edit_profile():
     "/worker/update-location",
     methods=["POST"]
 )
+@worker_required
 def update_worker_location():
 
     try:
@@ -472,6 +481,7 @@ def update_worker_location():
     "/worker/change-bank",
     methods=["POST"]
 )
+@worker_required
 def change_bank():
 
     conn = get_db()
@@ -555,6 +565,7 @@ def change_bank():
 @worker_bp.route(
     "/worker/resend-bank-otp"
 )
+@worker_required
 def resend_bank_otp():
 
     conn = get_db()
@@ -623,6 +634,7 @@ def resend_bank_otp():
     "/worker/bank",
     methods=["GET", "POST"]
 )
+@worker_required
 def worker_bank():
 
     conn = get_db()
@@ -658,6 +670,7 @@ def worker_bank():
     "/worker/verify-bank-otp",
     methods=["GET", "POST"]
 )
+@worker_required
 def verify_bank_otp():
 
     if "new_bank" not in session:
@@ -784,6 +797,7 @@ def verify_bank_otp():
 @worker_bp.route(
     "/worker/settings"
 )
+@worker_required
 def worker_settings():
 
     conn = get_db()
@@ -819,6 +833,7 @@ def worker_settings():
     "/worker/change-password",
     methods=["GET", "POST"]
 )
+@worker_required
 def change_password():
 
     if request.method == "POST":
@@ -933,6 +948,7 @@ def change_password():
     "/worker/verify-password-otp",
     methods=["GET", "POST"]
 )
+@worker_required
 def verify_password_otp():
 
     if "new_password" not in session:
@@ -1017,6 +1033,7 @@ def verify_password_otp():
 @worker_bp.route(
     "/worker/resend-password-otp"
 )
+@worker_required
 def resend_password_otp():
 
     if "new_password" not in session:
@@ -1083,6 +1100,7 @@ def resend_password_otp():
 @worker_bp.route(
     "/worker/about"
 )
+@worker_required
 def about():
 
     return render_template(
@@ -1097,6 +1115,7 @@ def about():
 @worker_bp.route(
     "/worker/privacy_policy"
 )
+@worker_required
 def privacy_policy():
 
     return render_template(
@@ -1111,6 +1130,7 @@ def privacy_policy():
 @worker_bp.route(
     "/worker/terms"
 )
+@worker_required
 def terms():
 
     return render_template(
@@ -1125,6 +1145,7 @@ def terms():
 @worker_bp.route(
     "/worker/help"
 )
+@worker_required
 def help():
 
     return render_template(
@@ -1140,6 +1161,7 @@ def help():
     "/worker/rate-app",
     methods=["GET", "POST"]
 )
+@worker_required
 def rate_app():
 
     if request.method == "POST":
@@ -1242,6 +1264,7 @@ def rate_app():
 @worker_bp.route(
     "/worker/check-update"
 )
+@worker_required
 def check_update():
 
     current_version = "1.0.0"
@@ -1273,6 +1296,7 @@ def check_update():
 @worker_bp.route(
     "/worker/app-version"
 )
+@worker_required
 def app_version():
 
     version = "1.0.0"
@@ -1291,6 +1315,7 @@ def app_version():
 @worker_bp.route(
     "/worker/faq"
 )
+@worker_required
 def faq():
 
     return render_template(
