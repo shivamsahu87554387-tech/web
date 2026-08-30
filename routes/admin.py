@@ -819,10 +819,10 @@ def admin_jobs():
         FROM jobs j
 
         LEFT JOIN partners p
-            ON j.partner_id = p.id
+            ON j.partner_id = p.partner_id
 
         LEFT JOIN workers w
-            ON j.worker_id = w.id
+            ON j.worker_id = w.worker_id
 
         ORDER BY j.id DESC
     """)
