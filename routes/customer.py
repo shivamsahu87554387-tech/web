@@ -15,6 +15,7 @@ import sqlite3
 
 from datetime import datetime, timedelta
 from functools import wraps
+from database import get_db
 
 from flask import (
     Blueprint,
@@ -51,7 +52,6 @@ customer = Blueprint(
 # CONFIGURATION
 # =========================================================
 
-DATABASE = "database.db"
 
 UPLOAD_FOLDER = "static/uploads/customer"
 
@@ -67,15 +67,7 @@ ALLOWED_EXTENSIONS = {
 # DATABASE CONNECTION
 # =========================================================
 
-def get_db():
 
-    conn = sqlite3.connect(
-        DATABASE
-    )
-
-    conn.row_factory = sqlite3.Row
-
-    return conn
 
 
 # =========================================================
