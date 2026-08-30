@@ -10,6 +10,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from database import get_db
 from werkzeug.utils import secure_filename
 from utils.email_sender import send_otp
+from routes.decorators import partner_required
 
 import os
 import random
@@ -32,6 +33,7 @@ UPLOAD_FOLDER = "static/uploads"
 # ======================================
 
 @partner_bp.route("/partner/home")
+@partner_required
 def partner_home():
 
     conn = get_db()
@@ -103,6 +105,7 @@ def partner_home():
 # ======================================
 
 @partner_bp.route("/partner/workers")
+@partner_required
 def workers():
 
     conn = get_db()
@@ -136,6 +139,7 @@ def workers():
 # ======================================
 
 @partner_bp.route("/partner/worker/<worker_id>")
+@partner_required
 def worker_profile(worker_id):
 
     conn=get_db()
@@ -181,6 +185,7 @@ def worker_profile(worker_id):
 # ======================================
 
 @partner_bp.route("/partner/jobs")
+@partner_required
 def jobs():
 
     conn=get_db()
@@ -203,6 +208,7 @@ def jobs():
 
 
 @partner_bp.route("/partner/notifications", methods=["GET", "POST"])
+@partner_required
 def notifications():
 
     conn = get_db()
@@ -260,6 +266,7 @@ def notifications():
 # ======================================
 
 @partner_bp.route("/partner/profile")
+@partner_required
 def profile():
 
     conn = get_db()
@@ -286,6 +293,7 @@ def profile():
 # ======================================
 
 @partner_bp.route("/partner/withdraw", methods=["GET","POST"])
+@partner_required
 def withdraw():
 
     conn = get_db()
@@ -396,6 +404,7 @@ def withdraw():
 # ======================================
 
 @partner_bp.route("/partner/wallet")
+@partner_required
 def wallet():
 
     conn = get_db()
@@ -431,6 +440,7 @@ def wallet():
 # ======================================
 
 @partner_bp.route("/partner/edit-profile", methods=["GET", "POST"])
+@partner_required
 def edit_profile():
 
     conn = get_db()
@@ -519,6 +529,7 @@ def edit_profile():
 # ======================================
 
 @partner_bp.route("/partner/settings")
+@partner_required
 def settings():
 
     return render_template(
@@ -531,6 +542,7 @@ def settings():
 # ======================================
 
 @partner_bp.route("/partner/bank", methods=["GET","POST"])
+@partner_required
 def bank():
 
     conn = get_db()
@@ -585,6 +597,7 @@ def bank():
 # ======================================
 
 @partner_bp.route("/partner/change-bank", methods=["POST"])
+@partner_required
 def change_bank():
 
     conn = get_db()
@@ -634,6 +647,7 @@ def change_bank():
 # ======================================
 
 @partner_bp.route("/partner/verify-bank-otp", methods=["GET","POST"])
+@partner_required
 def verify_bank_otp():
 
     if request.method == "POST":
@@ -709,6 +723,7 @@ def verify_bank_otp():
 # ======================================
 
 @partner_bp.route("/partner/resend-bank-otp")
+@partner_required
 def resend_bank_otp():
 
     conn = get_db()
@@ -750,6 +765,7 @@ def resend_bank_otp():
 # ======================================
 
 @partner_bp.route("/partner/help")
+@partner_required
 def help():
 
     return render_template("partner/help.html")
@@ -760,6 +776,7 @@ def help():
 # ======================================
 
 @partner_bp.route("/partner/faq")
+@partner_required
 def faq():
 
     return render_template("partner/faq.html")
@@ -770,6 +787,7 @@ def faq():
 # ======================================
 
 @partner_bp.route("/partner/privacy")
+@partner_required
 def privacy():
 
     return render_template("partner/privacy.html")
@@ -780,6 +798,7 @@ def privacy():
 # ======================================
 
 @partner_bp.route("/partner/terms")
+@partner_required
 def terms():
 
     return render_template("partner/terms.html")
@@ -790,6 +809,7 @@ def terms():
 # ======================================
 
 @partner_bp.route("/partner/about")
+@partner_required
 def about():
 
     return render_template("partner/about.html")
@@ -804,6 +824,7 @@ def about():
     "/partner/language",
     methods=["GET", "POST"]
 )
+@partner_required
 def language():
 
     conn = get_db()
@@ -854,6 +875,7 @@ def language():
 # ======================================
 
 @partner_bp.route("/partner/change-password", methods=["GET", "POST"])
+@partner_required
 def change_password():
 
     conn = get_db()
@@ -920,6 +942,7 @@ def change_password():
 # ======================================
 
 @partner_bp.route("/partner/verify-password-otp", methods=["GET", "POST"])
+@partner_required
 def verify_password_otp():
 
     if request.method == "POST":
@@ -984,6 +1007,7 @@ def verify_password_otp():
 # ======================================
 
 @partner_bp.route("/partner/resend-password-otp")
+@partner_required
 def resend_password_otp():
 
     conn = get_db()
@@ -1027,6 +1051,7 @@ def resend_password_otp():
     "/partner/rate-app",
     methods=["GET", "POST"]
 )
+@partner_required
 def rate_app():
 
     conn = get_db()
@@ -1071,6 +1096,7 @@ def rate_app():
 # ======================================
 
 @partner_bp.route("/partner/check-update")
+@partner_required
 def check_update():
 
     current_version = "1.0.0"
@@ -1094,6 +1120,7 @@ def check_update():
 # ======================================
 
 @partner_bp.route("/partner/app-version")
+@partner_required
 def app_version():
 
     version = "1.0.0"
