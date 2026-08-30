@@ -25,6 +25,11 @@ from utils.id_generator import (
     generate_referral_code
 )
 
+from datetime import (
+    datetime,
+    timedelta
+)
+
 
 auth_bp = Blueprint(
     "auth",
@@ -66,12 +71,37 @@ def login():
     role = request.args.get(
         "role",
         "worker"
-    )
+    ).strip().lower()
 
     if request.method == "POST":
 
-        user_id = request.form["user_id"].strip()
-        password = request.form["password"]
+        user_id = request.form.get(
+            "user_id",
+            ""
+        ).strip()
+
+        password = request.form.get(
+            "password",
+            ""
+        )
+
+        # =====================================
+        # BASIC VALIDATION
+        # =====================================
+
+        if not user_id or not password:
+
+            flash(
+                "Please enter your ID and Password.",
+                "danger"
+            )
+
+            return redirect(
+                url_for(
+                    "auth.login",
+                    role=role
+                )
+            )
 
         conn = get_db()
         cur = conn.cursor()
@@ -86,7 +116,9 @@ def login():
                 SELECT *
                 FROM workers
                 WHERE worker_id=?
-            """, (user_id,))
+            """, (
+                user_id,
+            ))
 
         # =====================================
         # PARTNER LOGIN
@@ -98,7 +130,9 @@ def login():
                 SELECT *
                 FROM partners
                 WHERE partner_id=?
-            """, (user_id,))
+            """, (
+                user_id,
+            ))
 
         else:
 
@@ -110,7 +144,9 @@ def login():
             )
 
             return redirect(
-                url_for("auth.login")
+                url_for(
+                    "auth.login"
+                )
             )
 
         user = cur.fetchone()
@@ -141,7 +177,7 @@ def login():
 
         status = user["status"] or "active"
 
-        if status.lower() == "suspended":
+        if str(status).lower() == "suspended":
 
             if role == "worker":
 
@@ -168,10 +204,34 @@ def login():
         # PASSWORD CHECK
         # =====================================
 
-        if not check_password_hash(
-            user["password"],
-            password
-        ):
+        stored_password = user["password"]
+
+        if not stored_password:
+
+            flash(
+                "Your account password is not configured. Please contact support.",
+                "danger"
+            )
+
+            return redirect(
+                url_for(
+                    "auth.login",
+                    role=role
+                )
+            )
+
+        try:
+
+            password_valid = check_password_hash(
+                stored_password,
+                password
+            )
+
+        except (ValueError, TypeError):
+
+            password_valid = False
+
+        if not password_valid:
 
             flash(
                 "Invalid ID or Password.",
@@ -202,29 +262,30 @@ def login():
             )
 
             return redirect(
-                "/worker/home"
+                url_for(
+                    "worker.worker_home"
+                )
             )
 
         # =====================================
         # PARTNER LOGIN SUCCESS
         # =====================================
 
-        else:
+        session.clear()
 
-            session.clear()
+        session["user_id"] = user["partner_id"]
+        session["role"] = "partner"
 
-            session["user_id"] = user["partner_id"]
-            session["role"] = "partner"
+        flash(
+            "Login Successful.",
+            "success"
+        )
 
-            flash(
-                "Login Successful.",
-                "success"
+        return redirect(
+            url_for(
+                "partner.partner_home"
             )
-
-            return redirect(
-                "/partner/home"
-            )
-
+        )
 
     # =====================================
     # LOGIN PAGE
@@ -246,16 +307,53 @@ def signup():
     role = request.args.get(
         "role",
         "worker"
-    )
+    ).strip().lower()
+
+    if role not in ("worker", "partner"):
+
+        role = "worker"
 
     if request.method == "POST":
 
-        fullname = request.form["fullname"].strip()
-        email = request.form["email"].strip()
-        mobile = request.form["mobile"].strip()
+        fullname = request.form.get(
+            "fullname",
+            ""
+        ).strip()
 
-        password = request.form["password"]
-        confirm_password = request.form["confirm_password"]
+        email = request.form.get(
+            "email",
+            ""
+        ).strip().lower()
+
+        mobile = request.form.get(
+            "mobile",
+            ""
+        ).strip()
+
+        password = request.form.get(
+            "password",
+            ""
+        )
+
+        confirm_password = request.form.get(
+            "confirm_password",
+            ""
+        )
+
+        # =====================================
+        # BASIC VALIDATION
+        # =====================================
+
+        if not fullname or not email or not mobile or not password:
+
+            flash(
+                "Please fill all required fields.",
+                "danger"
+            )
+
+            return redirect(
+                request.url
+            )
 
         # =====================================
         # PASSWORD CONFIRMATION
@@ -268,9 +366,13 @@ def signup():
                 "danger"
             )
 
-            return redirect(request.url)
+            return redirect(
+                request.url
+            )
 
-        password = generate_password_hash(password)
+        password = generate_password_hash(
+            password
+        )
 
         conn = get_db()
         cur = conn.cursor()
@@ -287,7 +389,9 @@ def signup():
                 FROM workers
                 WHERE email=?
                 """,
-                (email,)
+                (
+                    email,
+                )
             )
 
         else:
@@ -298,7 +402,9 @@ def signup():
                 FROM partners
                 WHERE email=?
                 """,
-                (email,)
+                (
+                    email,
+                )
             )
 
         if cur.fetchone():
@@ -310,7 +416,9 @@ def signup():
                 "danger"
             )
 
-            return redirect(request.url)
+            return redirect(
+                request.url
+            )
 
         # =====================================
         # DUPLICATE MOBILE
@@ -324,7 +432,9 @@ def signup():
                 FROM workers
                 WHERE mobile=?
                 """,
-                (mobile,)
+                (
+                    mobile,
+                )
             )
 
         else:
@@ -335,7 +445,9 @@ def signup():
                 FROM partners
                 WHERE mobile=?
                 """,
-                (mobile,)
+                (
+                    mobile,
+                )
             )
 
         if cur.fetchone():
@@ -347,8 +459,9 @@ def signup():
                 "danger"
             )
 
-            return redirect(request.url)
-
+            return redirect(
+                request.url
+            )
 
         # =====================================
         # WORKER SIGNUP
@@ -363,7 +476,7 @@ def signup():
                 "WM00000"
             ).strip()
 
-            if referred_by == "":
+            if not referred_by:
 
                 referred_by = "WM00000"
 
@@ -400,7 +513,9 @@ def signup():
                 FROM partners
                 WHERE referral_code=?
                 """,
-                (referred_by,)
+                (
+                    referred_by,
+                )
             )
 
             partner = cur.fetchone()
@@ -430,7 +545,6 @@ def signup():
                 account_id=worker_id,
                 role="worker"
             )
-
 
         # =====================================
         # PARTNER SIGNUP
@@ -473,7 +587,6 @@ def signup():
             role="partner"
         )
 
-
     return render_template(
         "signup.html",
         role=role
@@ -495,7 +608,9 @@ def logout():
     )
 
     return redirect(
-        url_for("auth.login")
+        url_for(
+            "auth.login"
+        )
     )
 
 
@@ -511,7 +626,23 @@ def forgot_password():
 
     if request.method == "POST":
 
-        email = request.form["email"].strip()
+        email = request.form.get(
+            "email",
+            ""
+        ).strip().lower()
+
+        if not email:
+
+            flash(
+                "Please enter your email address.",
+                "danger"
+            )
+
+            return redirect(
+                url_for(
+                    "auth.forgot_password"
+                )
+            )
 
         conn = get_db()
         cur = conn.cursor()
@@ -526,13 +657,14 @@ def forgot_password():
             FROM workers
             WHERE email=?
             """,
-            (email,)
+            (
+                email,
+            )
         )
 
         user = cur.fetchone()
 
         role = "worker"
-
 
         # =====================================
         # PARTNER CHECK
@@ -546,7 +678,9 @@ def forgot_password():
                 FROM partners
                 WHERE email=?
                 """,
-                (email,)
+                (
+                    email,
+                )
             )
 
             user = cur.fetchone()
@@ -554,7 +688,6 @@ def forgot_password():
             role = "partner"
 
         conn.close()
-
 
         # =====================================
         # EMAIL NOT FOUND
@@ -573,6 +706,34 @@ def forgot_password():
                 )
             )
 
+        # =====================================
+        # CLEAR OLD RESET SESSION
+        # =====================================
+
+        session.pop(
+            "reset_email",
+            None
+        )
+
+        session.pop(
+            "reset_role",
+            None
+        )
+
+        session.pop(
+            "reset_otp",
+            None
+        )
+
+        session.pop(
+            "reset_otp_expiry",
+            None
+        )
+
+        session.pop(
+            "reset_verified",
+            None
+        )
 
         # =====================================
         # GENERATE OTP
@@ -585,10 +746,18 @@ def forgot_password():
             )
         )
 
+        expiry = (
+            datetime.now()
+            + timedelta(minutes=5)
+        ).strftime(
+            "%Y-%m-%d %H:%M:%S"
+        )
+
         session["reset_email"] = email
         session["reset_role"] = role
         session["reset_otp"] = otp
-
+        session["reset_otp_expiry"] = expiry
+        session["reset_verified"] = False
 
         # =====================================
         # SEND OTP
@@ -608,10 +777,38 @@ def forgot_password():
 
         except Exception as e:
 
-            print(e)
+            print(
+                "FORGOT PASSWORD OTP ERROR:",
+                e
+            )
+
+            session.pop(
+                "reset_email",
+                None
+            )
+
+            session.pop(
+                "reset_role",
+                None
+            )
+
+            session.pop(
+                "reset_otp",
+                None
+            )
+
+            session.pop(
+                "reset_otp_expiry",
+                None
+            )
+
+            session.pop(
+                "reset_verified",
+                None
+            )
 
             flash(
-                "Failed to send OTP.",
+                "Failed to send OTP. Please try again.",
                 "danger"
             )
 
@@ -621,13 +818,11 @@ def forgot_password():
                 )
             )
 
-
         return redirect(
             url_for(
                 "auth.verify_otp"
             )
         )
-
 
     return render_template(
         "forgot_password.html"
@@ -644,34 +839,201 @@ def forgot_password():
 )
 def verify_otp():
 
-    if request.method == "POST":
+    # =====================================
+    # CHECK RESET SESSION
+    # =====================================
 
-        otp = request.form["otp"].strip()
-
-        if otp == session.get("reset_otp"):
-
-            flash(
-                "OTP Verified Successfully.",
-                "success"
-            )
-
-            return redirect(
-                url_for(
-                    "auth.new_password"
-                )
-            )
+    if not session.get("reset_email"):
 
         flash(
-            "Invalid OTP.",
+            "Please request a password reset first.",
+            "warning"
+        )
+
+        return redirect(
+            url_for(
+                "auth.forgot_password"
+            )
+        )
+
+    if not session.get("reset_otp"):
+
+        flash(
+            "OTP session expired. Please request a new OTP.",
+            "warning"
+        )
+
+        return redirect(
+            url_for(
+                "auth.forgot_password"
+            )
+        )
+
+    # =====================================
+    # CHECK OTP EXPIRY
+    # =====================================
+
+    expiry_string = session.get(
+        "reset_otp_expiry"
+    )
+
+    if not expiry_string:
+
+        session.pop(
+            "reset_otp",
+            None
+        )
+
+        session.pop(
+            "reset_otp_expiry",
+            None
+        )
+
+        session.pop(
+            "reset_verified",
+            None
+        )
+
+        flash(
+            "OTP session expired. Please request a new OTP.",
+            "warning"
+        )
+
+        return redirect(
+            url_for(
+                "auth.forgot_password"
+            )
+        )
+
+    try:
+
+        expiry = datetime.strptime(
+            expiry_string,
+            "%Y-%m-%d %H:%M:%S"
+        )
+
+    except (ValueError, TypeError):
+
+        session.pop(
+            "reset_otp",
+            None
+        )
+
+        session.pop(
+            "reset_otp_expiry",
+            None
+        )
+
+        session.pop(
+            "reset_verified",
+            None
+        )
+
+        flash(
+            "OTP session expired. Please request a new OTP.",
+            "warning"
+        )
+
+        return redirect(
+            url_for(
+                "auth.forgot_password"
+            )
+        )
+
+    if datetime.now() > expiry:
+
+        session.pop(
+            "reset_otp",
+            None
+        )
+
+        session.pop(
+            "reset_otp_expiry",
+            None
+        )
+
+        session.pop(
+            "reset_verified",
+            None
+        )
+
+        flash(
+            "OTP has expired. Please request a new OTP.",
             "danger"
         )
 
         return redirect(
             url_for(
-                "auth.verify_otp"
+                "auth.forgot_password"
             )
         )
 
+    # =====================================
+    # VERIFY OTP
+    # =====================================
+
+    if request.method == "POST":
+
+        otp = request.form.get(
+            "otp",
+            ""
+        ).strip()
+
+        if not otp:
+
+            flash(
+                "Please enter the OTP.",
+                "danger"
+            )
+
+            return redirect(
+                url_for(
+                    "auth.verify_otp"
+                )
+            )
+
+        if otp != session.get(
+            "reset_otp"
+        ):
+
+            flash(
+                "Invalid OTP.",
+                "danger"
+            )
+
+            return redirect(
+                url_for(
+                    "auth.verify_otp"
+                )
+            )
+
+        # =====================================
+        # OTP VERIFIED
+        # =====================================
+
+        session["reset_verified"] = True
+
+        # OTP should not be reusable
+        session.pop(
+            "reset_otp",
+            None
+        )
+
+        session.pop(
+            "reset_otp_expiry",
+            None
+        )
+
+        flash(
+            "OTP Verified Successfully.",
+            "success"
+        )
+
+        return redirect(
+            url_for(
+                "auth.new_password"
+            )
+        )
 
     return render_template(
         "verify_otp.html"
@@ -688,11 +1050,88 @@ def verify_otp():
 )
 def new_password():
 
+    # =====================================
+    # CHECK RESET SESSION
+    # =====================================
+
+    reset_email = session.get(
+        "reset_email"
+    )
+
+    reset_role = session.get(
+        "reset_role"
+    )
+
+    reset_verified = session.get(
+        "reset_verified",
+        False
+    )
+
+    if not reset_email or reset_role not in (
+        "worker",
+        "partner"
+    ):
+
+        flash(
+            "Password reset session expired. Please start again.",
+            "warning"
+        )
+
+        return redirect(
+            url_for(
+                "auth.forgot_password"
+            )
+        )
+
+    # =====================================
+    # OTP MUST BE VERIFIED
+    # =====================================
+
+    if reset_verified is not True:
+
+        flash(
+            "Please verify the OTP first.",
+            "warning"
+        )
+
+        return redirect(
+            url_for(
+                "auth.verify_otp"
+            )
+        )
+
+    # =====================================
+    # CHANGE PASSWORD
+    # =====================================
+
     if request.method == "POST":
 
-        password = request.form["password"]
-        confirm_password = request.form["confirm_password"]
+        password = request.form.get(
+            "password",
+            ""
+        )
 
+        confirm_password = request.form.get(
+            "confirm_password",
+            ""
+        )
+
+        # =====================================
+        # BASIC VALIDATION
+        # =====================================
+
+        if not password or not confirm_password:
+
+            flash(
+                "Please enter the new password.",
+                "danger"
+            )
+
+            return redirect(
+                url_for(
+                    "auth.new_password"
+                )
+            )
 
         # =====================================
         # PASSWORD MATCH
@@ -711,56 +1150,80 @@ def new_password():
                 )
             )
 
+        # =====================================
+        # HASH PASSWORD
+        # =====================================
 
-        password = generate_password_hash(
+        password_hash = generate_password_hash(
             password
         )
 
         conn = get_db()
         cur = conn.cursor()
 
+        try:
 
-        # =====================================
-        # WORKER PASSWORD UPDATE
-        # =====================================
+            # =====================================
+            # WORKER PASSWORD UPDATE
+            # =====================================
 
-        if session["reset_role"] == "worker":
+            if reset_role == "worker":
 
-            cur.execute(
-                """
-                UPDATE workers
-                SET password=?
-                WHERE email=?
-                """,
-                (
-                    password,
-                    session["reset_email"]
+                cur.execute(
+                    """
+                    UPDATE workers
+                    SET password=?
+                    WHERE email=?
+                    """,
+                    (
+                        password_hash,
+                        reset_email
+                    )
+                )
+
+            # =====================================
+            # PARTNER PASSWORD UPDATE
+            # =====================================
+
+            else:
+
+                cur.execute(
+                    """
+                    UPDATE partners
+                    SET password=?
+                    WHERE email=?
+                    """,
+                    (
+                        password_hash,
+                        reset_email
+                    )
+                )
+
+            conn.commit()
+
+        except Exception as e:
+
+            conn.rollback()
+
+            print(
+                "PASSWORD RESET ERROR:",
+                e
+            )
+
+            conn.close()
+
+            flash(
+                "Unable to update password. Please try again.",
+                "danger"
+            )
+
+            return redirect(
+                url_for(
+                    "auth.new_password"
                 )
             )
 
-
-        # =====================================
-        # PARTNER PASSWORD UPDATE
-        # =====================================
-
-        else:
-
-            cur.execute(
-                """
-                UPDATE partners
-                SET password=?
-                WHERE email=?
-                """,
-                (
-                    password,
-                    session["reset_email"]
-                )
-            )
-
-
-        conn.commit()
         conn.close()
-
 
         # =====================================
         # CLEAR RESET SESSION
@@ -781,6 +1244,15 @@ def new_password():
             None
         )
 
+        session.pop(
+            "reset_otp_expiry",
+            None
+        )
+
+        session.pop(
+            "reset_verified",
+            None
+        )
 
         flash(
             "Password updated successfully.",
@@ -792,7 +1264,6 @@ def new_password():
                 "auth.login"
             )
         )
-
 
     return render_template(
         "new_password.html"
