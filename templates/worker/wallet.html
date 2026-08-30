@@ -1,0 +1,690 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>My Wallet | WorkMitra</title>
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Poppins,Arial,sans-serif;
+}
+
+body{
+    background:#f5f7fb;
+    color:#17213c;
+    padding-bottom:90px;
+}
+
+
+/* =========================
+   HEADER
+========================= */
+
+.header{
+    position:relative;
+    padding:25px 20px 70px;
+    background:linear-gradient(135deg,#2563eb,#0f172a);
+    color:white;
+    border-radius:0 0 25px 25px;
+    overflow:hidden;
+}
+
+.header::before{
+    content:"";
+    position:absolute;
+    width:180px;
+    height:180px;
+    border-radius:50%;
+    background:rgba(255,255,255,.08);
+    right:-60px;
+    top:-70px;
+}
+
+.header::after{
+    content:"";
+    position:absolute;
+    width:120px;
+    height:120px;
+    border-radius:50%;
+    background:rgba(255,255,255,.06);
+    left:-50px;
+    bottom:-60px;
+}
+
+.header-content{
+    position:relative;
+    z-index:2;
+}
+
+.top-row{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
+
+.back-btn{
+    width:42px;
+    height:42px;
+    border-radius:13px;
+    background:rgba(255,255,255,.14);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    text-decoration:none;
+    color:white;
+    font-size:20px;
+}
+
+.header-title{
+    font-size:22px;
+    font-weight:700;
+}
+
+
+/* =========================
+   BALANCE
+========================= */
+
+.balance-card{
+    position:relative;
+    z-index:5;
+    margin:-50px 18px 20px;
+    padding:22px;
+    background:white;
+    border-radius:22px;
+    box-shadow:0 12px 35px rgba(15,23,42,.12);
+}
+
+.balance-label{
+    color:#64748b;
+    font-size:13px;
+    font-weight:500;
+}
+
+.balance{
+    margin-top:5px;
+    font-size:34px;
+    font-weight:800;
+    color:#17213c;
+}
+
+.balance-small{
+    margin-top:5px;
+    font-size:12px;
+    color:#94a3b8;
+}
+
+
+/* =========================
+   SUMMARY
+========================= */
+
+.summary{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:14px;
+    margin:0 18px 20px;
+}
+
+.summary-card{
+    background:white;
+    padding:18px;
+    border-radius:18px;
+    box-shadow:0 6px 20px rgba(15,23,42,.06);
+}
+
+.icon{
+    width:40px;
+    height:40px;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    border-radius:12px;
+    font-size:19px;
+    margin-bottom:12px;
+}
+
+.icon.orange{
+    background:#fff7ed;
+}
+
+.icon.blue{
+    background:#eff6ff;
+}
+
+.summary-label{
+    font-size:12px;
+    color:#64748b;
+}
+
+.summary-value{
+    margin-top:4px;
+    font-size:20px;
+    font-weight:750;
+}
+
+.orange-text{
+    color:#ea580c;
+}
+
+.blue-text{
+    color:#2563eb;
+}
+
+
+/* =========================
+   INFO
+========================= */
+
+.info{
+    margin:0 18px 25px;
+    padding:16px;
+    border-radius:17px;
+    background:#eff6ff;
+    border:1px solid #dbeafe;
+    display:flex;
+    gap:12px;
+    align-items:flex-start;
+}
+
+.info-icon{
+    width:35px;
+    height:35px;
+    flex-shrink:0;
+    border-radius:10px;
+    background:#2563eb;
+    color:white;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+
+.info-text{
+    font-size:12px;
+    line-height:1.6;
+    color:#475569;
+}
+
+.info-text strong{
+    display:block;
+    color:#17213c;
+    margin-bottom:2px;
+}
+
+
+/* =========================
+   SECTION
+========================= */
+
+.section{
+    margin:0 18px;
+}
+
+.section-head{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:13px;
+}
+
+.section-title{
+    font-size:18px;
+    font-weight:750;
+}
+
+.section-count{
+    font-size:11px;
+    color:#64748b;
+}
+
+
+/* =========================
+   TRANSACTIONS
+========================= */
+
+.transaction{
+    background:white;
+    padding:16px;
+    border-radius:17px;
+    margin-bottom:12px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    box-shadow:0 5px 18px rgba(15,23,42,.055);
+}
+
+.transaction-left{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    min-width:0;
+}
+
+.transaction-icon{
+    width:42px;
+    height:42px;
+    flex-shrink:0;
+    border-radius:13px;
+    background:#ecfdf5;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    font-size:18px;
+}
+
+.transaction-info{
+    min-width:0;
+}
+
+.transaction-title{
+    font-size:13px;
+    font-weight:650;
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+    max-width:190px;
+}
+
+.transaction-date{
+    margin-top:3px;
+    font-size:10px;
+    color:#94a3b8;
+}
+
+.transaction-amount{
+    font-size:14px;
+    font-weight:750;
+    color:#16a34a;
+    white-space:nowrap;
+}
+
+
+/* =========================
+   EMPTY
+========================= */
+
+.empty{
+    background:white;
+    border-radius:18px;
+    padding:30px 20px;
+    text-align:center;
+    box-shadow:0 5px 18px rgba(15,23,42,.05);
+}
+
+.empty-icon{
+    width:58px;
+    height:58px;
+    margin:0 auto 12px;
+    border-radius:18px;
+    background:#f1f5f9;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    font-size:25px;
+}
+
+.empty-title{
+    font-size:14px;
+    font-weight:650;
+}
+
+.empty-text{
+    margin-top:5px;
+    font-size:11px;
+    color:#94a3b8;
+}
+
+
+/* =========================
+   BOTTOM NAV
+   SAME AS JOBS PAGE
+========================= */
+
+.bottom{
+    position:fixed;
+    z-index:100;
+    bottom:0;
+    left:0;
+    width:100%;
+    height:70px;
+    background:white;
+    display:flex;
+    justify-content:space-around;
+    align-items:center;
+    box-shadow:0 -5px 15px rgba(0,0,0,.08);
+}
+
+.bottom a{
+    text-decoration:none;
+    color:#555;
+    font-size:14px;
+    text-align:center;
+}
+
+.bottom a.active{
+    color:#2563eb;
+    font-weight:bold;
+}
+
+
+/* =========================
+   MOBILE
+========================= */
+
+@media(max-width:380px){
+
+    .summary{
+        gap:10px;
+        margin-left:14px;
+        margin-right:14px;
+    }
+
+    .summary-card{
+        padding:15px;
+    }
+
+    .balance-card{
+        margin-left:14px;
+        margin-right:14px;
+    }
+
+    .info{
+        margin-left:14px;
+        margin-right:14px;
+    }
+
+    .section{
+        margin-left:14px;
+        margin-right:14px;
+    }
+
+}
+
+
+/* =========================
+   DESKTOP
+========================= */
+
+@media(min-width:700px){
+
+    body{
+        max-width:700px;
+        margin:auto;
+    }
+
+    .bottom{
+        max-width:700px;
+        left:50%;
+        transform:translateX(-50%);
+    }
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<!-- =========================
+     HEADER
+========================= -->
+
+<div class="header">
+
+    <div class="header-content">
+
+        <div class="top-row">
+
+            <a
+                href="/worker/home"
+                class="back-btn"
+            >
+                ‹
+            </a>
+
+            <div class="header-title">
+                My Wallet
+            </div>
+
+            <div style="width:42px;"></div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- =========================
+     TOTAL BALANCE
+========================= -->
+
+<div class="balance-card">
+
+    <div class="balance-label">
+        Total Earned
+    </div>
+
+    <div class="balance">
+        ₹ {{ total_earned }}
+    </div>
+
+    <div class="balance-small">
+        Total amount earned from completed work
+    </div>
+
+</div>
+
+
+<!-- =========================
+     SUMMARY
+========================= -->
+
+<div class="summary">
+
+
+    <!-- Pending -->
+
+    <div class="summary-card">
+
+        <div class="icon orange">
+            ⏳
+        </div>
+
+        <div class="summary-label">
+            Pending Payment
+        </div>
+
+        <div class="summary-value orange-text">
+            ₹ {{ pending_payment }}
+        </div>
+
+    </div>
+
+
+    <!-- Paid -->
+
+    <div class="summary-card">
+
+        <div class="icon blue">
+            ✓
+        </div>
+
+        <div class="summary-label">
+            Paid Amount
+        </div>
+
+        <div class="summary-value blue-text">
+            ₹ {{ paid_amount }}
+        </div>
+
+    </div>
+
+
+</div>
+
+
+<!-- =========================
+     PAYMENT INFORMATION
+========================= -->
+
+<div class="info">
+
+    <div class="info-icon">
+        ✓
+    </div>
+
+    <div class="info-text">
+
+        <strong>
+            Payment Information
+        </strong>
+
+        Payment is transferred manually by WorkMitra
+        within a few hours after your completed job
+        is verified.
+
+    </div>
+
+</div>
+
+
+<!-- =========================
+     PAYMENT HISTORY
+========================= -->
+
+<div class="section">
+
+    <div class="section-head">
+
+        <div class="section-title">
+            Payment History
+        </div>
+
+        <div class="section-count">
+            {{ transactions|length }} Transactions
+        </div>
+
+    </div>
+
+
+    {% for t in transactions %}
+
+
+    <div class="transaction">
+
+        <div class="transaction-left">
+
+            <div class="transaction-icon">
+                💰
+            </div>
+
+            <div class="transaction-info">
+
+                <div class="transaction-title">
+                    {{ t["description"] }}
+                </div>
+
+                <div class="transaction-date">
+                    {{ t["created_at"] }}
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="transaction-amount">
+
+            +₹ {{ t["amount"] }}
+
+        </div>
+
+    </div>
+
+
+    {% else %}
+
+
+    <div class="empty">
+
+        <div class="empty-icon">
+            💳
+        </div>
+
+        <div class="empty-title">
+            No Payment History
+        </div>
+
+        <div class="empty-text">
+            Your completed payment transactions
+            will appear here.
+        </div>
+
+    </div>
+
+
+    {% endfor %}
+
+</div>
+
+
+<!-- =========================
+     BOTTOM NAV
+========================= -->
+
+<div class="bottom">
+
+
+    <a href="/worker/home">
+
+        🏠<br>
+        Home
+
+    </a>
+
+
+    <a href="/worker/jobs">
+
+        💼<br>
+        Jobs
+
+    </a>
+
+
+    <a
+        class="active"
+        href="/worker/wallet"
+    >
+
+        💰<br>
+        Wallet
+
+    </a>
+
+
+    <a href="/worker/profile">
+
+        👤<br>
+        Profile
+
+    </a>
+
+
+</div>
+
+
+</body>
+
+</html>
