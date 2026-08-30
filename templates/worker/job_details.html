@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Job Details</title>
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Poppins,sans-serif;
+}
+
+body{
+background:#f5f7fb;
+padding-bottom:100px;
+}
+
+.header{
+
+background:linear-gradient(135deg,#2563eb,#0f172a);
+
+padding:25px;
+
+color:white;
+
+border-radius:0 0 25px 25px;
+
+}
+
+.card{
+
+margin:18px;
+
+padding:20px;
+
+background:white;
+
+border-radius:18px;
+
+box-shadow:0 5px 12px rgba(0,0,0,.08);
+
+}
+
+.title{
+
+font-size:22px;
+
+font-weight:bold;
+
+margin-bottom:15px;
+
+color:#2563eb;
+
+}
+
+.row{
+
+margin-bottom:12px;
+
+font-size:16px;
+
+color:#444;
+
+}
+
+.amount{
+
+font-size:28px;
+
+font-weight:bold;
+
+color:#22c55e;
+
+margin-top:15px;
+
+}
+
+.buttons{
+
+display:flex;
+
+flex-direction:column;
+
+gap:12px;
+
+margin:20px;
+
+}
+
+button{
+
+padding:15px;
+
+border:none;
+
+border-radius:12px;
+
+font-size:16px;
+
+cursor:pointer;
+
+}
+
+.call{
+background:#2563eb;
+color:white;
+}
+
+.map{
+background:#0ea5e9;
+color:white;
+}
+
+.accept{
+background:#22c55e;
+color:white;
+}
+
+.reject{
+background:#ef4444;
+color:white;
+}
+
+.complete{
+background:#f59e0b;
+color:white;
+}
+
+.upload{
+background:#6b7280;
+color:white;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="header">
+
+<h2>
+
+Job Details
+
+</h2>
+
+<p>
+
+Job ID : {{ job["job_id"] }}
+
+</p>
+
+</div>
+
+<div class="card">
+
+<div class="title">
+
+{{ job["service"] }}
+
+</div>
+
+<div class="row">
+
+👤 {{ job["customer_name"] }}
+
+</div>
+
+<div class="row">
+
+📱 {{ job["customer_mobile"] }}
+
+</div>
+
+<div class="row">
+
+📍 {{ job["customer_address"] }}
+
+</div>
+
+<div class="row">
+
+📅 {{ job["booking_date"] }}
+
+</div>
+
+<div class="row">
+
+🕒 {{ job["booking_time"] }}
+
+</div>
+
+<div class="row">
+
+📌 Status :
+<b>{{ job["job_status"] }}</b>
+
+</div>
+
+<div class="amount">
+
+₹ {{ job["amount"] }}
+
+</div>
+
+</div>
+
+<div class="buttons">
+
+<a href="tel:{{ job['customer_mobile'] }}">
+<button class="call">
+📞 Call Customer
+</button>
+</a>
+
+<a href="https://maps.google.com/?q={{ job['customer_address'] }}">
+<button class="map">
+🗺 Open Google Map
+</button>
+</a>
+
+<button class="accept">
+✅ Accept Job
+</button>
+
+<button class="reject">
+❌ Reject Job
+</button>
+
+<button class="complete">
+✔ Complete Job
+</button>
+
+<button class="upload">
+📷 Upload Work Photo
+</button>
+
+</div>
+
+</body>
+
+</html>
