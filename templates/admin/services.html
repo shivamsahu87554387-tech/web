@@ -1,0 +1,708 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0">
+
+<title>Services | Workmitra Admin</title>
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial,sans-serif;
+}
+
+body{
+    background:#f1f5f9;
+    color:#0f172a;
+}
+
+.header{
+    background:linear-gradient(135deg,#2563eb,#0f172a);
+    color:white;
+
+    padding:25px 30px;
+
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+}
+
+.header h1{
+    font-size:26px;
+}
+
+.header p{
+    margin-top:6px;
+    font-size:14px;
+    opacity:.8;
+}
+
+.header-right{
+    display:flex;
+    gap:10px;
+}
+
+.btn{
+    text-decoration:none;
+    border:none;
+    cursor:pointer;
+
+    padding:11px 17px;
+
+    border-radius:10px;
+
+    font-size:14px;
+    font-weight:bold;
+}
+
+.dashboard{
+    color:white;
+    background:rgba(255,255,255,.15);
+}
+
+.add{
+    background:white;
+    color:#2563eb;
+}
+
+.container{
+    max-width:1400px;
+
+    margin:30px auto;
+
+    padding:0 20px;
+}
+
+.top{
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    margin-bottom:20px;
+}
+
+.top h2{
+    font-size:22px;
+}
+
+.count{
+    margin-top:6px;
+
+    color:#64748b;
+
+    font-size:14px;
+}
+
+.search-box{
+    background:white;
+
+    padding:18px;
+
+    border-radius:16px;
+
+    margin-bottom:20px;
+
+    box-shadow:
+        0 5px 18px rgba(15,23,42,.06);
+}
+
+.search-box input{
+    width:100%;
+
+    padding:14px 16px;
+
+    border:1px solid #e2e8f0;
+
+    border-radius:10px;
+
+    outline:none;
+
+    font-size:15px;
+}
+
+.search-box input:focus{
+    border-color:#2563eb;
+}
+
+.table-card{
+    background:white;
+
+    border-radius:18px;
+
+    overflow:hidden;
+
+    box-shadow:
+        0 7px 25px rgba(15,23,42,.07);
+}
+
+.table-wrapper{
+    overflow-x:auto;
+}
+
+table{
+    width:100%;
+
+    border-collapse:collapse;
+
+    min-width:1050px;
+}
+
+thead{
+    background:#f8fafc;
+}
+
+th{
+    text-align:left;
+
+    padding:17px;
+
+    color:#64748b;
+
+    font-size:12px;
+
+    text-transform:uppercase;
+}
+
+td{
+    padding:17px;
+
+    border-top:1px solid #f1f5f9;
+
+    font-size:14px;
+}
+
+tr:hover{
+    background:#f8fafc;
+}
+
+.service-box{
+    display:flex;
+
+    align-items:center;
+
+    gap:13px;
+}
+
+.icon{
+    width:46px;
+    height:46px;
+
+    border-radius:12px;
+
+    background:#eff6ff;
+
+    display:flex;
+
+    align-items:center;
+    justify-content:center;
+
+    font-size:23px;
+}
+
+.service-name{
+    font-weight:bold;
+
+    font-size:15px;
+}
+
+.service-id{
+    margin-top:4px;
+
+    color:#64748b;
+
+    font-size:12px;
+}
+
+.description{
+    max-width:320px;
+
+    color:#64748b;
+
+    line-height:1.5;
+}
+
+.active{
+    display:inline-block;
+
+    padding:6px 11px;
+
+    border-radius:20px;
+
+    background:#dcfce7;
+
+    color:#166534;
+
+    font-size:12px;
+
+    font-weight:bold;
+}
+
+.inactive{
+    display:inline-block;
+
+    padding:6px 11px;
+
+    border-radius:20px;
+
+    background:#fee2e2;
+
+    color:#991b1b;
+
+    font-size:12px;
+
+    font-weight:bold;
+}
+
+.actions{
+    display:flex;
+
+    gap:7px;
+}
+
+.action{
+    border:none;
+
+    cursor:pointer;
+
+    padding:8px 11px;
+
+    border-radius:8px;
+
+    font-size:12px;
+
+    font-weight:bold;
+}
+
+.edit{
+    background:#eff6ff;
+
+    color:#2563eb;
+
+    text-decoration:none;
+}
+
+.toggle{
+    background:#fef3c7;
+
+    color:#92400e;
+}
+
+.delete{
+    background:#fee2e2;
+
+    color:#991b1b;
+}
+
+.empty{
+    text-align:center;
+
+    padding:60px 20px;
+
+    color:#64748b;
+}
+
+.flash{
+    max-width:1400px;
+
+    margin:20px auto 0;
+
+    padding:0 20px;
+}
+
+.message{
+    padding:14px 17px;
+
+    border-radius:10px;
+
+    margin-bottom:10px;
+
+    font-size:14px;
+}
+
+.success{
+    background:#dcfce7;
+    color:#166534;
+}
+
+.danger{
+    background:#fee2e2;
+    color:#991b1b;
+}
+
+@media(max-width:700px){
+
+    .header{
+        padding:20px;
+    }
+
+    .header h1{
+        font-size:21px;
+    }
+
+    .header-right{
+        flex-direction:column;
+    }
+
+    .container{
+        padding:0 12px;
+
+        margin:20px auto;
+    }
+
+    .top{
+        align-items:flex-start;
+
+        flex-direction:column;
+
+        gap:10px;
+    }
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<div class="header">
+
+    <div>
+
+        <h1>🛠️ Services</h1>
+
+        <p>
+            Manage Workmitra services
+        </p>
+
+    </div>
+
+
+    <div class="header-right">
+
+        <a
+            href="/admin/dashboard"
+            class="btn dashboard"
+        >
+            ← Dashboard
+        </a>
+
+        <a
+            href="/admin/services/add"
+            class="btn add"
+        >
+            + Add Service
+        </a>
+
+    </div>
+
+</div>
+
+
+{% with messages = get_flashed_messages(with_categories=true) %}
+
+{% if messages %}
+
+<div class="flash">
+
+{% for category, message in messages %}
+
+<div class="message {{ category }}">
+
+{{ message }}
+
+</div>
+
+{% endfor %}
+
+</div>
+
+{% endif %}
+
+{% endwith %}
+
+
+<div class="container">
+
+
+<div class="top">
+
+<div>
+
+<h2>
+Service Management
+</h2>
+
+<div class="count">
+
+Total Services:
+{{ services|length }}
+
+</div>
+
+</div>
+
+</div>
+
+
+<div class="search-box">
+
+<input
+    type="text"
+    id="search"
+    placeholder="🔎 Search service..."
+    onkeyup="searchServices()"
+>
+
+</div>
+
+
+<div class="table-card">
+
+<div class="table-wrapper">
+
+<table>
+
+<thead>
+
+<tr>
+
+<th>Service</th>
+
+<th>Description</th>
+
+<th>Status</th>
+
+<th>Created</th>
+
+<th>Actions</th>
+
+</tr>
+
+</thead>
+
+
+<tbody>
+
+
+{% for service in services %}
+
+<tr class="service-row">
+
+
+<td>
+
+<div class="service-box">
+
+<div class="icon">
+
+{{ service["icon"] or "🛠️" }}
+
+</div>
+
+<div>
+
+<div class="service-name">
+
+{{ service["name"] }}
+
+</div>
+
+<div class="service-id">
+
+ID #{{ service["id"] }}
+
+</div>
+
+</div>
+
+</div>
+
+</td>
+
+
+<td>
+
+<div class="description">
+
+{{ service["description"] or "No description added." }}
+
+</div>
+
+</td>
+
+
+<td>
+
+{% if service["active"] == 1 %}
+
+<span class="active">
+✓ Active
+</span>
+
+{% else %}
+
+<span class="inactive">
+Inactive
+</span>
+
+{% endif %}
+
+</td>
+
+
+<td>
+
+{{ service["created_at"] or "—" }}
+
+</td>
+
+
+<td>
+
+<div class="actions">
+
+
+<a
+    href="/admin/services/{{ service['id'] }}/edit"
+    class="action edit"
+>
+    Edit
+</a>
+
+
+<form
+    method="POST"
+    action="/admin/services/{{ service['id'] }}/toggle"
+    style="display:inline;"
+>
+
+<button
+    type="submit"
+    class="action toggle"
+>
+    {% if service["active"] == 1 %}
+        Disable
+    {% else %}
+        Enable
+    {% endif %}
+</button>
+
+</form>
+
+
+<form
+    method="POST"
+    action="/admin/services/{{ service['id'] }}/delete"
+    style="display:inline;"
+    onsubmit="return confirm('Are you sure you want to delete this service?');"
+>
+
+<button
+    type="submit"
+    class="action delete"
+>
+    Delete
+</button>
+
+</form>
+
+
+</div>
+
+</td>
+
+
+</tr>
+
+{% else %}
+
+<tr>
+
+<td colspan="5">
+
+<div class="empty">
+
+🛠️ No services found.
+
+<br><br>
+
+<a
+    href="/admin/services/add"
+    class="btn add"
+>
+    + Add First Service
+</a>
+
+</div>
+
+</td>
+
+</tr>
+
+{% endfor %}
+
+
+</tbody>
+
+</table>
+
+</div>
+
+</div>
+
+
+</div>
+
+
+<script>
+
+function searchServices(){
+
+    const input =
+        document
+        .getElementById("search")
+        .value
+        .toLowerCase();
+
+    const rows =
+        document
+        .querySelectorAll(".service-row");
+
+    rows.forEach(function(row){
+
+        const text =
+            row.innerText.toLowerCase();
+
+        if(text.includes(input)){
+
+            row.style.display = "";
+
+        }else{
+
+            row.style.display = "none";
+
+        }
+
+    });
+
+}
+
+</script>
+
+
+</body>
+
+</html>
