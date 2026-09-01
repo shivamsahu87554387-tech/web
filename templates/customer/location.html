@@ -1,0 +1,948 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Service Location | WorkMitra</title>
+
+<style>
+
+/* =====================================================
+   RESET
+===================================================== */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    -webkit-tap-highlight-color:transparent;
+}
+
+body{
+    font-family:Poppins, Inter, Arial, sans-serif;
+    background:#faf9fc;
+    color:#24152f;
+    min-height:100vh;
+    padding-bottom:30px;
+}
+
+
+/* =====================================================
+   MAIN
+===================================================== */
+
+.location-page{
+    width:100%;
+    max-width:760px;
+    margin:auto;
+    padding:20px 16px 30px;
+}
+
+
+/* =====================================================
+   HEADER
+===================================================== */
+
+.page-header{
+    display:flex;
+    align-items:center;
+    gap:14px;
+    margin-bottom:26px;
+}
+
+.back-btn{
+    width:44px;
+    height:44px;
+    border-radius:15px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    text-decoration:none;
+    background:#ffffff;
+    border:1px solid #eee8f3;
+    color:#5b3b6d;
+    font-size:20px;
+    box-shadow:0 7px 22px rgba(67,35,85,.07);
+    transition:.2s;
+}
+
+.back-btn:active{
+    transform:scale(.93);
+}
+
+.page-title{
+    font-size:19px;
+    font-weight:800;
+    letter-spacing:-.4px;
+    color:#291536;
+}
+
+
+/* =====================================================
+   INTRO
+===================================================== */
+
+.location-intro{
+    margin-bottom:22px;
+}
+
+.location-icon{
+    width:58px;
+    height:58px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    border-radius:18px;
+    background:#f1e9ff;
+    font-size:28px;
+    margin-bottom:13px;
+}
+
+.location-intro h2{
+    font-size:18px;
+    font-weight:800;
+    color:#291536;
+    margin-bottom:5px;
+}
+
+.location-intro p{
+    font-size:10px;
+    line-height:1.6;
+    color:#9b8da5;
+}
+
+
+/* =====================================================
+   CURRENT LOCATION
+===================================================== */
+
+.current-location-btn{
+    width:100%;
+    min-height:58px;
+    display:flex;
+    align-items:center;
+    gap:12px;
+    padding:12px 15px;
+    border:1px solid #e5d8f5;
+    border-radius:18px;
+    background:#ffffff;
+    color:#6d28d9;
+    cursor:pointer;
+    font-family:inherit;
+    box-shadow:0 6px 20px rgba(67,35,85,.045);
+    transition:.2s;
+}
+
+.current-location-btn:hover{
+    border-color:#cdb3ee;
+}
+
+.current-location-btn:active{
+    transform:scale(.98);
+}
+
+.current-location-icon{
+    width:34px;
+    height:34px;
+    border-radius:11px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:#f1e9ff;
+    font-size:17px;
+}
+
+.current-location-content{
+    text-align:left;
+    flex:1;
+}
+
+.current-location-title{
+    font-size:11px;
+    font-weight:750;
+    color:#5b2fa3;
+}
+
+.current-location-text{
+    font-size:9px;
+    color:#9b8da5;
+    margin-top:2px;
+}
+
+.location-arrow{
+    font-size:17px;
+}
+
+
+/* =====================================================
+   DIVIDER
+===================================================== */
+
+.divider{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    margin:22px 0;
+}
+
+.divider-line{
+    flex:1;
+    height:1px;
+    background:#eee8f3;
+}
+
+.divider-text{
+    font-size:9px;
+    font-weight:700;
+    color:#aa9eb3;
+}
+
+
+/* =====================================================
+   FORM
+===================================================== */
+
+.form-title{
+    font-size:15px;
+    font-weight:800;
+    color:#291536;
+    margin-bottom:16px;
+}
+
+.form-group{
+    margin-bottom:15px;
+}
+
+.field-label{
+    display:block;
+    font-size:10px;
+    font-weight:700;
+    color:#5b3b6d;
+    margin-bottom:7px;
+}
+
+.field-label span{
+    color:#ef4444;
+}
+
+.input-box{
+    width:100%;
+    height:54px;
+    padding:0 14px;
+    border:1px solid #eee8f3;
+    border-radius:16px;
+    background:#ffffff;
+    outline:none;
+    color:#291536;
+    font-family:inherit;
+    font-size:12px;
+    font-weight:500;
+    box-shadow:0 5px 17px rgba(67,35,85,.035);
+    transition:.2s;
+}
+
+.input-box::placeholder{
+    color:#aa9eb3;
+}
+
+.input-box:focus{
+    border-color:#c4a7ef;
+    box-shadow:
+        0 8px 25px rgba(124,58,237,.07),
+        0 0 0 3px rgba(124,58,237,.05);
+}
+
+
+/* =====================================================
+   ADDRESS TEXTAREA
+===================================================== */
+
+.address-box{
+    width:100%;
+    min-height:95px;
+    padding:13px 14px;
+    resize:vertical;
+    border:1px solid #eee8f3;
+    border-radius:16px;
+    background:#ffffff;
+    outline:none;
+    color:#291536;
+    font-family:inherit;
+    font-size:12px;
+    line-height:1.5;
+    box-shadow:0 5px 17px rgba(67,35,85,.035);
+    transition:.2s;
+}
+
+.address-box::placeholder{
+    color:#aa9eb3;
+}
+
+.address-box:focus{
+    border-color:#c4a7ef;
+    box-shadow:
+        0 8px 25px rgba(124,58,237,.07),
+        0 0 0 3px rgba(124,58,237,.05);
+}
+
+
+/* =====================================================
+   TWO COLUMN
+===================================================== */
+
+.two-column{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:12px;
+}
+
+
+/* =====================================================
+   ERROR
+===================================================== */
+
+.error-message{
+    display:none;
+    margin-top:12px;
+    padding:11px 13px;
+    border-radius:12px;
+    background:#fff1f2;
+    border:1px solid #fecdd3;
+    color:#be123c;
+    font-size:10px;
+    font-weight:600;
+}
+
+
+/* =====================================================
+   CONTINUE BUTTON
+===================================================== */
+
+.continue-btn{
+    width:100%;
+    height:56px;
+    margin-top:22px;
+    border:none;
+    border-radius:17px;
+    background:#7c3aed;
+    color:#ffffff;
+    font-family:inherit;
+    font-size:13px;
+    font-weight:750;
+    cursor:pointer;
+    box-shadow:0 10px 25px rgba(124,58,237,.22);
+    transition:.2s;
+}
+
+.continue-btn:hover{
+    background:#6d28d9;
+}
+
+.continue-btn:active{
+    transform:scale(.98);
+}
+
+
+/* =====================================================
+   LOCATION STATUS
+===================================================== */
+
+.location-status{
+    display:none;
+    margin-top:12px;
+    padding:11px 13px;
+    border-radius:12px;
+    background:#f1e9ff;
+    border:1px solid #e5d8f5;
+    color:#6d28d9;
+    font-size:10px;
+    font-weight:600;
+}
+
+
+/* =====================================================
+   DESKTOP
+===================================================== */
+
+@media(min-width:600px){
+
+    .location-page{
+        padding-left:25px;
+        padding-right:25px;
+    }
+
+}
+
+
+/* =====================================================
+   SMALL MOBILE
+===================================================== */
+
+@media(max-width:370px){
+
+    .two-column{
+        grid-template-columns:1fr;
+    }
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<main class="location-page">
+
+
+    <!-- =================================================
+         HEADER
+    ================================================= -->
+
+    <header class="page-header">
+
+        <a
+            href="/customer/home"
+            class="back-btn"
+            aria-label="Go back"
+            onclick="goBack(event)"
+        >
+            ←
+        </a>
+
+        <h1 class="page-title">
+            Service Location
+        </h1>
+
+    </header>
+
+
+
+    <!-- =================================================
+         INTRO
+    ================================================= -->
+
+    <section class="location-intro">
+
+        <div class="location-icon">
+            📍
+        </div>
+
+        <h2>
+            Where do you need the service?
+        </h2>
+
+        <p>
+            Add the address where our professional
+            should provide the service.
+        </p>
+
+    </section>
+
+
+
+    <!-- =================================================
+         CURRENT LOCATION
+    ================================================= -->
+
+    <button
+        type="button"
+        class="current-location-btn"
+        onclick="getCurrentLocation()"
+    >
+
+        <div class="current-location-icon">
+            🎯
+        </div>
+
+
+        <div class="current-location-content">
+
+            <div class="current-location-title">
+                Use Current Location
+            </div>
+
+            <div class="current-location-text">
+                We'll detect your current location
+            </div>
+
+        </div>
+
+
+        <div class="location-arrow">
+            →
+        </div>
+
+    </button>
+
+
+    <div
+        class="location-status"
+        id="locationStatus"
+    >
+    </div>
+
+
+
+    <!-- =================================================
+         DIVIDER
+    ================================================= -->
+
+    <div class="divider">
+
+        <div class="divider-line"></div>
+
+        <div class="divider-text">
+            OR ENTER ADDRESS MANUALLY
+        </div>
+
+        <div class="divider-line"></div>
+
+    </div>
+
+
+
+    <!-- =================================================
+         ADDRESS FORM
+    ================================================= -->
+
+    <form
+        id="locationForm"
+        onsubmit="continueBooking(event)"
+    >
+
+
+        <h2 class="form-title">
+            Service Address
+        </h2>
+
+
+        <!-- ADDRESS -->
+
+        <div class="form-group">
+
+            <label
+                for="address"
+                class="field-label"
+            >
+                House / Flat / Street
+                <span>*</span>
+            </label>
+
+
+            <textarea
+                id="address"
+                class="address-box"
+                placeholder="Enter house number, street, building..."
+                required
+            ></textarea>
+
+        </div>
+
+
+        <!-- AREA -->
+
+        <div class="form-group">
+
+            <label
+                for="area"
+                class="field-label"
+            >
+                Area / Locality
+                <span>*</span>
+            </label>
+
+
+            <input
+                type="text"
+                id="area"
+                class="input-box"
+                placeholder="Enter your area"
+                required
+            >
+
+        </div>
+
+
+        <!-- CITY + PIN -->
+
+        <div class="two-column">
+
+
+            <div class="form-group">
+
+                <label
+                    for="city"
+                    class="field-label"
+                >
+                    City
+                    <span>*</span>
+                </label>
+
+
+                <input
+                    type="text"
+                    id="city"
+                    class="input-box"
+                    placeholder="City"
+                    required
+                >
+
+            </div>
+
+
+
+            <div class="form-group">
+
+                <label
+                    for="pincode"
+                    class="field-label"
+                >
+                    PIN Code
+                    <span>*</span>
+                </label>
+
+
+                <input
+                    type="text"
+                    id="pincode"
+                    class="input-box"
+                    placeholder="PIN Code"
+                    maxlength="6"
+                    inputmode="numeric"
+                    required
+                >
+
+            </div>
+
+
+        </div>
+
+
+
+        <!-- ERROR -->
+
+        <div
+            class="error-message"
+            id="errorMessage"
+        >
+        </div>
+
+
+
+        <!-- CONTINUE -->
+
+        <button
+            type="submit"
+            class="continue-btn"
+        >
+            Continue to Booking →
+        </button>
+
+
+    </form>
+
+
+</main>
+
+
+
+<script>
+
+/* =====================================================
+   CHECK BOOKING DATA
+===================================================== */
+
+const bookingData =
+    JSON.parse(
+        sessionStorage.getItem(
+            "workmitraBooking"
+        )
+    );
+
+
+if(!bookingData){
+
+    /*
+       Agar user direct location page par aa jaye
+       aur service select na ki ho.
+    */
+
+    window.location.href =
+        "/customer/home";
+
+}
+
+
+/* =====================================================
+   CURRENT LOCATION
+===================================================== */
+
+function getCurrentLocation(){
+
+    const status =
+        document.getElementById(
+            "locationStatus"
+        );
+
+
+    if(
+        !navigator.geolocation
+    ){
+
+        status.textContent =
+            "Your browser does not support location detection.";
+
+        status.style.display =
+            "block";
+
+        return;
+
+    }
+
+
+    status.textContent =
+        "Detecting your location...";
+
+    status.style.display =
+        "block";
+
+
+    navigator.geolocation.getCurrentPosition(
+
+        function(position){
+
+            const latitude =
+                position.coords.latitude;
+
+            const longitude =
+                position.coords.longitude;
+
+
+            /*
+               Coordinates save karenge.
+
+               Real address conversion ke liye
+               backend / geocoding API baad mein
+               connect karenge.
+            */
+
+            bookingData.latitude =
+                latitude;
+
+            bookingData.longitude =
+                longitude;
+
+
+            sessionStorage.setItem(
+                "workmitraBooking",
+                JSON.stringify(
+                    bookingData
+                )
+            );
+
+
+            status.textContent =
+                "Current location detected successfully. Please complete your address below.";
+
+
+        },
+
+        function(){
+
+            status.textContent =
+                "Unable to detect location. Please enter your address manually.";
+
+        }
+
+    );
+
+}
+
+
+/* =====================================================
+   CONTINUE
+===================================================== */
+
+function continueBooking(event){
+
+    event.preventDefault();
+
+
+    const address =
+        document.getElementById(
+            "address"
+        ).value.trim();
+
+
+    const area =
+        document.getElementById(
+            "area"
+        ).value.trim();
+
+
+    const city =
+        document.getElementById(
+            "city"
+        ).value.trim();
+
+
+    const pincode =
+        document.getElementById(
+            "pincode"
+        ).value.trim();
+
+
+    const errorMessage =
+        document.getElementById(
+            "errorMessage"
+        );
+
+
+    errorMessage.style.display =
+        "none";
+
+
+    if(
+        address.length < 3
+    ){
+
+        showError(
+            "Please enter your complete service address."
+        );
+
+        return;
+
+    }
+
+
+    if(
+        area.length < 2
+    ){
+
+        showError(
+            "Please enter your area or locality."
+        );
+
+        return;
+
+    }
+
+
+    if(
+        city.length < 2
+    ){
+
+        showError(
+            "Please enter your city."
+        );
+
+        return;
+
+    }
+
+
+    if(
+        !/^[0-9]{6}$/.test(
+            pincode
+        )
+    ){
+
+        showError(
+            "Please enter a valid 6-digit PIN code."
+        );
+
+        return;
+
+    }
+
+
+    /* -----------------------------------------------
+       SAVE ADDRESS
+    ------------------------------------------------ */
+
+    bookingData.address =
+        address;
+
+    bookingData.area =
+        area;
+
+    bookingData.city =
+        city;
+
+    bookingData.pincode =
+        pincode;
+
+
+    sessionStorage.setItem(
+        "workmitraBooking",
+        JSON.stringify(
+            bookingData
+        )
+    );
+
+
+    /* -----------------------------------------------
+       GO TO BOOKING SUMMARY
+    ------------------------------------------------ */
+
+    window.location.href =
+        "/customer/booking";
+
+}
+
+
+/* =====================================================
+   SHOW ERROR
+===================================================== */
+
+function showError(message){
+
+    const errorMessage =
+        document.getElementById(
+            "errorMessage"
+        );
+
+
+    errorMessage.textContent =
+        message;
+
+
+    errorMessage.style.display =
+        "block";
+
+
+    errorMessage.scrollIntoView({
+        behavior:"smooth",
+        block:"center"
+    });
+
+}
+
+
+/* =====================================================
+   BACK
+===================================================== */
+
+function goBack(event){
+
+    event.preventDefault();
+
+
+    window.history.back();
+
+}
+
+</script>
+
+
+</body>
+
+</html>
+```
