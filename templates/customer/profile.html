@@ -1,0 +1,1578 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Profile | WorkMitra</title>
+
+<style>
+
+/* =====================================================
+   RESET
+===================================================== */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    -webkit-tap-highlight-color:transparent;
+}
+
+body{
+
+    font-family:
+        Poppins,
+        Inter,
+        Arial,
+        sans-serif;
+
+    background:#faf9fc;
+
+    color:#24152f;
+
+    min-height:100vh;
+
+    padding-bottom:95px;
+
+}
+
+
+/* =====================================================
+   MAIN
+===================================================== */
+
+.profile-page{
+
+    width:100%;
+
+    max-width:760px;
+
+    margin:auto;
+
+    padding:20px 16px 30px;
+
+}
+
+
+/* =====================================================
+   HEADER
+===================================================== */
+
+.header{
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-between;
+
+    margin-bottom:20px;
+
+}
+
+.header-left{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:3px;
+
+}
+
+.header-small{
+
+    font-size:9px;
+
+    color:#9b8da5;
+
+    font-weight:650;
+
+}
+
+.header-title{
+
+    font-size:22px;
+
+    font-weight:850;
+
+    letter-spacing:-.5px;
+
+    color:#291536;
+
+}
+
+.header-title span{
+
+    color:#7c3aed;
+
+}
+
+
+/* =====================================================
+   PROFILE HERO
+===================================================== */
+
+.profile-card{
+
+    position:relative;
+
+    overflow:hidden;
+
+    background:#ffffff;
+
+    border:1px solid #eee8f3;
+
+    border-radius:21px;
+
+    padding:18px;
+
+    margin-bottom:14px;
+
+    box-shadow:
+        0 8px 25px rgba(67,35,85,.06);
+
+}
+
+.profile-card::before{
+
+    content:"";
+
+    position:absolute;
+
+    width:125px;
+
+    height:125px;
+
+    border-radius:50%;
+
+    right:-52px;
+
+    top:-68px;
+
+    background:#f3ebff;
+
+}
+
+.profile-card::after{
+
+    content:"";
+
+    position:absolute;
+
+    width:70px;
+
+    height:70px;
+
+    border-radius:50%;
+
+    left:-35px;
+
+    bottom:-40px;
+
+    background:#faf5ff;
+
+}
+
+.profile-main{
+
+    position:relative;
+
+    z-index:2;
+
+    display:flex;
+
+    align-items:center;
+
+    gap:14px;
+
+}
+
+.profile-avatar{
+
+    width:62px;
+
+    height:62px;
+
+    min-width:62px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    border-radius:19px;
+
+    background:#f1e9ff;
+
+    color:#6d28d9;
+
+    font-size:25px;
+
+    font-weight:800;
+
+}
+
+.profile-info{
+
+    min-width:0;
+
+    flex:1;
+
+}
+
+.profile-name{
+
+    font-size:16px;
+
+    font-weight:850;
+
+    color:#291536;
+
+    white-space:nowrap;
+
+    overflow:hidden;
+
+    text-overflow:ellipsis;
+
+}
+
+.profile-email{
+
+    margin-top:4px;
+
+    font-size:9px;
+
+    color:#9b8da5;
+
+    font-weight:600;
+
+    white-space:nowrap;
+
+    overflow:hidden;
+
+    text-overflow:ellipsis;
+
+}
+
+.profile-badge{
+
+    display:inline-flex;
+
+    align-items:center;
+
+    gap:5px;
+
+    margin-top:7px;
+
+    padding:5px 8px;
+
+    border-radius:8px;
+
+    background:#ecfdf5;
+
+    color:#15803d;
+
+    font-size:7.5px;
+
+    font-weight:750;
+
+}
+
+.badge-dot{
+
+    width:5px;
+
+    height:5px;
+
+    border-radius:50%;
+
+    background:#22c55e;
+
+}
+
+
+/* =====================================================
+   COMMON CARD
+===================================================== */
+
+.section-card{
+
+    background:#ffffff;
+
+    border:1px solid #eee8f3;
+
+    border-radius:19px;
+
+    padding:16px;
+
+    margin-bottom:14px;
+
+    box-shadow:
+        0 7px 22px rgba(67,35,85,.05);
+
+}
+
+.section-title{
+
+    font-size:13px;
+
+    font-weight:800;
+
+    color:#291536;
+
+    margin-bottom:13px;
+
+}
+
+
+/* =====================================================
+   PERSONAL DETAILS
+===================================================== */
+
+.info-row{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:11px;
+
+    padding:12px 0;
+
+    border-bottom:1px solid #f2edf4;
+
+}
+
+.info-row:first-of-type{
+
+    padding-top:0;
+
+}
+
+.info-row:last-child{
+
+    padding-bottom:0;
+
+    border-bottom:none;
+
+}
+
+.info-icon{
+
+    width:36px;
+
+    height:36px;
+
+    min-width:36px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    border-radius:11px;
+
+    background:#faf6ff;
+
+    font-size:15px;
+
+}
+
+.info-content{
+
+    min-width:0;
+
+    flex:1;
+
+}
+
+.info-label{
+
+    font-size:7.5px;
+
+    color:#a093a9;
+
+    font-weight:650;
+
+}
+
+.info-value{
+
+    margin-top:3px;
+
+    font-size:10px;
+
+    color:#382246;
+
+    font-weight:700;
+
+    white-space:nowrap;
+
+    overflow:hidden;
+
+    text-overflow:ellipsis;
+
+}
+
+
+/* =====================================================
+   MENU
+===================================================== */
+
+.menu-list{
+
+    display:flex;
+
+    flex-direction:column;
+
+}
+
+.menu-item{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:11px;
+
+    min-height:53px;
+
+    text-decoration:none;
+
+    border-bottom:1px solid #f2edf4;
+
+}
+
+.menu-item:last-child{
+
+    border-bottom:none;
+
+}
+
+.menu-icon{
+
+    width:36px;
+
+    height:36px;
+
+    min-width:36px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    border-radius:11px;
+
+    background:#faf6ff;
+
+    font-size:15px;
+
+}
+
+.menu-content{
+
+    flex:1;
+
+    min-width:0;
+
+}
+
+.menu-title{
+
+    font-size:10px;
+
+    font-weight:750;
+
+    color:#382246;
+
+}
+
+.menu-description{
+
+    margin-top:2px;
+
+    font-size:7.5px;
+
+    color:#a093a9;
+
+}
+
+.menu-arrow{
+
+    font-size:16px;
+
+    color:#b2a5b8;
+
+}
+
+
+/* =====================================================
+   PRIVACY CARD
+===================================================== */
+
+.privacy-card{
+
+    display:flex;
+
+    align-items:flex-start;
+
+    gap:10px;
+
+    padding:14px;
+
+    background:#f5efff;
+
+    border:1px solid #e7daf8;
+
+    border-radius:17px;
+
+    margin-bottom:14px;
+
+}
+
+.privacy-icon{
+
+    width:33px;
+
+    height:33px;
+
+    min-width:33px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    border-radius:10px;
+
+    background:#ffffff;
+
+    font-size:14px;
+
+}
+
+.privacy-content{
+
+    flex:1;
+
+}
+
+.privacy-title{
+
+    font-size:9.5px;
+
+    font-weight:800;
+
+    color:#5b2fa3;
+
+}
+
+.privacy-text{
+
+    margin-top:3px;
+
+    font-size:8px;
+
+    line-height:1.55;
+
+    color:#80698d;
+
+}
+
+
+/* =====================================================
+   LOGOUT
+===================================================== */
+
+.logout-btn{
+
+    width:100%;
+
+    height:49px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    gap:7px;
+
+    border-radius:15px;
+
+    background:#ffffff;
+
+    border:1px solid #f0dce2;
+
+    color:#be123c;
+
+    font-family:inherit;
+
+    font-size:10px;
+
+    font-weight:750;
+
+    cursor:pointer;
+
+    transition:.2s;
+
+}
+
+.logout-btn:active{
+
+    transform:scale(.98);
+
+}
+
+
+/* =====================================================
+   VERSION
+===================================================== */
+
+.version{
+
+    text-align:center;
+
+    margin-top:15px;
+
+    font-size:7.5px;
+
+    color:#b1a5b7;
+
+}
+
+
+/* =====================================================
+   LOGOUT MODAL
+===================================================== */
+
+.modal{
+
+    position:fixed;
+
+    inset:0;
+
+    z-index:2000;
+
+    display:none;
+
+    align-items:flex-end;
+
+    justify-content:center;
+
+    padding:15px;
+
+    background:rgba(36,21,47,.35);
+
+}
+
+.modal.show{
+
+    display:flex;
+
+}
+
+.modal-box{
+
+    width:100%;
+
+    max-width:500px;
+
+    background:#ffffff;
+
+    border-radius:23px;
+
+    padding:20px;
+
+    box-shadow:
+        0 20px 50px rgba(36,21,47,.20);
+
+}
+
+.modal-title{
+
+    font-size:15px;
+
+    font-weight:800;
+
+    color:#291536;
+
+}
+
+.modal-text{
+
+    margin-top:7px;
+
+    font-size:9.5px;
+
+    line-height:1.6;
+
+    color:#9b8da5;
+
+}
+
+.modal-actions{
+
+    display:grid;
+
+    grid-template-columns:1fr 1fr;
+
+    gap:9px;
+
+    margin-top:18px;
+
+}
+
+.modal-btn{
+
+    height:45px;
+
+    border:none;
+
+    border-radius:13px;
+
+    font-family:inherit;
+
+    font-size:9.5px;
+
+    font-weight:750;
+
+    cursor:pointer;
+
+}
+
+.modal-cancel{
+
+    background:#f5f1f7;
+
+    color:#6d527d;
+
+}
+
+.modal-logout{
+
+    background:#be123c;
+
+    color:#ffffff;
+
+}
+
+
+/* =====================================================
+   BOTTOM NAVIGATION
+===================================================== */
+
+.bottom-nav{
+
+    position:fixed;
+
+    z-index:1000;
+
+    left:50%;
+
+    bottom:12px;
+
+    transform:translateX(-50%);
+
+    width:calc(100% - 24px);
+
+    max-width:700px;
+
+    height:68px;
+
+    display:grid;
+
+    grid-template-columns:repeat(3,1fr);
+
+    align-items:center;
+
+    padding:6px;
+
+    background:rgba(255,255,255,.97);
+
+    backdrop-filter:blur(16px);
+
+    -webkit-backdrop-filter:blur(16px);
+
+    border:1px solid #e9e1f0;
+
+    border-radius:22px;
+
+    box-shadow:
+        0 12px 35px rgba(67,35,85,.13);
+
+}
+
+.nav-item{
+
+    height:56px;
+
+    display:flex;
+
+    flex-direction:column;
+
+    align-items:center;
+
+    justify-content:center;
+
+    gap:4px;
+
+    text-decoration:none;
+
+    color:#a294aa;
+
+    border-radius:17px;
+
+    transition:.2s;
+
+}
+
+.nav-icon{
+
+    font-size:19px;
+
+    line-height:1;
+
+}
+
+.nav-text{
+
+    font-size:8.5px;
+
+    font-weight:650;
+
+}
+
+.nav-item.active{
+
+    color:#7c3aed;
+
+    background:#f2eaff;
+
+}
+
+.nav-item:active{
+
+    transform:scale(.93);
+
+}
+
+
+/* =====================================================
+   DESKTOP
+===================================================== */
+
+@media(min-width:600px){
+
+    .profile-page{
+
+        padding-left:25px;
+
+        padding-right:25px;
+
+    }
+
+}
+
+
+/* =====================================================
+   SMALL MOBILE
+===================================================== */
+
+@media(max-width:350px){
+
+    .profile-page{
+
+        padding-left:12px;
+
+        padding-right:12px;
+
+    }
+
+    .profile-avatar{
+
+        width:57px;
+
+        height:57px;
+
+        min-width:57px;
+
+    }
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<main class="profile-page">
+
+
+    <!-- =================================================
+         HEADER
+    ================================================= -->
+
+    <header class="header">
+
+        <div class="header-left">
+
+            <div class="header-small">
+                WorkMitra Account
+            </div>
+
+            <h1 class="header-title">
+                My <span>Profile</span>
+            </h1>
+
+        </div>
+
+    </header>
+
+
+
+    <!-- =================================================
+         PROFILE HERO
+    ================================================= -->
+
+    <section class="profile-card">
+
+        <div class="profile-main">
+
+
+            <div class="profile-avatar">
+
+                {% if customer and customer["fullname"] %}
+
+                    {{ customer["fullname"][0]|upper }}
+
+                {% else %}
+
+                    U
+
+                {% endif %}
+
+            </div>
+
+
+            <div class="profile-info">
+
+                <div class="profile-name">
+
+                    {% if customer %}
+
+                        {{ customer["fullname"] }}
+
+                    {% else %}
+
+                        Customer
+
+                    {% endif %}
+
+                </div>
+
+
+                <div class="profile-email">
+
+                    {% if customer %}
+
+                        {{ customer["email"] }}
+
+                    {% else %}
+
+                        —
+
+                    {% endif %}
+
+                </div>
+
+
+                <div class="profile-badge">
+
+                    <span class="badge-dot"></span>
+
+                    Customer Account
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =================================================
+         PERSONAL INFORMATION
+    ================================================= -->
+
+    <section class="section-card">
+
+        <h2 class="section-title">
+            Personal Information
+        </h2>
+
+
+        <!-- NAME -->
+
+        <div class="info-row">
+
+            <div class="info-icon">
+                👤
+            </div>
+
+            <div class="info-content">
+
+                <div class="info-label">
+                    Full Name
+                </div>
+
+                <div class="info-value">
+
+                    {% if customer %}
+
+                        {{ customer["fullname"] }}
+
+                    {% else %}
+
+                        —
+
+                    {% endif %}
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- MOBILE -->
+
+        <div class="info-row">
+
+            <div class="info-icon">
+                📱
+            </div>
+
+            <div class="info-content">
+
+                <div class="info-label">
+                    Mobile Number
+                </div>
+
+                <div class="info-value">
+
+                    {% if customer %}
+
+                        {{ customer["mobile"] }}
+
+                    {% else %}
+
+                        —
+
+                    {% endif %}
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- EMAIL -->
+
+        <div class="info-row">
+
+            <div class="info-icon">
+                ✉️
+            </div>
+
+            <div class="info-content">
+
+                <div class="info-label">
+                    Email Address
+                </div>
+
+                <div class="info-value">
+
+                    {% if customer %}
+
+                        {{ customer["email"] }}
+
+                    {% else %}
+
+                        —
+
+                    {% endif %}
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- LOCATION -->
+
+        <div class="info-row">
+
+            <div class="info-icon">
+                📍
+            </div>
+
+            <div class="info-content">
+
+                <div class="info-label">
+                    Default Location
+                </div>
+
+                <div class="info-value">
+
+                    {% if customer and customer["location"] %}
+
+                        {{ customer["location"] }}
+
+                    {% else %}
+
+                        Not added
+
+                    {% endif %}
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =================================================
+         ACCOUNT SETTINGS
+    ================================================= -->
+
+    <section class="section-card">
+
+        <h2 class="section-title">
+            Account
+        </h2>
+
+
+        <div class="menu-list">
+
+
+            <!-- EDIT PROFILE -->
+
+            <a
+                href="{{ url_for('customer.edit_profile') }}"
+                class="menu-item"
+            >
+
+                <div class="menu-icon">
+                    ✏️
+                </div>
+
+                <div class="menu-content">
+
+                    <div class="menu-title">
+                        Edit Profile
+                    </div>
+
+                    <div class="menu-description">
+                        Update your personal information
+                    </div>
+
+                </div>
+
+                <div class="menu-arrow">
+                    ›
+                </div>
+
+            </a>
+
+
+            <!-- ADDRESS -->
+
+            <a
+                href="{{ url_for('customer.location') }}"
+                class="menu-item"
+            >
+
+                <div class="menu-icon">
+                    📍
+                </div>
+
+                <div class="menu-content">
+
+                    <div class="menu-title">
+                        Saved Address
+                    </div>
+
+                    <div class="menu-description">
+                        Manage your service locations
+                    </div>
+
+                </div>
+
+                <div class="menu-arrow">
+                    ›
+                </div>
+
+            </a>
+
+
+            <!-- PASSWORD -->
+
+            <a
+                href="{{ url_for('customer.change_password') }}"
+                class="menu-item"
+            >
+
+                <div class="menu-icon">
+                    🔒
+                </div>
+
+                <div class="menu-content">
+
+                    <div class="menu-title">
+                        Change Password
+                    </div>
+
+                    <div class="menu-description">
+                        Keep your account secure
+                    </div>
+
+                </div>
+
+                <div class="menu-arrow">
+                    ›
+                </div>
+
+            </a>
+
+
+            <!-- PAYMENT -->
+
+            <a
+                href="{{ url_for('customer.payments') }}"
+                class="menu-item"
+            >
+
+                <div class="menu-icon">
+                    💳
+                </div>
+
+                <div class="menu-content">
+
+                    <div class="menu-title">
+                        Payment History
+                    </div>
+
+                    <div class="menu-description">
+                        View your previous payments
+                    </div>
+
+                </div>
+
+                <div class="menu-arrow">
+                    ›
+                </div>
+
+            </a>
+
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =================================================
+         PRIVACY
+    ================================================= -->
+
+    <div class="privacy-card">
+
+        <div class="privacy-icon">
+            🔐
+        </div>
+
+        <div class="privacy-content">
+
+            <div class="privacy-title">
+                Your Privacy Matters
+            </div>
+
+            <div class="privacy-text">
+
+                Your personal information is protected.
+                Assigned workers will not receive your
+                private account details or direct contact
+                information.
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- =================================================
+         LOGOUT
+    ================================================= -->
+
+    <button
+        type="button"
+        class="logout-btn"
+        onclick="openLogoutModal()"
+    >
+
+        🚪
+
+        Logout
+
+    </button>
+
+
+    <div class="version">
+        WorkMitra • Customer App
+    </div>
+
+
+</main>
+
+
+
+<!-- =====================================================
+     LOGOUT MODAL
+===================================================== -->
+
+<div
+    class="modal"
+    id="logoutModal"
+>
+
+    <div class="modal-box">
+
+        <h3 class="modal-title">
+            Logout from WorkMitra?
+        </h3>
+
+        <p class="modal-text">
+            You will need to login again to access
+            your customer account.
+        </p>
+
+
+        <div class="modal-actions">
+
+            <button
+                type="button"
+                class="modal-btn modal-cancel"
+                onclick="closeLogoutModal()"
+            >
+
+                Stay Logged In
+
+            </button>
+
+
+            <button
+                type="button"
+                class="modal-btn modal-logout"
+                onclick="logoutUser()"
+            >
+
+                Logout
+
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+
+<!-- =====================================================
+     BOTTOM NAVIGATION
+===================================================== -->
+
+<nav class="bottom-nav">
+
+
+    <!-- HOME -->
+
+    <a
+        href="{{ url_for('customer.home') }}"
+        class="nav-item"
+    >
+
+        <span class="nav-icon">
+            🏠
+        </span>
+
+        <span class="nav-text">
+            Home
+        </span>
+
+    </a>
+
+
+    <!-- BOOKINGS -->
+
+    <a
+        href="{{ url_for('customer.bookings') }}"
+        class="nav-item"
+    >
+
+        <span class="nav-icon">
+            📅
+        </span>
+
+        <span class="nav-text">
+            Bookings
+        </span>
+
+    </a>
+
+
+    <!-- PROFILE -->
+
+    <a
+        href="{{ url_for('customer.profile') }}"
+        class="nav-item active"
+    >
+
+        <span class="nav-icon">
+            👤
+        </span>
+
+        <span class="nav-text">
+            Profile
+        </span>
+
+    </a>
+
+
+</nav>
+
+
+
+<script>
+
+/* =====================================================
+   LOGOUT MODAL
+===================================================== */
+
+function openLogoutModal(){
+
+    const modal =
+        document.getElementById(
+            "logoutModal"
+        );
+
+    modal.classList.add("show");
+
+}
+
+
+/* =====================================================
+   CLOSE LOGOUT MODAL
+===================================================== */
+
+function closeLogoutModal(){
+
+    const modal =
+        document.getElementById(
+            "logoutModal"
+        );
+
+    modal.classList.remove("show");
+
+}
+
+
+/* =====================================================
+   CUSTOMER LOGOUT
+===================================================== */
+
+function logoutUser(){
+
+    /*
+       IMPORTANT:
+
+       Customer logout backend route:
+       /customer/logout
+
+       Flask session clear karega
+       aur customer login page par
+       redirect karega.
+    */
+
+    window.location.href =
+        "{{ url_for('customer.logout') }}";
+
+}
+
+
+/* =====================================================
+   CLOSE MODAL ON BACKDROP
+===================================================== */
+
+document
+    .getElementById("logoutModal")
+    .addEventListener(
+        "click",
+        function(event){
+
+            if(event.target === this){
+
+                closeLogoutModal();
+
+            }
+
+        }
+    );
+
+
+/* =====================================================
+   ESC KEY
+===================================================== */
+
+document.addEventListener(
+    "keydown",
+    function(event){
+
+        if(event.key === "Escape"){
+
+            closeLogoutModal();
+
+        }
+
+    }
+);
+
+</script>
+
+
+</body>
+
+</html>
