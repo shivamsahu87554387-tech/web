@@ -1,0 +1,744 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Service Details | WorkMitra</title>
+
+<style>
+
+/* =====================================================
+   RESET
+===================================================== */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    -webkit-tap-highlight-color:transparent;
+}
+
+body{
+    font-family:Poppins, Inter, Arial, sans-serif;
+    background:#faf9fc;
+    color:#24152f;
+    min-height:100vh;
+    padding-bottom:30px;
+}
+
+
+/* =====================================================
+   MAIN
+===================================================== */
+
+.service-page{
+    width:100%;
+    max-width:760px;
+    margin:auto;
+    padding:20px 16px 30px;
+}
+
+
+/* =====================================================
+   HEADER
+===================================================== */
+
+.page-header{
+    display:flex;
+    align-items:center;
+    gap:14px;
+    margin-bottom:26px;
+}
+
+.back-btn{
+    width:44px;
+    height:44px;
+    border-radius:15px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    text-decoration:none;
+    background:#ffffff;
+    border:1px solid #eee8f3;
+    color:#5b3b6d;
+    font-size:20px;
+    box-shadow:0 7px 22px rgba(67,35,85,.07);
+    transition:.2s;
+}
+
+.back-btn:active{
+    transform:scale(.93);
+}
+
+.page-title{
+    font-size:19px;
+    font-weight:800;
+    letter-spacing:-.4px;
+    color:#291536;
+}
+
+
+/* =====================================================
+   SERVICE CARD
+===================================================== */
+
+.selected-service{
+    position:relative;
+    overflow:hidden;
+    display:flex;
+    align-items:center;
+    gap:14px;
+    padding:17px;
+    margin-bottom:25px;
+    background:#ffffff;
+    border:1px solid #eee8f3;
+    border-radius:19px;
+    box-shadow:0 7px 22px rgba(67,35,85,.05);
+}
+
+.selected-service::after{
+    content:"";
+    position:absolute;
+    width:100px;
+    height:100px;
+    border-radius:50%;
+    background:#f4edff;
+    right:-38px;
+    top:-42px;
+}
+
+.service-icon{
+    position:relative;
+    z-index:1;
+    width:56px;
+    height:56px;
+    border-radius:17px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:#f1e9ff;
+    font-size:27px;
+}
+
+.service-content{
+    position:relative;
+    z-index:1;
+    flex:1;
+}
+
+.service-label{
+    font-size:9px;
+    font-weight:700;
+    color:#9b8da5;
+    margin-bottom:4px;
+}
+
+.service-name{
+    font-size:17px;
+    font-weight:800;
+    color:#382246;
+}
+
+
+/* =====================================================
+   FORM
+===================================================== */
+
+.form-section{
+    margin-bottom:22px;
+}
+
+.section-title{
+    font-size:15px;
+    font-weight:800;
+    color:#291536;
+    margin-bottom:5px;
+}
+
+.section-subtitle{
+    font-size:10px;
+    line-height:1.5;
+    color:#9b8da5;
+    margin-bottom:15px;
+}
+
+
+/* =====================================================
+   INPUT
+===================================================== */
+
+.field-label{
+    display:block;
+    font-size:11px;
+    font-weight:700;
+    color:#5b3b6d;
+    margin-bottom:8px;
+}
+
+.textarea{
+    width:100%;
+    min-height:120px;
+    resize:vertical;
+    padding:14px;
+    border-radius:17px;
+    border:1px solid #eee8f3;
+    outline:none;
+    background:#ffffff;
+    color:#291536;
+    font-family:inherit;
+    font-size:12px;
+    line-height:1.5;
+    box-shadow:0 5px 17px rgba(67,35,85,.035);
+    transition:.2s;
+}
+
+.textarea::placeholder{
+    color:#aa9eb3;
+}
+
+.textarea:focus{
+    border-color:#c4a7ef;
+    box-shadow:
+        0 8px 25px rgba(124,58,237,.08),
+        0 0 0 3px rgba(124,58,237,.05);
+}
+
+
+/* =====================================================
+   DATE AND TIME
+===================================================== */
+
+.date-time-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:12px;
+    margin-top:18px;
+}
+
+.input-card{
+    display:flex;
+    flex-direction:column;
+}
+
+.input-box{
+    width:100%;
+    height:54px;
+    padding:0 12px;
+    border:1px solid #eee8f3;
+    border-radius:16px;
+    background:#ffffff;
+    outline:none;
+    color:#382246;
+    font-family:inherit;
+    font-size:11px;
+    box-shadow:0 5px 17px rgba(67,35,85,.035);
+    transition:.2s;
+}
+
+.input-box:focus{
+    border-color:#c4a7ef;
+    box-shadow:
+        0 0 0 3px rgba(124,58,237,.05);
+}
+
+
+/* =====================================================
+   INFO BOX
+===================================================== */
+
+.info-box{
+    display:flex;
+    gap:11px;
+    padding:14px;
+    background:#f4edff;
+    border:1px solid #eadcfb;
+    border-radius:16px;
+    margin-top:22px;
+}
+
+.info-icon{
+    font-size:18px;
+}
+
+.info-text{
+    font-size:10px;
+    line-height:1.6;
+    color:#6d527d;
+}
+
+.info-text strong{
+    color:#5b2fa3;
+}
+
+
+/* =====================================================
+   CONTINUE BUTTON
+===================================================== */
+
+.continue-btn{
+    width:100%;
+    height:56px;
+    border:none;
+    border-radius:17px;
+    margin-top:24px;
+    background:#7c3aed;
+    color:#ffffff;
+    font-family:inherit;
+    font-size:13px;
+    font-weight:750;
+    cursor:pointer;
+    box-shadow:0 10px 25px rgba(124,58,237,.22);
+    transition:.2s;
+}
+
+.continue-btn:hover{
+    background:#6d28d9;
+}
+
+.continue-btn:active{
+    transform:scale(.98);
+}
+
+
+/* =====================================================
+   ERROR
+===================================================== */
+
+.error-message{
+    display:none;
+    margin-top:10px;
+    padding:11px 13px;
+    border-radius:12px;
+    background:#fff1f2;
+    border:1px solid #fecdd3;
+    color:#be123c;
+    font-size:10px;
+    font-weight:600;
+}
+
+
+/* =====================================================
+   DESKTOP
+===================================================== */
+
+@media(min-width:600px){
+
+    .service-page{
+        padding-left:25px;
+        padding-right:25px;
+    }
+
+}
+
+
+/* =====================================================
+   SMALL MOBILE
+===================================================== */
+
+@media(max-width:370px){
+
+    .date-time-grid{
+        grid-template-columns:1fr;
+    }
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<main class="service-page">
+
+
+    <!-- =================================================
+         HEADER
+    ================================================= -->
+
+    <header class="page-header">
+
+        <a
+            href="/customer/home"
+            class="back-btn"
+            aria-label="Go back"
+        >
+            ←
+        </a>
+
+        <h1 class="page-title">
+            Service Details
+        </h1>
+
+    </header>
+
+
+
+    <!-- =================================================
+         SELECTED SERVICE
+    ================================================= -->
+
+    <section class="selected-service">
+
+        <div
+            class="service-icon"
+            id="serviceIcon"
+        >
+            🔧
+        </div>
+
+
+        <div class="service-content">
+
+            <div class="service-label">
+                Selected Service
+            </div>
+
+            <div
+                class="service-name"
+                id="serviceName"
+            >
+                Loading...
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =================================================
+         SERVICE DETAILS FORM
+    ================================================= -->
+
+    <form
+        id="serviceForm"
+        onsubmit="continueBooking(event)"
+    >
+
+
+        <section class="form-section">
+
+            <h2 class="section-title">
+                Tell us what you need
+            </h2>
+
+            <p class="section-subtitle">
+                Describe the problem so we can assign
+                the right professional.
+            </p>
+
+
+            <!-- PROBLEM DESCRIPTION -->
+
+            <label
+                for="problemDescription"
+                class="field-label"
+            >
+                Problem Description
+            </label>
+
+
+            <textarea
+                id="problemDescription"
+                class="textarea"
+                placeholder="Describe your service requirement..."
+                required
+            ></textarea>
+
+
+            <!-- DATE AND TIME -->
+
+            <div class="date-time-grid">
+
+
+                <div class="input-card">
+
+                    <label
+                        for="serviceDate"
+                        class="field-label"
+                    >
+                        Preferred Date
+                    </label>
+
+
+                    <input
+                        type="date"
+                        id="serviceDate"
+                        class="input-box"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="input-card">
+
+                    <label
+                        for="serviceTime"
+                        class="field-label"
+                    >
+                        Preferred Time
+                    </label>
+
+
+                    <input
+                        type="time"
+                        id="serviceTime"
+                        class="input-box"
+                        required
+                    >
+
+                </div>
+
+
+            </div>
+
+
+            <!-- ERROR -->
+
+            <div
+                class="error-message"
+                id="errorMessage"
+            >
+            </div>
+
+
+            <!-- INFO -->
+
+            <div class="info-box">
+
+                <div class="info-icon">
+                    ℹ️
+                </div>
+
+                <div class="info-text">
+
+                    After your booking is confirmed,
+                    <strong>
+                        WorkMitra will automatically find
+                        a suitable nearby professional.
+                    </strong>
+
+                    You don't need to select a worker.
+
+                </div>
+
+            </div>
+
+
+            <!-- CONTINUE -->
+
+            <button
+                type="submit"
+                class="continue-btn"
+            >
+                Continue to Location →
+            </button>
+
+
+        </section>
+
+    </form>
+
+
+</main>
+
+
+
+<script>
+
+/* =====================================================
+   SERVICE DATA
+===================================================== */
+
+const serviceData = {
+
+    "Electrician":"⚡",
+    "Plumber":"🔧",
+    "Carpenter":"🪚",
+    "Painter":"🎨",
+    "AC Repair":"❄️",
+    "RO Repair":"💧",
+    "Cleaning":"🧹",
+    "Appliance Repair":"🔌",
+    "Washing Machine":"🫧",
+    "Refrigerator":"🧊",
+    "TV Repair":"📺",
+    "Roof Repair":"🏠",
+    "Mechanic":"🔩",
+    "Gardener":"🌱",
+    "Pest Control":"🐜",
+    "Packers":"📦",
+    "AC Installation":"🛠️",
+    "Other":"✨"
+
+};
+
+
+/* =====================================================
+   GET SERVICE FROM URL
+===================================================== */
+
+const params =
+    new URLSearchParams(
+        window.location.search
+    );
+
+const category =
+    params.get("category") ||
+    "Other";
+
+
+document.getElementById(
+    "serviceName"
+).textContent = category;
+
+
+document.getElementById(
+    "serviceIcon"
+).textContent =
+    serviceData[category] ||
+    "✨";
+
+
+/* =====================================================
+   SET MINIMUM DATE
+===================================================== */
+
+const today =
+    new Date();
+
+const year =
+    today.getFullYear();
+
+const month =
+    String(
+        today.getMonth() + 1
+    ).padStart(2,"0");
+
+const day =
+    String(
+        today.getDate()
+    ).padStart(2,"0");
+
+
+document.getElementById(
+    "serviceDate"
+).min =
+    `${year}-${month}-${day}`;
+
+
+/* =====================================================
+   CONTINUE BOOKING
+===================================================== */
+
+function continueBooking(event){
+
+    event.preventDefault();
+
+
+    const description =
+        document.getElementById(
+            "problemDescription"
+        ).value.trim();
+
+
+    const date =
+        document.getElementById(
+            "serviceDate"
+        ).value;
+
+
+    const time =
+        document.getElementById(
+            "serviceTime"
+        ).value;
+
+
+    const errorMessage =
+        document.getElementById(
+            "errorMessage"
+        );
+
+
+    errorMessage.style.display =
+        "none";
+
+
+    if(
+        description.length < 5
+    ){
+
+        errorMessage.textContent =
+            "Please describe your problem in a little more detail.";
+
+        errorMessage.style.display =
+            "block";
+
+        return;
+
+    }
+
+
+    if(!date || !time){
+
+        errorMessage.textContent =
+            "Please select your preferred date and time.";
+
+        errorMessage.style.display =
+            "block";
+
+        return;
+
+    }
+
+
+    /* -----------------------------------------------
+       TEMPORARY: SAVE BOOKING DATA IN SESSION STORAGE
+
+       Backend connect hone ke baad isko Flask session
+       ya database se replace karenge.
+    ------------------------------------------------ */
+
+    const bookingData = {
+
+        category:category,
+
+        description:description,
+
+        date:date,
+
+        time:time
+
+    };
+
+
+    sessionStorage.setItem(
+        "workmitraBooking",
+        JSON.stringify(
+            bookingData
+        )
+    );
+
+
+    /* GO TO LOCATION */
+
+    window.location.href =
+        "/customer/location";
+
+}
+
+</script>
+
+
+</body>
+
+</html>
+```
