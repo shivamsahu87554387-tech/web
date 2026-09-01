@@ -1,0 +1,739 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Create Account | WorkMitra</title>
+
+    <style>
+
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+            -webkit-tap-highlight-color:transparent;
+        }
+
+        body{
+            font-family:Poppins,Inter,Arial,sans-serif;
+            min-height:100vh;
+            background:#faf9fc;
+            color:#291536;
+
+            display:flex;
+            justify-content:center;
+
+            padding:24px 16px;
+        }
+
+        .page{
+            width:100%;
+            max-width:430px;
+        }
+
+        /* =========================
+           BRAND
+        ========================= */
+
+        .brand{
+            text-align:center;
+            margin-bottom:22px;
+        }
+
+        .brand-icon{
+            width:60px;
+            height:60px;
+
+            margin:0 auto 11px;
+
+            display:flex;
+            align-items:center;
+            justify-content:center;
+
+            border-radius:19px;
+
+            background:#f1e9ff;
+            color:#7c3aed;
+
+            font-size:28px;
+
+            box-shadow:
+                0 9px 25px rgba(67,35,85,.07);
+        }
+
+        .brand-name{
+            font-size:24px;
+            font-weight:800;
+            letter-spacing:-.7px;
+        }
+
+        .brand-name span{
+            color:#7c3aed;
+        }
+
+        .brand-text{
+            margin-top:4px;
+            font-size:10px;
+            color:#9b8da5;
+            font-weight:500;
+        }
+
+        /* =========================
+           CARD
+        ========================= */
+
+        .card{
+            background:#fff;
+
+            border:1px solid #eee8f3;
+
+            border-radius:25px;
+
+            padding:25px 22px 23px;
+
+            box-shadow:
+                0 16px 45px rgba(67,35,85,.08);
+        }
+
+        .heading{
+            margin-bottom:20px;
+        }
+
+        .heading h1{
+            font-size:21px;
+            font-weight:800;
+            letter-spacing:-.5px;
+        }
+
+        .heading p{
+            margin-top:5px;
+            font-size:10px;
+            color:#9b8da5;
+        }
+
+        /* =========================
+           FLASH MESSAGE
+        ========================= */
+
+        .message{
+            padding:11px 12px;
+
+            border-radius:12px;
+
+            margin-bottom:15px;
+
+            font-size:10px;
+            font-weight:600;
+
+            background:#f4edff;
+            color:#6d28d9;
+        }
+
+        /* =========================
+           FORM
+        ========================= */
+
+        .field{
+            margin-bottom:14px;
+        }
+
+        .field label{
+            display:block;
+
+            margin-bottom:6px;
+
+            font-size:10px;
+            font-weight:700;
+
+            color:#5b3b6d;
+        }
+
+        .input-wrap{
+            position:relative;
+        }
+
+        .input-icon{
+            position:absolute;
+
+            left:14px;
+            top:50%;
+
+            transform:translateY(-50%);
+
+            font-size:15px;
+            color:#927aa0;
+
+            pointer-events:none;
+        }
+
+        .input{
+            width:100%;
+            height:50px;
+
+            padding:0 14px 0 42px;
+
+            border:1px solid #eee8f3;
+
+            border-radius:14px;
+
+            outline:none;
+
+            background:#fcfbfd;
+
+            color:#291536;
+
+            font-size:10.5px;
+            font-weight:500;
+
+            transition:.2s;
+        }
+
+        .input::placeholder{
+            color:#b2a7b9;
+        }
+
+        .input:focus{
+            background:#fff;
+
+            border-color:#c4a7ef;
+
+            box-shadow:
+                0 0 0 3px rgba(124,58,237,.06);
+        }
+
+        /* =========================
+           PASSWORD HINT
+        ========================= */
+
+        .password-hint{
+            margin-top:5px;
+
+            font-size:8.5px;
+
+            color:#a59aa9;
+        }
+
+        /* =========================
+           TERMS
+        ========================= */
+
+        .terms{
+            display:flex;
+
+            align-items:flex-start;
+
+            gap:8px;
+
+            margin:6px 0 18px;
+        }
+
+        .terms input{
+            width:14px;
+            height:14px;
+
+            margin-top:1px;
+
+            accent-color:#7c3aed;
+        }
+
+        .terms label{
+            font-size:8.5px;
+
+            line-height:1.5;
+
+            color:#8f8298;
+        }
+
+        .terms a{
+            color:#7c3aed;
+
+            text-decoration:none;
+
+            font-weight:700;
+        }
+
+        /* =========================
+           BUTTON
+        ========================= */
+
+        .signup-btn{
+            width:100%;
+            height:52px;
+
+            border:none;
+
+            border-radius:16px;
+
+            background:#7c3aed;
+
+            color:#fff;
+
+            font-size:11px;
+            font-weight:750;
+
+            cursor:pointer;
+
+            box-shadow:
+                0 9px 22px rgba(124,58,237,.20);
+
+            transition:.2s;
+        }
+
+        .signup-btn:hover{
+            background:#6d28d9;
+            transform:translateY(-1px);
+        }
+
+        .signup-btn:active{
+            transform:scale(.97);
+        }
+
+        /* =========================
+           LOGIN
+        ========================= */
+
+        .login-text{
+            text-align:center;
+
+            margin-top:19px;
+
+            font-size:10px;
+
+            color:#9b8da5;
+        }
+
+        .login-text a{
+            color:#7c3aed;
+
+            text-decoration:none;
+
+            font-weight:750;
+        }
+
+        /* =========================
+           BACK
+        ========================= */
+
+        .back{
+            display:block;
+
+            text-align:center;
+
+            margin-top:17px;
+
+            text-decoration:none;
+
+            font-size:9px;
+
+            color:#9b8da5;
+
+            font-weight:600;
+        }
+
+        .back:hover{
+            color:#7c3aed;
+        }
+
+        /* =========================
+           MOBILE
+        ========================= */
+
+        @media(max-width:360px){
+
+            body{
+                padding:15px 12px;
+            }
+
+            .card{
+                padding:21px 17px;
+                border-radius:22px;
+            }
+
+            .brand{
+                margin-bottom:18px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<div class="page">
+
+    <!-- BRAND -->
+
+    <div class="brand">
+
+        <div class="brand-icon">
+            🛠️
+        </div>
+
+        <div class="brand-name">
+            Work<span>Mitra</span>
+        </div>
+
+        <div class="brand-text">
+            Trusted services, right at your doorstep
+        </div>
+
+    </div>
+
+
+    <!-- SIGNUP CARD -->
+
+    <div class="card">
+
+        <div class="heading">
+
+            <h1>
+                Create your account
+            </h1>
+
+            <p>
+                Join WorkMitra and book services easily
+            </p>
+
+        </div>
+
+
+        <!-- FLASH MESSAGES -->
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+
+            {% if messages %}
+
+                {% for category, message in messages %}
+
+                    <div class="message">
+                        {{ message }}
+                    </div>
+
+                {% endfor %}
+
+            {% endif %}
+
+        {% endwith %}
+
+
+        <!-- SIGNUP FORM -->
+
+        <form
+            method="POST"
+            action="{{ url_for('customer.signup') }}"
+            id="signupForm"
+            autocomplete="on"
+        >
+
+            <!-- FULL NAME -->
+
+            <div class="field">
+
+                <label>
+                    Full Name
+                </label>
+
+                <div class="input-wrap">
+
+                    <span class="input-icon">
+                        👤
+                    </span>
+
+                    <input
+                        type="text"
+                        name="fullname"
+                        class="input"
+                        placeholder="Enter your full name"
+                        autocomplete="name"
+                        maxlength="100"
+                        required
+                    >
+
+                </div>
+
+            </div>
+
+
+            <!-- MOBILE -->
+
+            <div class="field">
+
+                <label>
+                    Mobile Number
+                </label>
+
+                <div class="input-wrap">
+
+                    <span class="input-icon">
+                        📱
+                    </span>
+
+                    <input
+                        type="tel"
+                        name="mobile"
+                        id="mobile"
+                        class="input"
+                        placeholder="Enter 10-digit mobile number"
+                        autocomplete="tel"
+                        inputmode="numeric"
+                        maxlength="10"
+                        required
+                    >
+
+                </div>
+
+            </div>
+
+
+            <!-- EMAIL -->
+
+            <div class="field">
+
+                <label>
+                    Email Address
+                </label>
+
+                <div class="input-wrap">
+
+                    <span class="input-icon">
+                        ✉️
+                    </span>
+
+                    <input
+                        type="email"
+                        name="email"
+                        class="input"
+                        placeholder="Enter your email address"
+                        autocomplete="email"
+                        maxlength="120"
+                        required
+                    >
+
+                </div>
+
+            </div>
+
+
+            <!-- PASSWORD -->
+
+            <div class="field">
+
+                <label>
+                    Password
+                </label>
+
+                <div class="input-wrap">
+
+                    <span class="input-icon">
+                        🔒
+                    </span>
+
+                    <input
+                        type="password"
+                        name="password"
+                        id="password"
+                        class="input"
+                        placeholder="Create a password"
+                        autocomplete="new-password"
+                        minlength="6"
+                        required
+                    >
+
+                </div>
+
+                <div class="password-hint">
+                    Minimum 6 characters
+                </div>
+
+            </div>
+
+
+            <!-- CONFIRM PASSWORD -->
+
+            <div class="field">
+
+                <label>
+                    Confirm Password
+                </label>
+
+                <div class="input-wrap">
+
+                    <span class="input-icon">
+                        🔐
+                    </span>
+
+                    <input
+                        type="password"
+                        name="confirm_password"
+                        id="confirmPassword"
+                        class="input"
+                        placeholder="Confirm your password"
+                        autocomplete="new-password"
+                        minlength="6"
+                        required
+                    >
+
+                </div>
+
+            </div>
+
+
+            <!-- TERMS -->
+
+            <div class="terms">
+
+                <input
+                    type="checkbox"
+                    id="terms"
+                    required
+                >
+
+                <label for="terms">
+
+                    I agree to the WorkMitra
+                    <a href="#">
+                        Terms & Conditions
+                    </a>
+                    and
+                    <a href="#">
+                        Privacy Policy
+                    </a>.
+
+                </label>
+
+            </div>
+
+
+            <!-- SUBMIT -->
+
+            <button
+                type="submit"
+                class="signup-btn"
+            >
+                Create Customer Account
+            </button>
+
+        </form>
+
+
+        <!-- LOGIN -->
+
+        <div class="login-text">
+
+            Already have an account?
+
+            <a href="{{ url_for('customer.login') }}">
+                Login
+            </a>
+
+        </div>
+
+    </div>
+
+
+    <!-- BACK -->
+
+    <a href="/" class="back">
+        ← Back to WorkMitra
+    </a>
+
+</div>
+
+
+<script>
+
+    const form =
+        document.getElementById("signupForm");
+
+    const mobile =
+        document.getElementById("mobile");
+
+    const password =
+        document.getElementById("password");
+
+    const confirmPassword =
+        document.getElementById("confirmPassword");
+
+
+    /* =========================
+       MOBILE VALIDATION
+    ========================= */
+
+    mobile.addEventListener(
+        "input",
+        function(){
+
+            this.value =
+                this.value
+                .replace(/\D/g, "")
+                .slice(0, 10);
+
+        }
+    );
+
+
+    /* =========================
+       PASSWORD MATCH
+    ========================= */
+
+    form.addEventListener(
+        "submit",
+        function(event){
+
+            if(mobile.value.length !== 10){
+
+                event.preventDefault();
+
+                alert(
+                    "Please enter a valid 10-digit mobile number."
+                );
+
+                mobile.focus();
+
+                return;
+            }
+
+
+            if(password.value.length < 6){
+
+                event.preventDefault();
+
+                alert(
+                    "Password must contain at least 6 characters."
+                );
+
+                password.focus();
+
+                return;
+            }
+
+
+            if(
+                password.value !==
+                confirmPassword.value
+            ){
+
+                event.preventDefault();
+
+                alert(
+                    "Passwords do not match."
+                );
+
+                confirmPassword.focus();
+
+                return;
+            }
+
+        }
+    );
+
+</script>
+
+</body>
+</html>
+```
