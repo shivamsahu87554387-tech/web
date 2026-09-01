@@ -1,0 +1,1006 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Home | WorkMitra</title>
+
+<style>
+
+/* =====================================================
+   RESET
+===================================================== */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    -webkit-tap-highlight-color:transparent;
+}
+
+body{
+    font-family:Poppins, Inter, Arial, sans-serif;
+    background:#faf9fc;
+    color:#24152f;
+    min-height:100vh;
+    padding-bottom:100px;
+}
+
+
+/* =====================================================
+   MAIN
+===================================================== */
+
+.home{
+    width:100%;
+    max-width:760px;
+    margin:auto;
+    padding:20px 16px 25px;
+}
+
+
+/* =====================================================
+   HEADER
+===================================================== */
+
+.header{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    margin-bottom:22px;
+}
+
+.greeting{
+    display:flex;
+    flex-direction:column;
+    gap:3px;
+}
+
+.greeting-small{
+    font-size:10px;
+    color:#9b8da5;
+    font-weight:600;
+    letter-spacing:.2px;
+}
+
+.greeting-name{
+    font-size:22px;
+    font-weight:800;
+    letter-spacing:-.5px;
+    color:#291536;
+}
+
+.greeting-name span{
+    color:#7c3aed;
+}
+
+
+/* =====================================================
+   NOTIFICATION
+===================================================== */
+
+.notification{
+    width:44px;
+    height:44px;
+    border-radius:15px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:#ffffff;
+    color:#5b3b6d;
+    text-decoration:none;
+    border:1px solid #eee8f3;
+    box-shadow:0 7px 22px rgba(67,35,85,.07);
+    position:relative;
+}
+
+.notification-icon{
+    font-size:20px;
+}
+
+.notification-dot{
+    position:absolute;
+    width:8px;
+    height:8px;
+    right:9px;
+    top:9px;
+    background:#ef4444;
+    border:2px solid white;
+    border-radius:50%;
+}
+
+
+/* =====================================================
+   SEARCH
+===================================================== */
+
+.search-section{
+    margin-bottom:26px;
+}
+
+.search-box{
+    height:54px;
+    width:100%;
+    display:flex;
+    align-items:center;
+    gap:11px;
+    padding:0 16px;
+    background:#ffffff;
+    border:1px solid #eee8f3;
+    border-radius:17px;
+    box-shadow:0 9px 28px rgba(67,35,85,.055);
+    transition:.2s;
+}
+
+.search-box:focus-within{
+    border-color:#c4a7ef;
+    box-shadow:
+        0 8px 28px rgba(124,58,237,.10),
+        0 0 0 3px rgba(124,58,237,.055);
+}
+
+.search-icon{
+    font-size:18px;
+    color:#80648e;
+}
+
+.search-input{
+    flex:1;
+    border:none;
+    outline:none;
+    background:transparent;
+    font-size:12px;
+    font-weight:500;
+    color:#291536;
+}
+
+.search-input::placeholder{
+    color:#aa9eb3;
+}
+
+
+/* =====================================================
+   SERVICES HEADER
+===================================================== */
+
+.services-header{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    margin-bottom:14px;
+}
+
+.services-title{
+    font-size:18px;
+    font-weight:800;
+    letter-spacing:-.4px;
+    color:#291536;
+}
+
+.services-count{
+    font-size:9px;
+    font-weight:700;
+    color:#765886;
+    background:#f1eafb;
+    padding:6px 9px;
+    border-radius:9px;
+}
+
+
+/* =====================================================
+   SERVICES GRID
+===================================================== */
+
+.services-grid{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:10px;
+}
+
+
+/* =====================================================
+   SERVICE CARD
+===================================================== */
+
+.service-card{
+    min-width:0;
+    height:112px;
+    position:relative;
+    overflow:hidden;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    text-decoration:none;
+    background:#ffffff;
+    border:1px solid #eee8f3;
+    border-radius:17px;
+    box-shadow:0 5px 17px rgba(67,35,85,.045);
+    transition:.18s ease;
+}
+
+.service-card::before{
+    content:"";
+    position:absolute;
+    width:60px;
+    height:60px;
+    border-radius:50%;
+    top:-30px;
+    right:-23px;
+    background:#f4edff;
+}
+
+.service-card::after{
+    content:"";
+    position:absolute;
+    width:32px;
+    height:32px;
+    border-radius:50%;
+    bottom:-18px;
+    left:-12px;
+    background:#faf5ff;
+}
+
+.service-card:active{
+    transform:scale(.94);
+}
+
+.service-card:hover{
+    transform:translateY(-2px);
+    border-color:#d9c5f5;
+    box-shadow:0 10px 25px rgba(67,35,85,.09);
+}
+
+
+/* =====================================================
+   SERVICE ICON
+===================================================== */
+
+.service-icon{
+    position:relative;
+    z-index:2;
+    width:45px;
+    height:45px;
+    border-radius:14px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:#f1e9ff;
+    color:#6d28d9;
+    font-size:22px;
+    margin-bottom:9px;
+}
+
+.service-card:nth-child(2n) .service-icon{
+    background:#f5eaff;
+}
+
+.service-card:nth-child(3n) .service-icon{
+    background:#eee8ff;
+}
+
+.service-card:nth-child(4n) .service-icon{
+    background:#f8edff;
+}
+
+
+/* =====================================================
+   SERVICE NAME
+===================================================== */
+
+.service-info{
+    position:relative;
+    z-index:2;
+    width:100%;
+    text-align:center;
+    padding:0 5px;
+}
+
+.service-name{
+    font-size:9.8px;
+    line-height:1.25;
+    font-weight:750;
+    color:#382246;
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+}
+
+
+/* =====================================================
+   NO RESULTS
+===================================================== */
+
+.no-results{
+    display:none;
+    text-align:center;
+    padding:45px 20px;
+    background:#ffffff;
+    border:1px solid #eee8f3;
+    border-radius:18px;
+    box-shadow:0 7px 22px rgba(67,35,85,.05);
+}
+
+.no-results-icon{
+    width:52px;
+    height:52px;
+    margin:0 auto 12px;
+    border-radius:15px;
+    background:#f1e9ff;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:23px;
+}
+
+.no-results h3{
+    font-size:13px;
+    color:#291536;
+}
+
+.no-results p{
+    margin-top:4px;
+    font-size:10px;
+    color:#9b8da5;
+}
+
+.service-card.hidden{
+    display:none;
+}
+
+
+/* =====================================================
+   BOTTOM NAVIGATION
+===================================================== */
+
+.bottom-nav{
+    position:fixed;
+    z-index:1000;
+    left:50%;
+    bottom:12px;
+    transform:translateX(-50%);
+    width:calc(100% - 24px);
+    max-width:700px;
+    height:68px;
+
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+
+    align-items:center;
+    padding:6px;
+
+    background:rgba(255,255,255,.97);
+
+    backdrop-filter:blur(16px);
+    -webkit-backdrop-filter:blur(16px);
+
+    border:1px solid #e9e1f0;
+    border-radius:22px;
+
+    box-shadow:0 12px 35px rgba(67,35,85,.13);
+}
+
+.nav-item{
+    height:56px;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    gap:4px;
+    text-decoration:none;
+    color:#a294aa;
+    border-radius:17px;
+    transition:.2s;
+}
+
+.nav-icon{
+    font-size:19px;
+    line-height:1;
+}
+
+.nav-text{
+    font-size:8.5px;
+    font-weight:650;
+}
+
+.nav-item.active{
+    color:#7c3aed;
+    background:#f2eaff;
+}
+
+.nav-item:active{
+    transform:scale(.93);
+}
+
+
+/* =====================================================
+   DESKTOP
+===================================================== */
+
+@media(min-width:600px){
+
+    .home{
+        padding-left:25px;
+        padding-right:25px;
+    }
+
+    .services-grid{
+        grid-template-columns:repeat(5,1fr);
+        gap:12px;
+    }
+
+    .service-card{
+        height:120px;
+    }
+
+}
+
+
+/* =====================================================
+   VERY SMALL MOBILE
+===================================================== */
+
+@media(max-width:350px){
+
+    .home{
+        padding-left:12px;
+        padding-right:12px;
+    }
+
+    .services-grid{
+        gap:7px;
+    }
+
+    .service-card{
+        height:105px;
+        border-radius:15px;
+    }
+
+    .service-icon{
+        width:41px;
+        height:41px;
+        font-size:20px;
+        border-radius:12px;
+    }
+
+    .service-name{
+        font-size:9px;
+    }
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<!-- =====================================================
+     HOME
+===================================================== -->
+
+<main class="home">
+
+
+    <!-- HEADER -->
+
+    <header class="header">
+
+        <div class="greeting">
+
+            <div class="greeting-small">
+                Welcome back
+            </div>
+
+            <div class="greeting-name">
+
+                Hello,
+                <span>
+                    {{ session.get("fullname", "Customer") }}
+                </span>
+                👋
+
+            </div>
+
+        </div>
+
+
+        <a
+            href="/customer/notifications"
+            class="notification"
+            aria-label="Notifications"
+        >
+
+            <span class="notification-icon">
+                🔔
+            </span>
+
+            <span class="notification-dot"></span>
+
+        </a>
+
+    </header>
+
+
+
+    <!-- SEARCH -->
+
+    <section class="search-section">
+
+        <div class="search-box">
+
+            <span class="search-icon">
+                🔍
+            </span>
+
+            <input
+                type="search"
+                id="serviceSearch"
+                class="search-input"
+                placeholder="Search service..."
+                autocomplete="off"
+            >
+
+        </div>
+
+    </section>
+
+
+
+    <!-- SERVICES -->
+
+    <section>
+
+        <div class="services-header">
+
+            <h2 class="services-title">
+                All Services
+            </h2>
+
+            <span
+                class="services-count"
+                id="serviceCount"
+            >
+                18 Services
+            </span>
+
+        </div>
+
+
+        <div
+            class="services-grid"
+            id="servicesGrid"
+        >
+
+
+            <a href="/customer/service-details?category=Electrician"
+               class="service-card"
+               data-service="electrician electrical wiring fan light switch">
+
+                <div class="service-icon">⚡</div>
+
+                <div class="service-info">
+                    <div class="service-name">Electrician</div>
+                </div>
+
+            </a>
+
+
+            <a href="/customer/service-details?category=Plumber"
+               class="service-card"
+               data-service="plumber plumbing pipe tap water">
+
+                <div class="service-icon">🔧</div>
+
+                <div class="service-info">
+                    <div class="service-name">Plumber</div>
+                </div>
+
+            </a>
+
+
+            <a href="/customer/service-details?category=Carpenter"
+               class="service-card"
+               data-service="carpenter wood furniture door bed table">
+
+                <div class="service-icon">🪚</div>
+
+                <div class="service-info">
+                    <div class="service-name">Carpenter</div>
+                </div>
+
+            </a>
+
+
+            <a href="/customer/service-details?category=Painter"
+               class="service-card"
+               data-service="painter painting wall colour house">
+
+                <div class="service-icon">🎨</div>
+
+                <div class="service-info">
+                    <div class="service-name">Painter</div>
+                </div>
+
+            </a>
+
+
+            <a href="/customer/service-details?category=AC Repair"
+               class="service-card"
+               data-service="ac air conditioner cooling repair">
+
+                <div class="service-icon">❄️</div>
+
+                <div class="service-info">
+                    <div class="service-name">AC Repair</div>
+                </div>
+
+            </a>
+
+
+            <a href="/customer/service-details?category=RO Repair"
+               class="service-card"
+               data-service="ro water purifier filter repair">
+
+                <div class="service-icon">💧</div>
+
+                <div class="service-info">
+                    <div class="service-name">RO Repair</div>
+                </div>
+
+            </a>
+
+
+            <a href="/customer/service-details?category=Cleaning"
+               class="service-card"
+               data-service="cleaning home bathroom kitchen deep">
+
+                <div class="service-icon">🧹</div>
+
+                <div class="service-info">
+                    <div class="service-name">Cleaning</div>
+                </div>
+
+            </a>
+
+
+            <a href="/customer/service-details?category=Appliance Repair"
+               class="service-card"
+               data-service="appliance repair washing machine fridge">
+
+                <div class="service-icon">🔌</div>
+
+                <div class="service-info">
+                    <div class="service-name">Appliance Repair</div>
+                </div>
+
+            </a>
+
+
+            <a href="/customer/service-details?category=Washing Machine"
+               class="service-card"
+               data-service="washing machine washer laundry repair">
+
+                <div class="service-icon">🫧</div>
+
+                <div class="service-info">
+                    <div class="service-name">Washing Machine</div>
+                </div>
+
+            </a>
+
+
+            <a href="/customer/service-details?category=Refrigerator"
+               class="service-card"
+               data-service="refrigerator fridge cooling repair">
+
+                <div class="service-icon">🧊</div>
+
+                <div class="service-info">
+                    <div class="service-name">Refrigerator</div>
+                </div>
+
+            </a>
+
+
+            <a href="/customer/service-details?category=TV Repair"
+               class="service-card"
+               data-service="tv television led lcd repair">
+
+                <div class="service-icon">📺</div>
+
+                <div class="service-info">
+                    <div class="service-name">TV Repair</div>
+                </div>
+
+            </a>
+
+
+            <a href="/customer/service-details?category=Roof Repair"
+               class="service-card"
+               data-service="roof roofing leak repair">
+
+                <div class="service-icon">🏠</div>
+
+                <div class="service-info">
+                    <div class="service-name">Roof Repair</div>
+                </div>
+
+            </a>
+
+
+            <a href="/customer/service-details?category=Mechanic"
+               class="service-card"
+               data-service="mechanic bike car motorcycle vehicle repair">
+
+                <div class="service-icon">🔩</div>
+
+                <div class="service-info">
+                    <div class="service-name">Mechanic</div>
+                </div>
+
+            </a>
+
+
+            <a href="/customer/service-details?category=Gardener"
+               class="service-card"
+               data-service="gardener gardening garden plants">
+
+                <div class="service-icon">🌱</div>
+
+                <div class="service-info">
+                    <div class="service-name">Gardener</div>
+                </div>
+
+            </a>
+
+
+            <a href="/customer/service-details?category=Pest Control"
+               class="service-card"
+               data-service="pest control insect mosquito termite">
+
+                <div class="service-icon">🐜</div>
+
+                <div class="service-info">
+                    <div class="service-name">Pest Control</div>
+                </div>
+
+            </a>
+
+
+            <a href="/customer/service-details?category=Packers"
+               class="service-card"
+               data-service="packers movers shifting moving">
+
+                <div class="service-icon">📦</div>
+
+                <div class="service-info">
+                    <div class="service-name">Packers & Movers</div>
+                </div>
+
+            </a>
+
+
+            <a href="/customer/service-details?category=AC Installation"
+               class="service-card"
+               data-service="ac installation fitting air conditioner">
+
+                <div class="service-icon">🛠️</div>
+
+                <div class="service-info">
+                    <div class="service-name">AC Installation</div>
+                </div>
+
+            </a>
+
+
+            <a href="/customer/service-details?category=Other"
+               class="service-card"
+               data-service="other service more">
+
+                <div class="service-icon">✨</div>
+
+                <div class="service-info">
+                    <div class="service-name">Other Services</div>
+                </div>
+
+            </a>
+
+
+        </div>
+
+
+        <!-- NO RESULTS -->
+
+        <div
+            class="no-results"
+            id="noResults"
+        >
+
+            <div class="no-results-icon">
+                🔍
+            </div>
+
+            <h3>
+                No service found
+            </h3>
+
+            <p>
+                Try another service
+            </p>
+
+        </div>
+
+    </section>
+
+</main>
+
+
+
+<!-- =====================================================
+     BOTTOM NAVIGATION
+===================================================== -->
+
+<nav class="bottom-nav">
+
+
+    <a
+        href="/customer/home"
+        class="nav-item active"
+    >
+
+        <span class="nav-icon">
+            🏠
+        </span>
+
+        <span class="nav-text">
+            Home
+        </span>
+
+    </a>
+
+
+    <a
+        href="/customer/bookings"
+        class="nav-item"
+    >
+
+        <span class="nav-icon">
+            📅
+        </span>
+
+        <span class="nav-text">
+            Bookings
+        </span>
+
+    </a>
+
+
+    <a
+        href="/customer/profile"
+        class="nav-item"
+    >
+
+        <span class="nav-icon">
+            👤
+        </span>
+
+        <span class="nav-text">
+            Profile
+        </span>
+
+    </a>
+
+
+</nav>
+
+
+
+<script>
+
+/* =====================================================
+   SERVICE SEARCH
+===================================================== */
+
+const searchInput =
+    document.getElementById(
+        "serviceSearch"
+    );
+
+const serviceCards =
+    document.querySelectorAll(
+        ".service-card"
+    );
+
+const noResults =
+    document.getElementById(
+        "noResults"
+    );
+
+const serviceCount =
+    document.getElementById(
+        "serviceCount"
+    );
+
+
+searchInput.addEventListener(
+    "input",
+    function(){
+
+        const query =
+            this.value
+                .toLowerCase()
+                .trim();
+
+        let visible = 0;
+
+
+        serviceCards.forEach(
+            function(card){
+
+                const name =
+                    card
+                        .querySelector(
+                            ".service-name"
+                        )
+                        .textContent
+                        .toLowerCase();
+
+                const keywords =
+                    card
+                        .dataset
+                        .service
+                        .toLowerCase();
+
+
+                const found =
+                    !query ||
+                    name.includes(query) ||
+                    keywords.includes(query);
+
+
+                if(found){
+
+                    card.classList.remove(
+                        "hidden"
+                    );
+
+                    visible++;
+
+                }
+                else{
+
+                    card.classList.add(
+                        "hidden"
+                    );
+
+                }
+
+            }
+        );
+
+
+        noResults.style.display =
+            visible === 0
+            ? "block"
+            : "none";
+
+
+        serviceCount.textContent =
+            visible + " Services";
+
+    }
+);
+
+</script>
+
+
+</body>
+</html>
+```
