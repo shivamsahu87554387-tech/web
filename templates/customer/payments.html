@@ -1,1010 +1,944 @@
 ```html
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>Payment | WorkMitra</title>
-
-<style>
-
-/* =====================================================
-   RESET
-===================================================== */
-
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-    -webkit-tap-highlight-color:transparent;
-}
-
-body{
-    font-family:Poppins, Inter, Arial, sans-serif;
-    background:#faf9fc;
-    color:#24152f;
-    min-height:100vh;
-    padding-bottom:30px;
-}
-
-
-/* =====================================================
-   MAIN
-===================================================== */
-
-.payment-page{
-    width:100%;
-    max-width:760px;
-    margin:auto;
-    padding:20px 16px 35px;
-}
-
-
-/* =====================================================
-   HEADER
-===================================================== */
-
-.page-header{
-    display:flex;
-    align-items:center;
-    gap:14px;
-    margin-bottom:25px;
-}
-
-.back-btn{
-    width:44px;
-    height:44px;
-    border-radius:15px;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    text-decoration:none;
-    background:#ffffff;
-    border:1px solid #eee8f3;
-    color:#5b3b6d;
-    font-size:20px;
-    box-shadow:0 7px 22px rgba(67,35,85,.07);
-    transition:.2s;
-}
-
-.back-btn:active{
-    transform:scale(.93);
-}
-
-.page-title{
-    font-size:19px;
-    font-weight:800;
-    letter-spacing:-.4px;
-    color:#291536;
-}
-
-
-/* =====================================================
-   AMOUNT CARD
-===================================================== */
-
-.amount-card{
-    position:relative;
-    overflow:hidden;
-    background:#ffffff;
-    border:1px solid #eee8f3;
-    border-radius:20px;
-    padding:22px 18px;
-    text-align:center;
-    margin-bottom:20px;
-    box-shadow:0 8px 25px rgba(67,35,85,.055);
-}
-
-.amount-card::before{
-    content:"";
-    position:absolute;
-    width:130px;
-    height:130px;
-    border-radius:50%;
-    background:#f4edff;
-    top:-70px;
-    right:-45px;
-}
-
-.amount-card::after{
-    content:"";
-    position:absolute;
-    width:90px;
-    height:90px;
-    border-radius:50%;
-    background:#faf5ff;
-    bottom:-55px;
-    left:-35px;
-}
-
-.amount-label{
-    position:relative;
-    z-index:2;
-    font-size:10px;
-    color:#9b8da5;
-    font-weight:650;
-    margin-bottom:5px;
-}
-
-.amount{
-    position:relative;
-    z-index:2;
-    font-size:30px;
-    font-weight:850;
-    color:#6d28d9;
-    letter-spacing:-1px;
-}
-
-.amount-service{
-    position:relative;
-    z-index:2;
-    font-size:10px;
-    color:#806f8b;
-    margin-top:4px;
-}
-
-
-/* =====================================================
-   SECTION
-===================================================== */
-
-.section-title{
-    font-size:15px;
-    font-weight:800;
-    color:#291536;
-    margin-bottom:13px;
-}
-
-
-/* =====================================================
-   PAYMENT METHODS
-===================================================== */
-
-.payment-methods{
-    display:flex;
-    flex-direction:column;
-    gap:10px;
-    margin-bottom:20px;
-}
-
-.payment-method{
-    width:100%;
-    min-height:68px;
-    display:flex;
-    align-items:center;
-    gap:13px;
-    padding:11px 13px;
-    border:1px solid #eee8f3;
-    border-radius:17px;
-    background:#ffffff;
-    cursor:pointer;
-    transition:.2s;
-}
-
-.payment-method:hover{
-    border-color:#d9c5f5;
-}
-
-.payment-method.active{
-    border-color:#b99ae8;
-    background:#fcfaff;
-    box-shadow:0 6px 20px rgba(124,58,237,.07);
-}
-
-.payment-method:active{
-    transform:scale(.985);
-}
-
-
-/* ICON */
-
-.method-icon{
-    width:43px;
-    height:43px;
-    min-width:43px;
-    border-radius:13px;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    background:#f1e9ff;
-    font-size:20px;
-}
-
-
-/* CONTENT */
-
-.method-content{
-    flex:1;
-    text-align:left;
-}
-
-.method-name{
-    font-size:11px;
-    font-weight:750;
-    color:#382246;
-}
-
-.method-description{
-    font-size:8.5px;
-    color:#9b8da5;
-    margin-top:3px;
-}
-
-
-/* RADIO */
-
-.radio{
-    width:19px;
-    height:19px;
-    border-radius:50%;
-    border:2px solid #d8cce1;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-}
-
-.payment-method.active .radio{
-    border-color:#7c3aed;
-}
-
-.payment-method.active .radio::after{
-    content:"";
-    width:9px;
-    height:9px;
-    border-radius:50%;
-    background:#7c3aed;
-}
-
-
-/* =====================================================
-   UPI AREA
-===================================================== */
-
-.upi-box{
-    display:none;
-    margin-top:5px;
-    margin-bottom:18px;
-    padding:15px;
-    background:#ffffff;
-    border:1px solid #eee8f3;
-    border-radius:17px;
-}
-
-.upi-box.show{
-    display:block;
-}
-
-.field-label{
-    display:block;
-    font-size:10px;
-    font-weight:700;
-    color:#5b3b6d;
-    margin-bottom:7px;
-}
-
-.upi-input{
-    width:100%;
-    height:50px;
-    padding:0 13px;
-    border:1px solid #eee8f3;
-    border-radius:14px;
-    outline:none;
-    background:#faf9fc;
-    color:#291536;
-    font-family:inherit;
-    font-size:11px;
-}
-
-.upi-input:focus{
-    border-color:#c4a7ef;
-    box-shadow:0 0 0 3px rgba(124,58,237,.05);
-}
-
-.upi-input::placeholder{
-    color:#aa9eb3;
-}
-
-
-/* =====================================================
-   SECURE NOTE
-===================================================== */
-
-.secure-note{
-    display:flex;
-    gap:10px;
-    padding:13px;
-    margin-bottom:20px;
-    background:#f4edff;
-    border:1px solid #eadcfb;
-    border-radius:16px;
-}
-
-.secure-icon{
-    font-size:17px;
-}
-
-.secure-text{
-    font-size:9px;
-    line-height:1.6;
-    color:#6d527d;
-}
-
-.secure-text strong{
-    color:#5b2fa3;
-}
-
-
-/* =====================================================
-   PAY BUTTON
-===================================================== */
-
-.pay-btn{
-    width:100%;
-    height:56px;
-    border:none;
-    border-radius:17px;
-    background:#7c3aed;
-    color:#ffffff;
-    font-family:inherit;
-    font-size:13px;
-    font-weight:750;
-    cursor:pointer;
-    box-shadow:0 10px 25px rgba(124,58,237,.22);
-    transition:.2s;
-}
-
-.pay-btn:hover{
-    background:#6d28d9;
-}
-
-.pay-btn:active{
-    transform:scale(.98);
-}
-
-.pay-btn.loading{
-    opacity:.75;
-    pointer-events:none;
-}
-
-
-/* =====================================================
-   ERROR
-===================================================== */
-
-.error-message{
-    display:none;
-    margin-bottom:15px;
-    padding:11px 13px;
-    border-radius:12px;
-    background:#fff1f2;
-    border:1px solid #fecdd3;
-    color:#be123c;
-    font-size:10px;
-    font-weight:600;
-}
-
-
-/* =====================================================
-   DESKTOP
-===================================================== */
-
-@media(min-width:600px){
-
-    .payment-page{
-        padding-left:25px;
-        padding-right:25px;
-    }
-
-}
-
-</style>
-
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Payment | WorkMitra</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background: #f5f7fb;
+            color: #111827;
+            min-height: 100vh;
+        }
+
+        .header {
+            background: #ffffff;
+            padding: 18px 20px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            border-bottom: 1px solid #e5e7eb;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+
+        .back-btn {
+            border: none;
+            background: #f3f4f6;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 20px;
+        }
+
+        .header h1 {
+            font-size: 20px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .card {
+            background: #ffffff;
+            border-radius: 18px;
+            padding: 20px;
+            margin-bottom: 18px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.06);
+        }
+
+        .card h2 {
+            font-size: 18px;
+            margin-bottom: 16px;
+        }
+
+        .row {
+            display: flex;
+            justify-content: space-between;
+            gap: 15px;
+            padding: 10px 0;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .row:last-child {
+            border-bottom: none;
+        }
+
+        .label {
+            color: #6b7280;
+            font-size: 14px;
+        }
+
+        .value {
+            font-size: 14px;
+            font-weight: 600;
+            text-align: right;
+            max-width: 60%;
+            word-break: break-word;
+        }
+
+        .total {
+            font-size: 20px;
+            font-weight: 700;
+            color: #111827;
+        }
+
+        .payment-option {
+            border: 1px solid #e5e7eb;
+            padding: 15px;
+            border-radius: 14px;
+            margin-bottom: 12px;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .payment-option:hover {
+            border-color: #111827;
+        }
+
+        .payment-option.active {
+            border-color: #111827;
+            background: #f9fafb;
+        }
+
+        .payment-option input {
+            margin-right: 10px;
+        }
+
+        .pay-btn {
+            width: 100%;
+            border: none;
+            background: #111827;
+            color: #ffffff;
+            padding: 16px;
+            border-radius: 14px;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        .pay-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        .message {
+            display: none;
+            padding: 14px;
+            border-radius: 12px;
+            margin-bottom: 15px;
+            font-size: 14px;
+        }
+
+        .message.error {
+            display: block;
+            background: #fee2e2;
+            color: #991b1b;
+        }
+
+        .loading {
+            display: none;
+            text-align: center;
+            padding: 15px;
+            color: #6b7280;
+            font-size: 14px;
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 14px;
+            }
+
+            .card {
+                padding: 16px;
+            }
+        }
+    </style>
 </head>
-
 
 <body>
 
+<header class="header">
+    <button class="back-btn" onclick="goBack()">‹</button>
+    <h1>Payment</h1>
+</header>
 
-<main class="payment-page">
+<main class="container">
 
+    <div id="errorMessage" class="message"></div>
 
-    <!-- =================================================
-         HEADER
-    ================================================= -->
+    <!-- Booking Summary -->
+    <section class="card">
+        <h2>Booking Summary</h2>
 
-    <header class="page-header">
-
-        <a
-            href="/customer/booking"
-            class="back-btn"
-        >
-            ←
-        </a>
-
-        <h1 class="page-title">
-            Payment
-        </h1>
-
-    </header>
-
-
-
-    <!-- =================================================
-         AMOUNT
-    ================================================= -->
-
-    <section class="amount-card">
-
-        <div class="amount-label">
-            Total Payable
+        <div class="row">
+            <span class="label">Service</span>
+            <span class="value" id="serviceName">-</span>
         </div>
 
-        <div
-            class="amount"
-            id="totalAmount"
-        >
-            ₹109
+        <div class="row">
+            <span class="label">Date</span>
+            <span class="value" id="bookingDate">-</span>
         </div>
 
-        <div
-            class="amount-service"
-            id="serviceName"
-        >
-            Service Booking
+        <div class="row">
+            <span class="label">Time</span>
+            <span class="value" id="bookingTime">-</span>
         </div>
 
+        <div class="row">
+            <span class="label">Address</span>
+            <span class="value" id="bookingAddress">-</span>
+        </div>
     </section>
 
+    <!-- Amount -->
+    <section class="card">
+        <h2>Payment Details</h2>
 
-
-    <!-- =================================================
-         PAYMENT METHODS
-    ================================================= -->
-
-    <section>
-
-        <h2 class="section-title">
-            Choose Payment Method
-        </h2>
-
-
-        <div class="payment-methods">
-
-
-            <!-- UPI -->
-
-            <div
-                class="payment-method active"
-                data-method="upi"
-                onclick="selectPaymentMethod(this)"
-            >
-
-                <div class="method-icon">
-                    📱
-                </div>
-
-
-                <div class="method-content">
-
-                    <div class="method-name">
-                        UPI
-                    </div>
-
-                    <div class="method-description">
-                        Google Pay, PhonePe, Paytm & more
-                    </div>
-
-                </div>
-
-
-                <div class="radio"></div>
-
-            </div>
-
-
-
-            <!-- CARD -->
-
-            <div
-                class="payment-method"
-                data-method="card"
-                onclick="selectPaymentMethod(this)"
-            >
-
-                <div class="method-icon">
-                    💳
-                </div>
-
-
-                <div class="method-content">
-
-                    <div class="method-name">
-                        Credit / Debit Card
-                    </div>
-
-                    <div class="method-description">
-                        Visa, Mastercard & RuPay
-                    </div>
-
-                </div>
-
-
-                <div class="radio"></div>
-
-            </div>
-
-
-
-            <!-- NET BANKING -->
-
-            <div
-                class="payment-method"
-                data-method="netbanking"
-                onclick="selectPaymentMethod(this)"
-            >
-
-                <div class="method-icon">
-                    🏦
-                </div>
-
-
-                <div class="method-content">
-
-                    <div class="method-name">
-                        Net Banking
-                    </div>
-
-                    <div class="method-description">
-                        Pay directly through your bank
-                    </div>
-
-                </div>
-
-
-                <div class="radio"></div>
-
-            </div>
-
-
-
-            <!-- WALLET -->
-
-            <div
-                class="payment-method"
-                data-method="wallet"
-                onclick="selectPaymentMethod(this)"
-            >
-
-                <div class="method-icon">
-                    👛
-                </div>
-
-
-                <div class="method-content">
-
-                    <div class="method-name">
-                        Wallet
-                    </div>
-
-                    <div class="method-description">
-                        Pay using supported wallets
-                    </div>
-
-                </div>
-
-
-                <div class="radio"></div>
-
-            </div>
-
-
+        <div class="row">
+            <span class="label">Service Charge</span>
+            <span class="value" id="serviceFee">₹0</span>
         </div>
 
+        <div class="row">
+            <span class="label">Platform Fee</span>
+            <span class="value" id="platformFee">₹0</span>
+        </div>
 
+        <div class="row">
+            <span class="label">Total Amount</span>
+            <span class="total" id="totalAmount">₹0</span>
+        </div>
     </section>
 
+    <!-- Payment Method -->
+    <section class="card">
+        <h2>Payment Method</h2>
 
-
-    <!-- =================================================
-         UPI INPUT
-    ================================================= -->
-
-    <div
-        class="upi-box show"
-        id="upiBox"
-    >
-
-        <label
-            for="upiId"
-            class="field-label"
-        >
-            UPI ID
+        <label class="payment-option active">
+            <input
+                type="radio"
+                name="paymentMethod"
+                value="UPI"
+                checked
+            >
+            UPI
         </label>
 
+        <label class="payment-option">
+            <input
+                type="radio"
+                name="paymentMethod"
+                value="Cash"
+            >
+            Cash
+        </label>
+    </section>
 
-        <input
-            type="text"
-            id="upiId"
-            class="upi-input"
-            placeholder="example@upi"
-            autocomplete="off"
-        >
-
+    <div id="loading" class="loading">
+        Creating your booking...
     </div>
-
-
-
-    <!-- =================================================
-         ERROR
-    ================================================= -->
-
-    <div
-        class="error-message"
-        id="errorMessage"
-    >
-    </div>
-
-
-
-    <!-- =================================================
-         SECURE NOTE
-    ================================================= -->
-
-    <div class="secure-note">
-
-        <div class="secure-icon">
-            🔒
-        </div>
-
-        <div class="secure-text">
-
-            Your payment information is processed securely.
-            <strong>
-                WorkMitra never shares your payment details
-                with the assigned professional.
-            </strong>
-
-        </div>
-
-    </div>
-
-
-
-    <!-- =================================================
-         PAY BUTTON
-    ================================================= -->
 
     <button
-        type="button"
-        class="pay-btn"
         id="payButton"
-        onclick="makePayment()"
+        class="pay-btn"
+        onclick="completePayment()"
     >
-        Pay ₹109
+        Pay & Confirm Booking
     </button>
-
 
 </main>
 
 
-
 <script>
 
-/* =====================================================
-   GET BOOKING DATA
-===================================================== */
+    // ========================================================
+    // STORAGE KEY
+    // ========================================================
 
-const bookingData =
-    JSON.parse(
-        sessionStorage.getItem(
-            "workmitraBooking"
-        )
-    );
+    const STORAGE_KEY = "workmitraBooking";
 
 
-/* =====================================================
-   CHECK DATA
-===================================================== */
+    // ========================================================
+    // HELPERS
+    // ========================================================
 
-if(
-    !bookingData ||
-    !bookingData.category ||
-    !bookingData.totalAmount
-){
+    function getBookingData() {
 
-    window.location.href =
-        "/customer/home";
+        try {
 
-}
+            const raw = sessionStorage.getItem(STORAGE_KEY);
 
+            if (!raw) {
+                return null;
+            }
 
-/* =====================================================
-   DISPLAY DATA
-===================================================== */
+            return JSON.parse(raw);
 
-const totalAmount =
-    Number(
-        bookingData.totalAmount
-    );
+        } catch (error) {
 
-
-document.getElementById(
-    "totalAmount"
-).textContent =
-    "₹" + totalAmount;
-
-
-document.getElementById(
-    "serviceName"
-).textContent =
-    bookingData.category +
-    " Booking";
-
-
-document.getElementById(
-    "payButton"
-).textContent =
-    "Pay ₹" + totalAmount;
-
-
-/* =====================================================
-   SELECTED METHOD
-===================================================== */
-
-let selectedMethod =
-    "upi";
-
-
-/* =====================================================
-   SELECT PAYMENT METHOD
-===================================================== */
-
-function selectPaymentMethod(element){
-
-    const methods =
-        document.querySelectorAll(
-            ".payment-method"
-        );
-
-
-    methods.forEach(
-        function(method){
-
-            method.classList.remove(
-                "active"
+            console.error(
+                "BOOKING STORAGE ERROR:",
+                error
             );
 
+            return null;
         }
-    );
-
-
-    element.classList.add(
-        "active"
-    );
-
-
-    selectedMethod =
-        element.dataset.method;
-
-
-    const upiBox =
-        document.getElementById(
-            "upiBox"
-        );
-
-
-    if(
-        selectedMethod === "upi"
-    ){
-
-        upiBox.classList.add(
-            "show"
-        );
-
-    }
-    else{
-
-        upiBox.classList.remove(
-            "show"
-        );
-
     }
 
-}
+
+    function numberValue(value, fallback = 0) {
+
+        const number = parseFloat(value);
+
+        if (Number.isFinite(number)) {
+            return number;
+        }
+
+        return fallback;
+    }
 
 
-/* =====================================================
-   MAKE PAYMENT
-===================================================== */
+    function money(value) {
 
-function makePayment(){
-
-    const errorMessage =
-        document.getElementById(
-            "errorMessage"
-        );
+        return "₹" + numberValue(value).toFixed(0);
+    }
 
 
-    errorMessage.style.display =
-        "none";
+    function firstValue(data, keys, fallback = "") {
+
+        for (const key of keys) {
+
+            if (
+                data &&
+                data[key] !== undefined &&
+                data[key] !== null &&
+                String(data[key]).trim() !== ""
+            ) {
+                return data[key];
+            }
+        }
+
+        return fallback;
+    }
 
 
-    /*
-       UPI validation.
-    */
+    // ========================================================
+    // LOAD BOOKING
+    // ========================================================
 
-    if(
-        selectedMethod === "upi"
-    ){
+    function loadBooking() {
 
-        const upiId =
+        const data = getBookingData();
+
+        if (!data) {
+
+            showError(
+                "Booking information was not found. Please start the booking again."
+            );
+
             document.getElementById(
-                "upiId"
-            ).value.trim();
-
-
-        if(
-            !upiId
-        ){
-
-            showError(
-                "Please enter your UPI ID."
-            );
+                "payButton"
+            ).disabled = true;
 
             return;
-
         }
 
 
-        /*
-           Basic UPI format check.
-        */
-
-        const upiPattern =
-            /^[\w.-]+@[\w.-]+$/;
-
-
-        if(
-            !upiPattern.test(
-                upiId
-            )
-        ){
-
-            showError(
-                "Please enter a valid UPI ID."
-            );
-
-            return;
-
-        }
-
-
-        bookingData.paymentMethod =
-            "UPI";
-
-    }
-    else{
-
-        bookingData.paymentMethod =
-            selectedMethod;
-
-    }
-
-
-    /*
-       Save selected payment method.
-    */
-
-    bookingData.paymentStatus =
-        "pending";
-
-
-    sessionStorage.setItem(
-        "workmitraBooking",
-        JSON.stringify(
-            bookingData
-        )
-    );
-
-
-    /*
-       IMPORTANT:
-
-       Abhi real payment gateway connected nahi hai.
-
-       Backend mein Razorpay/payment gateway
-       connect karne ke baad yahan gateway
-       checkout open hoga.
-
-       Successful payment ke baad:
-       /customer/booking-success
-
-       par redirect karenge.
-    */
-
-
-    const button =
-        document.getElementById(
-            "payButton"
+        const service = firstValue(
+            data,
+            [
+                "category",
+                "service",
+                "serviceName",
+                "service_name"
+            ],
+            "Service"
         );
 
 
-    button.classList.add(
-        "loading"
-    );
+        const date = firstValue(
+            data,
+            [
+                "preferred_date",
+                "date",
+                "bookingDate"
+            ],
+            "-"
+        );
 
 
-    button.textContent =
-        "Processing...";
+        const time = firstValue(
+            data,
+            [
+                "preferred_time",
+                "time",
+                "bookingTime"
+            ],
+            "-"
+        );
 
 
-    /*
-       TEMPORARY DEMO FLOW
+        const address = firstValue(
+            data,
+            [
+                "address",
+                "service_address"
+            ],
+            "-"
+        );
 
-       Real project mein is timeout ko
-       payment gateway success callback
-       se replace karna hai.
-    */
 
-    setTimeout(
-        function(){
+        const serviceFee = numberValue(
+            firstValue(
+                data,
+                [
+                    "service_charge",
+                    "serviceFee",
+                    "service_fee"
+                ],
+                99
+            ),
+            99
+        );
 
-            bookingData.paymentStatus =
+
+        const platformFee = numberValue(
+            firstValue(
+                data,
+                [
+                    "platform_fee",
+                    "platformFee"
+                ],
+                10
+            ),
+            10
+        );
+
+
+        let totalAmount = numberValue(
+            firstValue(
+                data,
+                [
+                    "total_amount",
+                    "totalAmount"
+                ],
+                ""
+            ),
+            0
+        );
+
+
+        if (totalAmount <= 0) {
+            totalAmount = serviceFee + platformFee;
+        }
+
+
+        document.getElementById(
+            "serviceName"
+        ).textContent = service;
+
+
+        document.getElementById(
+            "bookingDate"
+        ).textContent = date;
+
+
+        document.getElementById(
+            "bookingTime"
+        ).textContent = time;
+
+
+        document.getElementById(
+            "bookingAddress"
+        ).textContent = address;
+
+
+        document.getElementById(
+            "serviceFee"
+        ).textContent = money(serviceFee);
+
+
+        document.getElementById(
+            "platformFee"
+        ).textContent = money(platformFee);
+
+
+        document.getElementById(
+            "totalAmount"
+        ).textContent = money(totalAmount);
+
+
+        // Keep normalized values for backend
+        data.category = service;
+        data.preferred_date = date;
+        data.preferred_time = time;
+        data.address = address;
+        data.service_charge = serviceFee;
+        data.platform_fee = platformFee;
+        data.total_amount = totalAmount;
+
+
+        sessionStorage.setItem(
+            STORAGE_KEY,
+            JSON.stringify(data)
+        );
+    }
+
+
+    // ========================================================
+    // PAYMENT METHOD UI
+    // ========================================================
+
+    document
+        .querySelectorAll(
+            'input[name="paymentMethod"]'
+        )
+        .forEach(function(input) {
+
+            input.addEventListener(
+                "change",
+                function() {
+
+                    document
+                        .querySelectorAll(
+                            ".payment-option"
+                        )
+                        .forEach(function(option) {
+
+                            option.classList.remove(
+                                "active"
+                            );
+                        });
+
+
+                    input
+                        .closest(".payment-option")
+                        .classList.add("active");
+                }
+            );
+        });
+
+
+    // ========================================================
+    // COMPLETE PAYMENT
+    // ========================================================
+
+    async function completePayment() {
+
+        const booking = getBookingData();
+
+        if (!booking) {
+
+            showError(
+                "Booking information is missing. Please go back and try again."
+            );
+
+            return;
+        }
+
+
+        const paymentMethodElement =
+            document.querySelector(
+                'input[name="paymentMethod"]:checked'
+            );
+
+
+        const paymentMethod =
+            paymentMethodElement
+                ? paymentMethodElement.value
+                : "UPI";
+
+
+        const service = firstValue(
+            booking,
+            [
+                "category",
+                "service",
+                "serviceName",
+                "service_name"
+            ],
+            ""
+        );
+
+
+        const address = firstValue(
+            booking,
+            [
+                "address",
+                "service_address"
+            ],
+            ""
+        );
+
+
+        if (!service) {
+
+            showError(
+                "Service information is missing."
+            );
+
+            return;
+        }
+
+
+        if (!address) {
+
+            showError(
+                "Service address is missing."
+            );
+
+            return;
+        }
+
+
+        const serviceFee = numberValue(
+            firstValue(
+                booking,
+                [
+                    "service_charge",
+                    "serviceFee",
+                    "service_fee"
+                ],
+                99
+            ),
+            99
+        );
+
+
+        const platformFee = numberValue(
+            firstValue(
+                booking,
+                [
+                    "platform_fee",
+                    "platformFee"
+                ],
+                10
+            ),
+            10
+        );
+
+
+        let totalAmount = numberValue(
+            firstValue(
+                booking,
+                [
+                    "total_amount",
+                    "totalAmount"
+                ],
+                ""
+            ),
+            0
+        );
+
+
+        if (totalAmount <= 0) {
+            totalAmount =
+                serviceFee +
+                platformFee;
+        }
+
+
+        // ----------------------------------------------------
+        // Prevent double click
+        // ----------------------------------------------------
+
+        const button =
+            document.getElementById(
+                "payButton"
+            );
+
+        const loading =
+            document.getElementById(
+                "loading"
+            );
+
+
+        button.disabled = true;
+
+        button.textContent =
+            "Processing...";
+
+        loading.style.display =
+            "block";
+
+
+        hideError();
+
+
+        // ----------------------------------------------------
+        // Build backend payload
+        // ----------------------------------------------------
+
+        const payload = {
+
+            category: service,
+
+            service_id: firstValue(
+                booking,
+                [
+                    "service_id",
+                    "serviceId"
+                ],
+                ""
+            ),
+
+            description: firstValue(
+                booking,
+                [
+                    "description",
+                    "problem",
+                    "details"
+                ],
+                ""
+            ),
+
+            address: address,
+
+            city: firstValue(
+                booking,
+                [
+                    "city"
+                ],
+                ""
+            ),
+
+            state: firstValue(
+                booking,
+                [
+                    "state"
+                ],
+                ""
+            ),
+
+            pincode: firstValue(
+                booking,
+                [
+                    "pincode",
+                    "pinCode",
+                    "zip"
+                ],
+                ""
+            ),
+
+            preferred_date: firstValue(
+                booking,
+                [
+                    "preferred_date",
+                    "date",
+                    "bookingDate"
+                ],
+                ""
+            ),
+
+            preferred_time: firstValue(
+                booking,
+                [
+                    "preferred_time",
+                    "time",
+                    "bookingTime"
+                ],
+                ""
+            ),
+
+            service_charge: serviceFee,
+
+            platform_fee: platformFee,
+
+            total_amount: totalAmount,
+
+            payment_method: paymentMethod,
+
+            // Demo payment confirmation.
+            // Real gateway can be connected later.
+            payment_id:
+                "PAY-" +
+                Date.now(),
+
+            payment_status: "paid"
+        };
+
+
+        try {
+
+            // ------------------------------------------------
+            // CREATE DATABASE BOOKING
+            // ------------------------------------------------
+
+            const response =
+                await fetch(
+                    "/customer/create-booking",
+                    {
+                        method: "POST",
+
+                        headers: {
+                            "Content-Type":
+                                "application/json"
+                        },
+
+                        credentials: "same-origin",
+
+                        body:
+                            JSON.stringify(
+                                payload
+                            )
+                    }
+                );
+
+
+            const result =
+                await response.json();
+
+
+            if (
+                !response.ok ||
+                !result.success
+            ) {
+
+                throw new Error(
+                    result.message ||
+                    "Booking could not be created."
+                );
+            }
+
+
+            // ------------------------------------------------
+            // Save REAL booking ID
+            // ------------------------------------------------
+
+            booking.booking_id =
+                result.booking_id;
+
+            booking.paymentStatus =
                 "paid";
+
+            booking.payment_status =
+                "paid";
+
+            booking.payment_method =
+                paymentMethod;
+
+            booking.payment_id =
+                payload.payment_id;
 
 
             sessionStorage.setItem(
-                "workmitraBooking",
-                JSON.stringify(
-                    bookingData
-                )
+                STORAGE_KEY,
+                JSON.stringify(booking)
             );
 
 
+            // ------------------------------------------------
+            // REAL BOOKING SUCCESS
+            // ------------------------------------------------
+
             window.location.href =
-                "/customer/booking-success";
+                "/customer/booking-success?id=" +
+                encodeURIComponent(
+                    result.booking_id
+                );
 
-        },
-        1200
+        } catch (error) {
+
+            console.error(
+                "PAYMENT / BOOKING ERROR:",
+                error
+            );
+
+
+            showError(
+                error.message ||
+                "Something went wrong while creating your booking."
+            );
+
+
+            button.disabled = false;
+
+            button.textContent =
+                "Pay & Confirm Booking";
+
+            loading.style.display =
+                "none";
+        }
+    }
+
+
+    // ========================================================
+    // ERROR
+    // ========================================================
+
+    function showError(message) {
+
+        const box =
+            document.getElementById(
+                "errorMessage"
+            );
+
+        box.textContent = message;
+
+        box.classList.add("error");
+
+        box.style.display = "block";
+
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth"
+        });
+    }
+
+
+    function hideError() {
+
+        const box =
+            document.getElementById(
+                "errorMessage"
+            );
+
+        box.textContent = "";
+
+        box.classList.remove("error");
+
+        box.style.display = "none";
+    }
+
+
+    // ========================================================
+    // BACK
+    // ========================================================
+
+    function goBack() {
+
+        window.history.back();
+    }
+
+
+    // ========================================================
+    // INIT
+    // ========================================================
+
+    document.addEventListener(
+        "DOMContentLoaded",
+        loadBooking
     );
-
-}
-
-
-/* =====================================================
-   ERROR
-===================================================== */
-
-function showError(message){
-
-    const errorMessage =
-        document.getElementById(
-            "errorMessage"
-        );
-
-
-    errorMessage.textContent =
-        message;
-
-
-    errorMessage.style.display =
-        "block";
-
-
-    errorMessage.scrollIntoView({
-        behavior:"smooth",
-        block:"center"
-    });
-
-}
 
 </script>
 
-
 </body>
-
 </html>
 ```
