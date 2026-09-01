@@ -1,5 +1,5 @@
-```html
 <!DOCTYPE html>
+
 <html lang="en">
 
 <head>
@@ -145,6 +145,11 @@ body{
     transform:scale(.98);
 }
 
+.current-location-btn:disabled{
+    opacity:.7;
+    cursor:not-allowed;
+}
+
 .current-location-icon{
     width:34px;
     height:34px;
@@ -199,6 +204,7 @@ body{
     font-size:9px;
     font-weight:700;
     color:#aa9eb3;
+    white-space:nowrap;
 }
 
 
@@ -319,6 +325,36 @@ body{
 
 
 /* =====================================================
+   LOCATION STATUS
+===================================================== */
+
+.location-status{
+    display:none;
+    margin-top:12px;
+    padding:11px 13px;
+    border-radius:12px;
+    background:#f1e9ff;
+    border:1px solid #e5d8f5;
+    color:#6d28d9;
+    font-size:10px;
+    font-weight:600;
+    line-height:1.5;
+}
+
+.location-status.success{
+    background:#ecfdf5;
+    border-color:#a7f3d0;
+    color:#047857;
+}
+
+.location-status.error{
+    background:#fff1f2;
+    border-color:#fecdd3;
+    color:#be123c;
+}
+
+
+/* =====================================================
    CONTINUE BUTTON
 ===================================================== */
 
@@ -346,21 +382,9 @@ body{
     transform:scale(.98);
 }
 
-
-/* =====================================================
-   LOCATION STATUS
-===================================================== */
-
-.location-status{
-    display:none;
-    margin-top:12px;
-    padding:11px 13px;
-    border-radius:12px;
-    background:#f1e9ff;
-    border:1px solid #e5d8f5;
-    color:#6d28d9;
-    font-size:10px;
-    font-weight:600;
+.continue-btn:disabled{
+    opacity:.7;
+    cursor:not-allowed;
 }
 
 
@@ -388,294 +412,448 @@ body{
         grid-template-columns:1fr;
     }
 
+    .divider-text{
+        white-space:normal;
+        text-align:center;
+    }
+
 }
 
 </style>
 
 </head>
 
-
 <body>
-
 
 <main class="location-page">
 
+```
+<!-- =================================================
+     HEADER
+================================================= -->
 
-    <!-- =================================================
-         HEADER
-    ================================================= -->
+<header class="page-header">
 
-    <header class="page-header">
+    <a
+        href="/customer/home"
+        class="back-btn"
+        aria-label="Go back"
+        onclick="goBack(event)"
+    >
+        ←
+    </a>
 
-        <a
-            href="/customer/home"
-            class="back-btn"
-            aria-label="Go back"
-            onclick="goBack(event)"
+    <h1 class="page-title">
+        Service Location
+    </h1>
+
+</header>
+
+
+
+<!-- =================================================
+     INTRO
+================================================= -->
+
+<section class="location-intro">
+
+    <div class="location-icon">
+        📍
+    </div>
+
+    <h2>
+        Where do you need the service?
+    </h2>
+
+    <p>
+        Add the address where our professional
+        should provide the service.
+    </p>
+
+</section>
+
+
+
+<!-- =================================================
+     CURRENT LOCATION
+================================================= -->
+
+<button
+    type="button"
+    class="current-location-btn"
+    id="currentLocationButton"
+    onclick="getCurrentLocation()"
+>
+
+    <div class="current-location-icon">
+        🎯
+    </div>
+
+
+    <div class="current-location-content">
+
+        <div class="current-location-title">
+            Use Current Location
+        </div>
+
+        <div
+            class="current-location-text"
+            id="currentLocationText"
         >
-            ←
-        </a>
-
-        <h1 class="page-title">
-            Service Location
-        </h1>
-
-    </header>
-
-
-
-    <!-- =================================================
-         INTRO
-    ================================================= -->
-
-    <section class="location-intro">
-
-        <div class="location-icon">
-            📍
+            We'll detect your current location
         </div>
-
-        <h2>
-            Where do you need the service?
-        </h2>
-
-        <p>
-            Add the address where our professional
-            should provide the service.
-        </p>
-
-    </section>
-
-
-
-    <!-- =================================================
-         CURRENT LOCATION
-    ================================================= -->
-
-    <button
-        type="button"
-        class="current-location-btn"
-        onclick="getCurrentLocation()"
-    >
-
-        <div class="current-location-icon">
-            🎯
-        </div>
-
-
-        <div class="current-location-content">
-
-            <div class="current-location-title">
-                Use Current Location
-            </div>
-
-            <div class="current-location-text">
-                We'll detect your current location
-            </div>
-
-        </div>
-
-
-        <div class="location-arrow">
-            →
-        </div>
-
-    </button>
-
-
-    <div
-        class="location-status"
-        id="locationStatus"
-    >
-    </div>
-
-
-
-    <!-- =================================================
-         DIVIDER
-    ================================================= -->
-
-    <div class="divider">
-
-        <div class="divider-line"></div>
-
-        <div class="divider-text">
-            OR ENTER ADDRESS MANUALLY
-        </div>
-
-        <div class="divider-line"></div>
 
     </div>
 
 
+    <div class="location-arrow">
+        →
+    </div>
 
-    <!-- =================================================
-         ADDRESS FORM
-    ================================================= -->
-
-    <form
-        id="locationForm"
-        onsubmit="continueBooking(event)"
-    >
+</button>
 
 
-        <h2 class="form-title">
-            Service Address
-        </h2>
+<div
+    class="location-status"
+    id="locationStatus"
+>
+</div>
 
 
-        <!-- ADDRESS -->
+
+<!-- =================================================
+     DIVIDER
+================================================= -->
+
+<div class="divider">
+
+    <div class="divider-line"></div>
+
+    <div class="divider-text">
+        OR ENTER ADDRESS MANUALLY
+    </div>
+
+    <div class="divider-line"></div>
+
+</div>
+
+
+
+<!-- =================================================
+     ADDRESS FORM
+================================================= -->
+
+<form
+    id="locationForm"
+    onsubmit="continueBooking(event)"
+>
+
+
+    <h2 class="form-title">
+        Service Address
+    </h2>
+
+
+    <!-- ADDRESS -->
+
+    <div class="form-group">
+
+        <label
+            for="address"
+            class="field-label"
+        >
+            House / Flat / Street
+            <span>*</span>
+        </label>
+
+
+        <textarea
+            id="address"
+            class="address-box"
+            placeholder="Enter house number, street, building..."
+            required
+        ></textarea>
+
+    </div>
+
+
+    <!-- AREA -->
+
+    <div class="form-group">
+
+        <label
+            for="area"
+            class="field-label"
+        >
+            Area / Locality
+            <span>*</span>
+        </label>
+
+
+        <input
+            type="text"
+            id="area"
+            class="input-box"
+            placeholder="Enter your area"
+            required
+        >
+
+    </div>
+
+
+    <!-- CITY + PIN -->
+
+    <div class="two-column">
+
 
         <div class="form-group">
 
             <label
-                for="address"
+                for="city"
                 class="field-label"
             >
-                House / Flat / Street
-                <span>*</span>
-            </label>
-
-
-            <textarea
-                id="address"
-                class="address-box"
-                placeholder="Enter house number, street, building..."
-                required
-            ></textarea>
-
-        </div>
-
-
-        <!-- AREA -->
-
-        <div class="form-group">
-
-            <label
-                for="area"
-                class="field-label"
-            >
-                Area / Locality
+                City
                 <span>*</span>
             </label>
 
 
             <input
                 type="text"
-                id="area"
+                id="city"
                 class="input-box"
-                placeholder="Enter your area"
+                placeholder="City"
                 required
             >
 
         </div>
 
 
-        <!-- CITY + PIN -->
 
-        <div class="two-column">
+        <div class="form-group">
 
-
-            <div class="form-group">
-
-                <label
-                    for="city"
-                    class="field-label"
-                >
-                    City
-                    <span>*</span>
-                </label>
+            <label
+                for="pincode"
+                class="field-label"
+            >
+                PIN Code
+                <span>*</span>
+            </label>
 
 
-                <input
-                    type="text"
-                    id="city"
-                    class="input-box"
-                    placeholder="City"
-                    required
-                >
-
-            </div>
-
-
-
-            <div class="form-group">
-
-                <label
-                    for="pincode"
-                    class="field-label"
-                >
-                    PIN Code
-                    <span>*</span>
-                </label>
-
-
-                <input
-                    type="text"
-                    id="pincode"
-                    class="input-box"
-                    placeholder="PIN Code"
-                    maxlength="6"
-                    inputmode="numeric"
-                    required
-                >
-
-            </div>
-
+            <input
+                type="text"
+                id="pincode"
+                class="input-box"
+                placeholder="PIN Code"
+                maxlength="6"
+                inputmode="numeric"
+                required
+            >
 
         </div>
 
 
-
-        <!-- ERROR -->
-
-        <div
-            class="error-message"
-            id="errorMessage"
-        >
-        </div>
+    </div>
 
 
 
-        <!-- CONTINUE -->
+    <!-- ERROR -->
 
-        <button
-            type="submit"
-            class="continue-btn"
-        >
-            Continue to Booking →
-        </button>
+    <div
+        class="error-message"
+        id="errorMessage"
+    >
+    </div>
 
 
-    </form>
 
+    <!-- CONTINUE -->
+
+    <button
+        type="submit"
+        class="continue-btn"
+        id="continueButton"
+    >
+        Continue to Booking →
+    </button>
+
+
+</form>
+```
 
 </main>
-
-
 
 <script>
 
 /* =====================================================
-   CHECK BOOKING DATA
+   GET BOOKING DATA
 ===================================================== */
 
-const bookingData =
-    JSON.parse(
-        sessionStorage.getItem(
-            "workmitraBooking"
-        )
-    );
+let bookingData = {};
+
+try{
+
+    bookingData =
+        JSON.parse(
+            sessionStorage.getItem(
+                "workmitraBooking"
+            )
+        ) || {};
+
+}catch(error){
+
+    bookingData = {};
+
+}
 
 
-if(!bookingData){
+/* =====================================================
+   IF NO BOOKING DATA
+===================================================== */
 
-    /*
-       Agar user direct location page par aa jaye
-       aur service select na ki ho.
-    */
+if(
+    !bookingData ||
+    Object.keys(bookingData).length === 0
+){
 
     window.location.href =
         "/customer/home";
+
+}
+
+
+/* =====================================================
+   RESTORE SAVED LOCATION DATA
+===================================================== */
+
+window.addEventListener(
+    "DOMContentLoaded",
+    function(){
+
+        if(
+            bookingData.address
+        ){
+
+            document.getElementById(
+                "address"
+            ).value =
+                bookingData.address;
+
+        }
+
+
+        if(
+            bookingData.area
+        ){
+
+            document.getElementById(
+                "area"
+            ).value =
+                bookingData.area;
+
+        }
+
+
+        if(
+            bookingData.city
+        ){
+
+            document.getElementById(
+                "city"
+            ).value =
+                bookingData.city;
+
+        }
+
+
+        if(
+            bookingData.pincode
+        ){
+
+            document.getElementById(
+                "pincode"
+            ).value =
+                bookingData.pincode;
+
+        }
+
+
+        if(
+            bookingData.latitude !== undefined
+            &&
+            bookingData.latitude !== null
+            &&
+            bookingData.latitude !== ""
+            &&
+            bookingData.longitude !== undefined
+            &&
+            bookingData.longitude !== null
+            &&
+            bookingData.longitude !== ""
+        ){
+
+            showLocationStatus(
+                "Current location is already detected successfully.",
+                "success"
+            );
+
+            document.getElementById(
+                "currentLocationText"
+            ).textContent =
+                "Location detected successfully";
+
+        }
+
+    }
+);
+
+
+/* =====================================================
+   SHOW LOCATION STATUS
+===================================================== */
+
+function showLocationStatus(
+    message,
+    type
+){
+
+    const status =
+        document.getElementById(
+            "locationStatus"
+        );
+
+
+    status.textContent =
+        message;
+
+
+    status.className =
+        "location-status";
+
+
+    if(
+        type === "success"
+    ){
+
+        status.classList.add(
+            "success"
+        );
+
+    }
+
+    else if(
+        type === "error"
+    ){
+
+        status.classList.add(
+            "error"
+        );
+
+    }
+
+
+    status.style.display =
+        "block";
 
 }
 
@@ -686,9 +864,15 @@ if(!bookingData){
 
 function getCurrentLocation(){
 
-    const status =
+    const button =
         document.getElementById(
-            "locationStatus"
+            "currentLocationButton"
+        );
+
+
+    const locationText =
+        document.getElementById(
+            "currentLocationText"
         );
 
 
@@ -696,22 +880,28 @@ function getCurrentLocation(){
         !navigator.geolocation
     ){
 
-        status.textContent =
-            "Your browser does not support location detection.";
-
-        status.style.display =
-            "block";
+        showLocationStatus(
+            "Your browser does not support location detection.",
+            "error"
+        );
 
         return;
 
     }
 
 
-    status.textContent =
+    button.disabled =
+        true;
+
+
+    locationText.textContent =
         "Detecting your location...";
 
-    status.style.display =
-        "block";
+
+    showLocationStatus(
+        "Detecting your current location. Please allow location permission.",
+        ""
+    );
 
 
     navigator.geolocation.getCurrentPosition(
@@ -721,24 +911,26 @@ function getCurrentLocation(){
             const latitude =
                 position.coords.latitude;
 
+
             const longitude =
                 position.coords.longitude;
 
 
             /*
-               Coordinates save karenge.
-
-               Real address conversion ke liye
-               backend / geocoding API baad mein
-               connect karenge.
+               SAVE COORDINATES IN BOOKING DATA
             */
 
             bookingData.latitude =
                 latitude;
 
+
             bookingData.longitude =
                 longitude;
 
+
+            /*
+               SAVE IN SESSION STORAGE
+            */
 
             sessionStorage.setItem(
                 "workmitraBooking",
@@ -748,17 +940,89 @@ function getCurrentLocation(){
             );
 
 
-            status.textContent =
-                "Current location detected successfully. Please complete your address below.";
+            button.disabled =
+                false;
 
+
+            locationText.textContent =
+                "Location detected successfully";
+
+
+            showLocationStatus(
+                "Current location detected successfully. Your coordinates are ready for worker matching.",
+                "success"
+            );
+
+
+            console.log(
+                "CUSTOMER LOCATION:",
+                latitude,
+                longitude
+            );
 
         },
 
-        function(){
 
-            status.textContent =
-                "Unable to detect location. Please enter your address manually.";
+        function(error){
 
+            button.disabled =
+                false;
+
+
+            locationText.textContent =
+                "Unable to detect location";
+
+
+            let message =
+                "Unable to detect your location.";
+
+
+            if(
+                error.code === 1
+            ){
+
+                message =
+                    "Location permission was denied. Please allow location access and try again.";
+
+            }
+
+            else if(
+                error.code === 2
+            ){
+
+                message =
+                    "Your current location is unavailable. Please try again.";
+
+            }
+
+            else if(
+                error.code === 3
+            ){
+
+                message =
+                    "Location request timed out. Please try again.";
+
+            }
+
+
+            showLocationStatus(
+                message,
+                "error"
+            );
+
+
+            console.error(
+                "LOCATION ERROR:",
+                error
+            );
+
+        },
+
+
+        {
+            enableHighAccuracy:true,
+            timeout:15000,
+            maximumAge:0
         }
 
     );
@@ -767,7 +1031,7 @@ function getCurrentLocation(){
 
 
 /* =====================================================
-   CONTINUE
+   CONTINUE BOOKING
 ===================================================== */
 
 function continueBooking(event){
@@ -805,9 +1069,19 @@ function continueBooking(event){
         );
 
 
+    const continueButton =
+        document.getElementById(
+            "continueButton"
+        );
+
+
     errorMessage.style.display =
         "none";
 
+
+    /* -----------------------------------------------
+       VALIDATE ADDRESS
+    ------------------------------------------------ */
 
     if(
         address.length < 3
@@ -864,21 +1138,64 @@ function continueBooking(event){
 
 
     /* -----------------------------------------------
-       SAVE ADDRESS
+       LOCATION CHECK
+    ------------------------------------------------ */
+
+    if(
+        bookingData.latitude === undefined
+        ||
+        bookingData.latitude === null
+        ||
+        bookingData.latitude === ""
+        ||
+        bookingData.longitude === undefined
+        ||
+        bookingData.longitude === null
+        ||
+        bookingData.longitude === ""
+    ){
+
+        showError(
+            "Please tap 'Use Current Location' first and allow location permission. Location is required to find the nearest worker."
+        );
+
+        return;
+
+    }
+
+
+    /* -----------------------------------------------
+       SAVE ADDRESS IN BOOKING DATA
     ------------------------------------------------ */
 
     bookingData.address =
-        address;
+        address + ", " + area;
+
 
     bookingData.area =
         area;
 
+
     bookingData.city =
         city;
+
 
     bookingData.pincode =
         pincode;
 
+
+    /*
+       State फिलहाल form में नहीं है।
+       Backend के लिए खाली भेजेंगे।
+    */
+
+    bookingData.state =
+        bookingData.state || "";
+
+
+    /*
+       SAVE UPDATED BOOKING DATA
+    */
 
     sessionStorage.setItem(
         "workmitraBooking",
@@ -889,11 +1206,120 @@ function continueBooking(event){
 
 
     /* -----------------------------------------------
-       GO TO BOOKING SUMMARY
+       SAVE LOCATION TO DATABASE
     ------------------------------------------------ */
 
-    window.location.href =
-        "/customer/booking";
+    continueButton.disabled =
+        true;
+
+
+    continueButton.textContent =
+        "Saving Location...";
+
+
+    const formData =
+        new URLSearchParams();
+
+
+    formData.append(
+        "address",
+        bookingData.address
+    );
+
+
+    formData.append(
+        "city",
+        city
+    );
+
+
+    formData.append(
+        "state",
+        bookingData.state
+    );
+
+
+    formData.append(
+        "pincode",
+        pincode
+    );
+
+
+    formData.append(
+        "latitude",
+        bookingData.latitude
+    );
+
+
+    formData.append(
+        "longitude",
+        bookingData.longitude
+    );
+
+
+    fetch(
+        "/customer/location",
+        {
+            method:"POST",
+
+            headers:{
+                "Content-Type":
+                    "application/x-www-form-urlencoded"
+            },
+
+            body:
+                formData.toString()
+        }
+    )
+
+    .then(
+        function(response){
+
+            if(
+                !response.ok
+            ){
+
+                throw new Error(
+                    "Location could not be saved."
+                );
+
+            }
+
+
+            /*
+               BACKEND LOCATION SAVE HO GAYA
+               AB BOOKING PAGE
+            */
+
+            window.location.href =
+                "/customer/booking";
+
+        }
+    )
+
+    .catch(
+        function(error){
+
+            console.error(
+                "SAVE LOCATION ERROR:",
+                error
+            );
+
+
+            continueButton.disabled =
+                false;
+
+
+            continueButton.textContent =
+                "Continue to Booking →";
+
+
+            showError(
+                "Unable to save your location. Please try again."
+            );
+
+        }
+    );
 
 }
 
@@ -941,8 +1367,6 @@ function goBack(event){
 
 </script>
 
-
 </body>
 
 </html>
-```
