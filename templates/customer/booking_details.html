@@ -1,0 +1,1810 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Booking Details | WorkMitra</title>
+
+<style>
+
+/* =====================================================
+   RESET
+===================================================== */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    -webkit-tap-highlight-color:transparent;
+}
+
+body{
+    font-family:Poppins, Inter, Arial, sans-serif;
+    background:#faf9fc;
+    color:#24152f;
+    min-height:100vh;
+    padding-bottom:95px;
+}
+
+
+/* =====================================================
+   MAIN
+===================================================== */
+
+.details-page{
+    width:100%;
+    max-width:760px;
+    margin:auto;
+    padding:20px 16px 30px;
+}
+
+
+/* =====================================================
+   HEADER
+===================================================== */
+
+.page-header{
+    display:flex;
+    align-items:center;
+    gap:14px;
+    margin-bottom:22px;
+}
+
+.back-btn{
+    width:44px;
+    height:44px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    border-radius:15px;
+
+    background:#ffffff;
+    border:1px solid #eee8f3;
+
+    color:#5b3b6d;
+    text-decoration:none;
+
+    font-size:20px;
+
+    box-shadow:
+        0 7px 22px rgba(67,35,85,.07);
+
+    transition:.2s;
+}
+
+.back-btn:active{
+    transform:scale(.93);
+}
+
+.page-title{
+    font-size:19px;
+    font-weight:800;
+    color:#291536;
+    letter-spacing:-.4px;
+}
+
+
+/* =====================================================
+   STATUS HEADER
+===================================================== */
+
+.status-card{
+    position:relative;
+    overflow:hidden;
+
+    display:flex;
+    align-items:center;
+    gap:13px;
+
+    padding:16px;
+
+    background:#ffffff;
+
+    border:1px solid #eee8f3;
+    border-radius:20px;
+
+    box-shadow:
+        0 7px 22px rgba(67,35,85,.05);
+
+    margin-bottom:14px;
+}
+
+.status-card::after{
+    content:"";
+
+    position:absolute;
+
+    width:100px;
+    height:100px;
+
+    border-radius:50%;
+
+    right:-40px;
+    top:-55px;
+
+    background:#f4edff;
+}
+
+.status-icon{
+    position:relative;
+    z-index:2;
+
+    width:48px;
+    height:48px;
+
+    min-width:48px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    border-radius:15px;
+
+    background:#f1e9ff;
+
+    font-size:22px;
+}
+
+.status-content{
+    position:relative;
+    z-index:2;
+
+    flex:1;
+}
+
+.status-label{
+    font-size:8.5px;
+    font-weight:650;
+    color:#9b8da5;
+}
+
+.status-text{
+    margin-top:3px;
+
+    font-size:13px;
+    font-weight:800;
+
+    color:#6d28d9;
+}
+
+.status-description{
+    margin-top:3px;
+
+    font-size:8.5px;
+    line-height:1.5;
+
+    color:#a093a9;
+}
+
+
+/* =====================================================
+   COMMON CARD
+===================================================== */
+
+.info-card{
+    background:#ffffff;
+
+    border:1px solid #eee8f3;
+    border-radius:19px;
+
+    padding:16px;
+
+    margin-bottom:14px;
+
+    box-shadow:
+        0 7px 22px rgba(67,35,85,.05);
+}
+
+.card-title{
+    font-size:13px;
+    font-weight:800;
+    color:#291536;
+
+    margin-bottom:15px;
+}
+
+
+/* =====================================================
+   SERVICE
+===================================================== */
+
+.service-row{
+    display:flex;
+    align-items:center;
+    gap:12px;
+}
+
+.service-icon{
+    width:52px;
+    height:52px;
+
+    min-width:52px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    border-radius:16px;
+
+    background:#f1e9ff;
+
+    font-size:24px;
+}
+
+.service-info{
+    flex:1;
+}
+
+.service-label{
+    font-size:8.5px;
+    color:#9b8da5;
+    font-weight:650;
+}
+
+.service-name{
+    margin-top:3px;
+
+    font-size:15px;
+    font-weight:800;
+    color:#382246;
+}
+
+
+/* =====================================================
+   DETAIL ROW
+===================================================== */
+
+.detail-row{
+    display:flex;
+    align-items:flex-start;
+    gap:11px;
+
+    padding:13px 0;
+
+    border-bottom:1px solid #f2edf4;
+}
+
+.detail-row:first-of-type{
+    padding-top:0;
+}
+
+.detail-row:last-child{
+    padding-bottom:0;
+    border-bottom:none;
+}
+
+.detail-icon{
+    width:35px;
+    height:35px;
+
+    min-width:35px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    border-radius:11px;
+
+    background:#faf6ff;
+
+    font-size:15px;
+}
+
+.detail-content{
+    flex:1;
+}
+
+.detail-label{
+    font-size:8px;
+    color:#9b8da5;
+    font-weight:650;
+}
+
+.detail-value{
+    margin-top:3px;
+
+    font-size:10.5px;
+    line-height:1.55;
+
+    color:#382246;
+    font-weight:650;
+}
+
+
+/* =====================================================
+   PAYMENT
+===================================================== */
+
+.payment-summary{
+    display:flex;
+    flex-direction:column;
+    gap:11px;
+}
+
+.price-row{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
+
+.price-label{
+    font-size:9.5px;
+    color:#806f8b;
+    font-weight:600;
+}
+
+.price-value{
+    font-size:10.5px;
+    color:#382246;
+    font-weight:700;
+}
+
+.total-row{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+
+    padding-top:13px;
+
+    border-top:1px solid #f0ebf4;
+}
+
+.total-label{
+    font-size:12px;
+    color:#291536;
+    font-weight:800;
+}
+
+.total-value{
+    font-size:17px;
+    color:#6d28d9;
+    font-weight:850;
+}
+
+
+/* =====================================================
+   PAID BADGE
+===================================================== */
+
+.paid-badge{
+    display:inline-flex;
+    align-items:center;
+    gap:5px;
+
+    margin-top:13px;
+
+    padding:7px 10px;
+
+    border-radius:10px;
+
+    background:#ecfdf5;
+    color:#15803d;
+
+    font-size:8.5px;
+    font-weight:750;
+}
+
+.paid-dot{
+    width:6px;
+    height:6px;
+    border-radius:50%;
+    background:#22c55e;
+}
+
+
+/* =====================================================
+   ASSIGNMENT
+===================================================== */
+
+.assignment-box{
+    display:flex;
+    gap:11px;
+
+    padding:14px;
+
+    background:#f4edff;
+
+    border:1px solid #eadcfb;
+
+    border-radius:17px;
+
+    margin-bottom:14px;
+}
+
+.assignment-icon{
+    font-size:18px;
+}
+
+.assignment-content{
+    flex:1;
+}
+
+.assignment-title{
+    font-size:10px;
+    font-weight:800;
+    color:#5b2fa3;
+
+    margin-bottom:4px;
+}
+
+.assignment-text{
+    font-size:9px;
+    line-height:1.6;
+    color:#6d527d;
+}
+
+
+/* =====================================================
+   IMPORTANT PRIVACY
+===================================================== */
+
+.privacy-box{
+    display:flex;
+    gap:10px;
+
+    padding:13px;
+
+    background:#ffffff;
+
+    border:1px solid #eee8f3;
+
+    border-radius:16px;
+
+    margin-bottom:18px;
+}
+
+.privacy-icon{
+    font-size:16px;
+}
+
+.privacy-text{
+    font-size:8.5px;
+    line-height:1.6;
+    color:#9b8da5;
+}
+
+.privacy-text strong{
+    color:#6d28d9;
+}
+
+
+/* =====================================================
+   ACTION BUTTONS
+===================================================== */
+
+.actions{
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+}
+
+.primary-btn,
+.secondary-btn{
+    width:100%;
+    height:52px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    border-radius:16px;
+
+    text-decoration:none;
+
+    font-family:inherit;
+
+    font-size:11px;
+    font-weight:750;
+
+    transition:.2s;
+}
+
+.primary-btn{
+    background:#7c3aed;
+    color:#ffffff;
+
+    box-shadow:
+        0 9px 23px rgba(124,58,237,.20);
+}
+
+.secondary-btn{
+    background:#ffffff;
+    color:#6d28d9;
+
+    border:1px solid #e4d8ef;
+}
+
+.primary-btn:active,
+.secondary-btn:active{
+    transform:scale(.98);
+}
+
+
+/* =====================================================
+   CANCEL BUTTON
+===================================================== */
+
+.cancel-btn{
+    width:100%;
+    height:48px;
+
+    margin-top:2px;
+
+    border:none;
+    background:transparent;
+
+    color:#be123c;
+
+    font-family:inherit;
+
+    font-size:9px;
+    font-weight:700;
+
+    cursor:pointer;
+}
+
+
+/* =====================================================
+   CANCEL MODAL
+===================================================== */
+
+.modal{
+    position:fixed;
+    inset:0;
+
+    z-index:2000;
+
+    display:none;
+    align-items:flex-end;
+    justify-content:center;
+
+    background:rgba(36,21,47,.35);
+
+    padding:15px;
+}
+
+.modal.show{
+    display:flex;
+}
+
+.modal-box{
+    width:100%;
+    max-width:500px;
+
+    background:#ffffff;
+
+    border-radius:23px;
+
+    padding:20px;
+
+    box-shadow:
+        0 20px 50px rgba(36,21,47,.20);
+}
+
+.modal-title{
+    font-size:15px;
+    font-weight:800;
+    color:#291536;
+}
+
+.modal-text{
+    margin-top:7px;
+
+    font-size:9.5px;
+    line-height:1.6;
+
+    color:#9b8da5;
+}
+
+.modal-actions{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:9px;
+
+    margin-top:18px;
+}
+
+.modal-btn{
+    height:45px;
+
+    border:none;
+    border-radius:13px;
+
+    font-family:inherit;
+
+    font-size:9.5px;
+    font-weight:750;
+
+    cursor:pointer;
+}
+
+.modal-close{
+    background:#f5f1f7;
+    color:#6d527d;
+}
+
+.modal-confirm{
+    background:#be123c;
+    color:#ffffff;
+}
+
+
+/* =====================================================
+   BOTTOM NAVIGATION
+===================================================== */
+
+.bottom-nav{
+    position:fixed;
+
+    z-index:1000;
+
+    left:50%;
+    bottom:12px;
+
+    transform:translateX(-50%);
+
+    width:calc(100% - 24px);
+    max-width:700px;
+
+    height:68px;
+
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+
+    align-items:center;
+
+    padding:6px;
+
+    background:rgba(255,255,255,.97);
+
+    backdrop-filter:blur(16px);
+    -webkit-backdrop-filter:blur(16px);
+
+    border:1px solid #e9e1f0;
+    border-radius:22px;
+
+    box-shadow:
+        0 12px 35px rgba(67,35,85,.13);
+}
+
+.nav-item{
+    height:56px;
+
+    display:flex;
+    flex-direction:column;
+
+    align-items:center;
+    justify-content:center;
+
+    gap:4px;
+
+    text-decoration:none;
+
+    color:#a294aa;
+
+    border-radius:17px;
+
+    transition:.2s;
+}
+
+.nav-icon{
+    font-size:19px;
+    line-height:1;
+}
+
+.nav-text{
+    font-size:8.5px;
+    font-weight:650;
+}
+
+.nav-item.active{
+    color:#7c3aed;
+    background:#f2eaff;
+}
+
+.nav-item:active{
+    transform:scale(.93);
+}
+
+
+/* =====================================================
+   DESKTOP
+===================================================== */
+
+@media(min-width:600px){
+
+    .details-page{
+        padding-left:25px;
+        padding-right:25px;
+    }
+
+}
+
+
+/* =====================================================
+   SMALL MOBILE
+===================================================== */
+
+@media(max-width:350px){
+
+    .details-page{
+        padding-left:12px;
+        padding-right:12px;
+    }
+
+    .status-text{
+        font-size:12px;
+    }
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<main class="details-page">
+
+
+    <!-- =================================================
+         HEADER
+    ================================================= -->
+
+    <header class="page-header">
+
+        <a
+            href="/customer/bookings"
+            class="back-btn"
+        >
+            ←
+        </a>
+
+        <h1 class="page-title">
+            Booking Details
+        </h1>
+
+    </header>
+
+
+
+    <!-- =================================================
+         STATUS
+    ================================================= -->
+
+    <section class="status-card">
+
+        <div
+            class="status-icon"
+            id="statusIcon"
+        >
+            🔎
+        </div>
+
+        <div class="status-content">
+
+            <div class="status-label">
+                Current Status
+            </div>
+
+            <div
+                class="status-text"
+                id="statusText"
+            >
+                Finding Professional
+            </div>
+
+            <div
+                class="status-description"
+                id="statusDescription"
+            >
+                WorkMitra is finding an available professional
+                near your service location.
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =================================================
+         SERVICE CARD
+    ================================================= -->
+
+    <section class="info-card">
+
+        <h2 class="card-title">
+            Service Information
+        </h2>
+
+
+        <div class="service-row">
+
+            <div
+                class="service-icon"
+                id="serviceIcon"
+            >
+                🔧
+            </div>
+
+
+            <div class="service-info">
+
+                <div class="service-label">
+                    Requested Service
+                </div>
+
+                <div
+                    class="service-name"
+                    id="serviceName"
+                >
+                    Service
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =================================================
+         BOOKING INFORMATION
+    ================================================= -->
+
+    <section class="info-card">
+
+        <h2 class="card-title">
+            Booking Information
+        </h2>
+
+
+        <!-- BOOKING ID -->
+
+        <div class="detail-row">
+
+            <div class="detail-icon">
+                🔖
+            </div>
+
+            <div class="detail-content">
+
+                <div class="detail-label">
+                    Booking ID
+                </div>
+
+                <div
+                    class="detail-value"
+                    id="bookingId"
+                >
+                    —
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- DATE -->
+
+        <div class="detail-row">
+
+            <div class="detail-icon">
+                📅
+            </div>
+
+            <div class="detail-content">
+
+                <div class="detail-label">
+                    Service Date
+                </div>
+
+                <div
+                    class="detail-value"
+                    id="serviceDate"
+                >
+                    —
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- TIME -->
+
+        <div class="detail-row">
+
+            <div class="detail-icon">
+                🕐
+            </div>
+
+            <div class="detail-content">
+
+                <div class="detail-label">
+                    Preferred Time
+                </div>
+
+                <div
+                    class="detail-value"
+                    id="serviceTime"
+                >
+                    —
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- ADDRESS -->
+
+        <div class="detail-row">
+
+            <div class="detail-icon">
+                📍
+            </div>
+
+            <div class="detail-content">
+
+                <div class="detail-label">
+                    Service Address
+                </div>
+
+                <div
+                    class="detail-value"
+                    id="serviceAddress"
+                >
+                    —
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- DESCRIPTION -->
+
+        <div class="detail-row">
+
+            <div class="detail-icon">
+                📝
+            </div>
+
+            <div class="detail-content">
+
+                <div class="detail-label">
+                    Problem Description
+                </div>
+
+                <div
+                    class="detail-value"
+                    id="problemDescription"
+                >
+                    —
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =================================================
+         PAYMENT CARD
+    ================================================= -->
+
+    <section class="info-card">
+
+        <h2 class="card-title">
+            Payment Information
+        </h2>
+
+
+        <div class="payment-summary">
+
+
+            <div class="price-row">
+
+                <div class="price-label">
+                    Service Fee
+                </div>
+
+                <div
+                    class="price-value"
+                    id="serviceFee"
+                >
+                    ₹0
+                </div>
+
+            </div>
+
+
+            <div class="price-row">
+
+                <div class="price-label">
+                    Platform Fee
+                </div>
+
+                <div
+                    class="price-value"
+                    id="platformFee"
+                >
+                    ₹0
+                </div>
+
+            </div>
+
+
+            <div class="total-row">
+
+                <div class="total-label">
+                    Total Paid
+                </div>
+
+                <div
+                    class="total-value"
+                    id="totalAmount"
+                >
+                    ₹0
+                </div>
+
+            </div>
+
+
+        </div>
+
+
+        <div class="paid-badge">
+
+            <span class="paid-dot"></span>
+
+            Payment Successful
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =================================================
+         ASSIGNMENT INFO
+    ================================================= -->
+
+    <div class="assignment-box">
+
+        <div class="assignment-icon">
+            📍
+        </div>
+
+        <div class="assignment-content">
+
+            <div class="assignment-title">
+                Automatic Worker Assignment
+            </div>
+
+            <div class="assignment-text">
+                WorkMitra automatically selects an available
+                professional based on your service category,
+                location and availability.
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- =================================================
+         PRIVACY
+    ================================================= -->
+
+    <div class="privacy-box">
+
+        <div class="privacy-icon">
+            🔒
+        </div>
+
+        <div class="privacy-text">
+
+            For your privacy and safety, the assigned
+            professional's <strong>personal mobile number
+            and direct contact details are not displayed</strong>
+            on the customer website.
+
+        </div>
+
+    </div>
+
+
+
+    <!-- =================================================
+         ACTIONS
+    ================================================= -->
+
+    <div class="actions">
+
+        <a
+            href="/customer/bookings"
+            class="primary-btn"
+        >
+            ← Back to My Bookings
+        </a>
+
+        <a
+            href="/customer/home"
+            class="secondary-btn"
+        >
+            Book Another Service
+        </a>
+
+        <button
+            type="button"
+            class="cancel-btn"
+            onclick="openCancelModal()"
+        >
+            Cancel Booking
+        </button>
+
+    </div>
+
+
+</main>
+
+
+
+<!-- =====================================================
+     CANCEL MODAL
+===================================================== -->
+
+<div
+    class="modal"
+    id="cancelModal"
+>
+
+    <div class="modal-box">
+
+        <h3 class="modal-title">
+            Cancel this booking?
+        </h3>
+
+        <p class="modal-text">
+            Are you sure you want to cancel this booking?
+            Cancellation and refund rules will apply according
+            to the booking status.
+        </p>
+
+
+        <div class="modal-actions">
+
+            <button
+                type="button"
+                class="modal-btn modal-close"
+                onclick="closeCancelModal()"
+            >
+                Keep Booking
+            </button>
+
+            <button
+                type="button"
+                class="modal-btn modal-confirm"
+                onclick="cancelBooking()"
+            >
+                Cancel Booking
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+
+<!-- =====================================================
+     BOTTOM NAVIGATION
+===================================================== -->
+
+<nav class="bottom-nav">
+
+
+    <a
+        href="/customer/home"
+        class="nav-item"
+    >
+
+        <span class="nav-icon">
+            🏠
+        </span>
+
+        <span class="nav-text">
+            Home
+        </span>
+
+    </a>
+
+
+    <a
+        href="/customer/bookings"
+        class="nav-item active"
+    >
+
+        <span class="nav-icon">
+            📅
+        </span>
+
+        <span class="nav-text">
+            Bookings
+        </span>
+
+    </a>
+
+
+    <a
+        href="/customer/profile"
+        class="nav-item"
+    >
+
+        <span class="nav-icon">
+            👤
+        </span>
+
+        <span class="nav-text">
+            Profile
+        </span>
+
+    </a>
+
+
+</nav>
+
+
+
+<script>
+
+/* =====================================================
+   SERVICE ICONS
+===================================================== */
+
+const serviceIcons = {
+
+    "Electrician":"⚡",
+    "Plumber":"🔧",
+    "Carpenter":"🪚",
+    "Painter":"🎨",
+    "AC Repair":"❄️",
+    "RO Repair":"💧",
+    "Cleaning":"🧹",
+    "Appliance Repair":"🔌",
+    "Washing Machine":"🫧",
+    "Refrigerator":"🧊",
+    "TV Repair":"📺",
+    "Roof Repair":"🏠",
+    "Mechanic":"🔩",
+    "Gardener":"🌱",
+    "Pest Control":"🐜",
+    "Packers":"📦",
+    "AC Installation":"🛠️",
+    "Other":"✨"
+
+};
+
+
+/* =====================================================
+   GET BOOKING ID FROM URL
+===================================================== */
+
+const urlParams =
+    new URLSearchParams(
+        window.location.search
+    );
+
+const urlBookingId =
+    urlParams.get("id");
+
+
+/* =====================================================
+   GET CURRENT BOOKING
+===================================================== */
+
+const bookingData =
+    JSON.parse(
+        sessionStorage.getItem(
+            "workmitraBooking"
+        )
+    );
+
+
+/* =====================================================
+   DEMO / CURRENT DATA
+===================================================== */
+
+if(!bookingData){
+
+    window.location.href =
+        "/customer/bookings";
+
+}
+
+
+/* =====================================================
+   BOOKING ID
+===================================================== */
+
+const currentBookingId =
+    urlBookingId ||
+    bookingData.bookingId ||
+    "WM-000000";
+
+
+document.getElementById(
+    "bookingId"
+).textContent =
+    currentBookingId;
+
+
+/* =====================================================
+   SERVICE
+===================================================== */
+
+const category =
+    bookingData.category ||
+    "Service";
+
+
+document.getElementById(
+    "serviceName"
+).textContent =
+    category;
+
+
+document.getElementById(
+    "serviceIcon"
+).textContent =
+    serviceIcons[
+        category
+    ] || "✨";
+
+
+/* =====================================================
+   DATE FORMAT
+===================================================== */
+
+function formatDate(
+    dateString
+){
+
+    if(!dateString){
+        return "—";
+    }
+
+
+    const date =
+        new Date(
+            dateString +
+            "T00:00:00"
+        );
+
+
+    if(
+        isNaN(
+            date.getTime()
+        )
+    ){
+
+        return dateString;
+
+    }
+
+
+    return date.toLocaleDateString(
+        "en-IN",
+        {
+            day:"numeric",
+            month:"short",
+            year:"numeric"
+        }
+    );
+
+}
+
+
+/* =====================================================
+   TIME FORMAT
+===================================================== */
+
+function formatTime(
+    timeString
+){
+
+    if(!timeString){
+        return "—";
+    }
+
+
+    const parts =
+        timeString.split(":");
+
+
+    let hour =
+        parseInt(
+            parts[0]
+        );
+
+
+    const minute =
+        parts[1] || "00";
+
+
+    const ampm =
+        hour >= 12
+        ? "PM"
+        : "AM";
+
+
+    hour =
+        hour % 12 ||
+        12;
+
+
+    return (
+        hour +
+        ":" +
+        minute +
+        " " +
+        ampm
+    );
+
+}
+
+
+/* =====================================================
+   DATE / TIME
+===================================================== */
+
+document.getElementById(
+    "serviceDate"
+).textContent =
+    formatDate(
+        bookingData.date
+    );
+
+
+document.getElementById(
+    "serviceTime"
+).textContent =
+    formatTime(
+        bookingData.time
+    );
+
+
+/* =====================================================
+   ADDRESS
+===================================================== */
+
+let address =
+    bookingData.address ||
+    "—";
+
+
+if(
+    bookingData.area
+){
+
+    address +=
+        ", " +
+        bookingData.area;
+
+}
+
+
+if(
+    bookingData.city
+){
+
+    address +=
+        ", " +
+        bookingData.city;
+
+}
+
+
+if(
+    bookingData.pincode
+){
+
+    address +=
+        " - " +
+        bookingData.pincode;
+
+}
+
+
+document.getElementById(
+    "serviceAddress"
+).textContent =
+    address;
+
+
+/* =====================================================
+   DESCRIPTION
+===================================================== */
+
+document.getElementById(
+    "problemDescription"
+).textContent =
+    bookingData.description ||
+    "No description provided";
+
+
+/* =====================================================
+   PAYMENT
+===================================================== */
+
+const serviceFee =
+    Number(
+        bookingData.serviceFee ||
+        0
+    );
+
+
+const platformFee =
+    Number(
+        bookingData.platformFee ||
+        0
+    );
+
+
+const totalAmount =
+    Number(
+        bookingData.totalAmount ||
+        serviceFee +
+        platformFee
+    );
+
+
+document.getElementById(
+    "serviceFee"
+).textContent =
+    "₹" +
+    serviceFee;
+
+
+document.getElementById(
+    "platformFee"
+).textContent =
+    "₹" +
+    platformFee;
+
+
+document.getElementById(
+    "totalAmount"
+).textContent =
+    "₹" +
+    totalAmount;
+
+
+/* =====================================================
+   STATUS
+===================================================== */
+
+function updateStatus(
+    status
+){
+
+    const icon =
+        document.getElementById(
+            "statusIcon"
+        );
+
+    const text =
+        document.getElementById(
+            "statusText"
+        );
+
+    const description =
+        document.getElementById(
+            "statusDescription"
+        );
+
+
+    switch(status){
+
+        case "pending":
+
+            icon.textContent =
+                "🔎";
+
+            text.textContent =
+                "Finding Professional";
+
+            description.textContent =
+                "WorkMitra is finding an available professional near your service location.";
+
+            break;
+
+
+        case "assigned":
+
+            icon.textContent =
+                "✓";
+
+            text.textContent =
+                "Professional Assigned";
+
+            description.textContent =
+                "A suitable nearby professional has been assigned to your booking.";
+
+            break;
+
+
+        case "in_progress":
+
+            icon.textContent =
+                "🛠️";
+
+            text.textContent =
+                "Service In Progress";
+
+            description.textContent =
+                "Your requested service is currently in progress.";
+
+            break;
+
+
+        case "completed":
+
+            icon.textContent =
+                "✓";
+
+            text.textContent =
+                "Service Completed";
+
+            description.textContent =
+                "Your service booking has been completed.";
+
+            break;
+
+
+        case "cancelled":
+
+            icon.textContent =
+                "×";
+
+            text.textContent =
+                "Booking Cancelled";
+
+            description.textContent =
+                "This booking has been cancelled.";
+
+            break;
+
+
+        default:
+
+            icon.textContent =
+                "🔎";
+
+            text.textContent =
+                "Finding Professional";
+
+            description.textContent =
+                "WorkMitra is finding an available professional near your service location.";
+
+    }
+
+}
+
+
+/* =====================================================
+   INITIAL STATUS
+===================================================== */
+
+updateStatus(
+    bookingData.assignmentStatus ||
+    "pending"
+);
+
+
+/* =====================================================
+   CANCEL MODAL
+===================================================== */
+
+function openCancelModal(){
+
+    document.getElementById(
+        "cancelModal"
+    ).classList.add(
+        "show"
+    );
+
+}
+
+
+function closeCancelModal(){
+
+    document.getElementById(
+        "cancelModal"
+    ).classList.remove(
+        "show"
+    );
+
+}
+
+
+/* =====================================================
+   CANCEL BOOKING
+===================================================== */
+
+function cancelBooking(){
+
+    /*
+       Demo only.
+
+       Real backend mein yahan POST request
+       bheji jayegi aur booking database mein
+       cancelled hogi.
+    */
+
+    bookingData.assignmentStatus =
+        "cancelled";
+
+
+    bookingData.bookingStatus =
+        "cancelled";
+
+
+    sessionStorage.setItem(
+        "workmitraBooking",
+        JSON.stringify(
+            bookingData
+        )
+    );
+
+
+    closeCancelModal();
+
+
+    updateStatus(
+        "cancelled"
+    );
+
+
+    /*
+       Cancel button hide.
+    */
+
+    const cancelButton =
+        document.querySelector(
+            ".cancel-btn"
+        );
+
+
+    if(cancelButton){
+
+        cancelButton.style.display =
+            "none";
+
+    }
+
+}
+
+</script>
+
+
+</body>
+
+</html>
+```
