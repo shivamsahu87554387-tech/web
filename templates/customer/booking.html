@@ -1,0 +1,915 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Confirm Booking | WorkMitra</title>
+
+<style>
+
+/* =====================================================
+   RESET
+===================================================== */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    -webkit-tap-highlight-color:transparent;
+}
+
+body{
+    font-family:Poppins, Inter, Arial, sans-serif;
+    background:#faf9fc;
+    color:#24152f;
+    min-height:100vh;
+    padding-bottom:30px;
+}
+
+
+/* =====================================================
+   MAIN
+===================================================== */
+
+.booking-page{
+    width:100%;
+    max-width:760px;
+    margin:auto;
+    padding:20px 16px 30px;
+}
+
+
+/* =====================================================
+   HEADER
+===================================================== */
+
+.page-header{
+    display:flex;
+    align-items:center;
+    gap:14px;
+    margin-bottom:26px;
+}
+
+.back-btn{
+    width:44px;
+    height:44px;
+    border-radius:15px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    text-decoration:none;
+    background:#ffffff;
+    border:1px solid #eee8f3;
+    color:#5b3b6d;
+    font-size:20px;
+    box-shadow:0 7px 22px rgba(67,35,85,.07);
+    transition:.2s;
+}
+
+.back-btn:active{
+    transform:scale(.93);
+}
+
+.page-title{
+    font-size:19px;
+    font-weight:800;
+    letter-spacing:-.4px;
+    color:#291536;
+}
+
+
+/* =====================================================
+   INTRO
+===================================================== */
+
+.booking-intro{
+    margin-bottom:20px;
+}
+
+.booking-intro h2{
+    font-size:18px;
+    font-weight:800;
+    color:#291536;
+    margin-bottom:5px;
+}
+
+.booking-intro p{
+    font-size:10px;
+    line-height:1.6;
+    color:#9b8da5;
+}
+
+
+/* =====================================================
+   SUMMARY CARD
+===================================================== */
+
+.summary-card{
+    background:#ffffff;
+    border:1px solid #eee8f3;
+    border-radius:20px;
+    padding:17px;
+    margin-bottom:15px;
+    box-shadow:0 7px 22px rgba(67,35,85,.05);
+}
+
+
+/* =====================================================
+   SERVICE SUMMARY
+===================================================== */
+
+.service-summary{
+    display:flex;
+    align-items:center;
+    gap:13px;
+}
+
+.service-icon{
+    width:52px;
+    height:52px;
+    border-radius:16px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:#f1e9ff;
+    font-size:25px;
+}
+
+.service-info{
+    flex:1;
+}
+
+.service-small{
+    font-size:9px;
+    font-weight:700;
+    color:#9b8da5;
+    margin-bottom:3px;
+}
+
+.service-name{
+    font-size:16px;
+    font-weight:800;
+    color:#382246;
+}
+
+
+/* =====================================================
+   DIVIDER
+===================================================== */
+
+.card-divider{
+    height:1px;
+    background:#f0ebf4;
+    margin:16px 0;
+}
+
+
+/* =====================================================
+   DETAIL ROW
+===================================================== */
+
+.detail-row{
+    display:flex;
+    align-items:flex-start;
+    gap:12px;
+    margin-bottom:14px;
+}
+
+.detail-row:last-child{
+    margin-bottom:0;
+}
+
+.detail-icon{
+    width:34px;
+    height:34px;
+    min-width:34px;
+    border-radius:11px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:#faf6ff;
+    font-size:16px;
+}
+
+.detail-content{
+    flex:1;
+}
+
+.detail-label{
+    font-size:9px;
+    font-weight:700;
+    color:#9b8da5;
+    margin-bottom:3px;
+}
+
+.detail-value{
+    font-size:11px;
+    line-height:1.5;
+    font-weight:650;
+    color:#382246;
+}
+
+
+/* =====================================================
+   PAYMENT CARD
+===================================================== */
+
+.payment-card{
+    background:#ffffff;
+    border:1px solid #eee8f3;
+    border-radius:20px;
+    padding:17px;
+    margin-bottom:15px;
+    box-shadow:0 7px 22px rgba(67,35,85,.05);
+}
+
+.payment-title{
+    font-size:14px;
+    font-weight:800;
+    color:#291536;
+    margin-bottom:15px;
+}
+
+.price-row{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:11px;
+}
+
+.price-label{
+    font-size:10px;
+    color:#806f8b;
+    font-weight:600;
+}
+
+.price-value{
+    font-size:11px;
+    font-weight:750;
+    color:#382246;
+}
+
+.total-row{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding-top:14px;
+    border-top:1px solid #f0ebf4;
+}
+
+.total-label{
+    font-size:13px;
+    font-weight:800;
+    color:#291536;
+}
+
+.total-value{
+    font-size:17px;
+    font-weight:850;
+    color:#6d28d9;
+}
+
+
+/* =====================================================
+   PAYMENT NOTE
+===================================================== */
+
+.payment-note{
+    display:flex;
+    gap:10px;
+    padding:13px;
+    background:#f4edff;
+    border:1px solid #eadcfb;
+    border-radius:16px;
+    margin-bottom:20px;
+}
+
+.note-icon{
+    font-size:17px;
+}
+
+.note-text{
+    font-size:9.5px;
+    line-height:1.6;
+    color:#6d527d;
+}
+
+.note-text strong{
+    color:#5b2fa3;
+}
+
+
+/* =====================================================
+   BUTTON
+===================================================== */
+
+.payment-btn{
+    width:100%;
+    height:56px;
+    border:none;
+    border-radius:17px;
+    background:#7c3aed;
+    color:#ffffff;
+    font-family:inherit;
+    font-size:13px;
+    font-weight:750;
+    cursor:pointer;
+    box-shadow:0 10px 25px rgba(124,58,237,.22);
+    transition:.2s;
+}
+
+.payment-btn:hover{
+    background:#6d28d9;
+}
+
+.payment-btn:active{
+    transform:scale(.98);
+}
+
+
+/* =====================================================
+   LOADING
+===================================================== */
+
+.loading{
+    text-align:center;
+    padding:50px 20px;
+    color:#9b8da5;
+    font-size:11px;
+}
+
+
+/* =====================================================
+   DESKTOP
+===================================================== */
+
+@media(min-width:600px){
+
+    .booking-page{
+        padding-left:25px;
+        padding-right:25px;
+    }
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<main class="booking-page">
+
+
+    <!-- =================================================
+         HEADER
+    ================================================= -->
+
+    <header class="page-header">
+
+        <a
+            href="/customer/location"
+            class="back-btn"
+        >
+            ←
+        </a>
+
+        <h1 class="page-title">
+            Confirm Booking
+        </h1>
+
+    </header>
+
+
+
+    <!-- =================================================
+         CONTENT
+    ================================================= -->
+
+    <div id="bookingContent">
+
+
+        <!-- INTRO -->
+
+        <section class="booking-intro">
+
+            <h2>
+                Review your booking
+            </h2>
+
+            <p>
+                Please check all details before proceeding
+                to payment.
+            </p>
+
+        </section>
+
+
+
+        <!-- SERVICE DETAILS -->
+
+        <section class="summary-card">
+
+
+            <div class="service-summary">
+
+                <div
+                    class="service-icon"
+                    id="serviceIcon"
+                >
+                    🔧
+                </div>
+
+
+                <div class="service-info">
+
+                    <div class="service-small">
+                        Selected Service
+                    </div>
+
+                    <div
+                        class="service-name"
+                        id="serviceName"
+                    >
+                        Service
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="card-divider"></div>
+
+
+            <!-- DESCRIPTION -->
+
+            <div class="detail-row">
+
+                <div class="detail-icon">
+                    📝
+                </div>
+
+
+                <div class="detail-content">
+
+                    <div class="detail-label">
+                        Problem Description
+                    </div>
+
+                    <div
+                        class="detail-value"
+                        id="description"
+                    >
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- DATE -->
+
+            <div class="detail-row">
+
+                <div class="detail-icon">
+                    📅
+                </div>
+
+
+                <div class="detail-content">
+
+                    <div class="detail-label">
+                        Preferred Date & Time
+                    </div>
+
+                    <div
+                        class="detail-value"
+                        id="dateTime"
+                    >
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- LOCATION -->
+
+            <div class="detail-row">
+
+                <div class="detail-icon">
+                    📍
+                </div>
+
+
+                <div class="detail-content">
+
+                    <div class="detail-label">
+                        Service Address
+                    </div>
+
+                    <div
+                        class="detail-value"
+                        id="address"
+                    >
+                    </div>
+
+                </div>
+
+            </div>
+
+
+        </section>
+
+
+
+        <!-- PAYMENT -->
+
+        <section class="payment-card">
+
+            <h3 class="payment-title">
+                Payment Details
+            </h3>
+
+
+            <div class="price-row">
+
+                <div class="price-label">
+                    Booking & Service Fee
+                </div>
+
+                <div
+                    class="price-value"
+                    id="serviceFee"
+                >
+                    ₹99
+                </div>
+
+            </div>
+
+
+            <div class="price-row">
+
+                <div class="price-label">
+                    Platform Fee
+                </div>
+
+                <div
+                    class="price-value"
+                    id="platformFee"
+                >
+                    ₹10
+                </div>
+
+            </div>
+
+
+            <div class="total-row">
+
+                <div class="total-label">
+                    Total Payable
+                </div>
+
+                <div
+                    class="total-value"
+                    id="totalAmount"
+                >
+                    ₹109
+                </div>
+
+            </div>
+
+
+        </section>
+
+
+
+        <!-- PAYMENT NOTE -->
+
+        <div class="payment-note">
+
+            <div class="note-icon">
+                🔒
+            </div>
+
+
+            <div class="note-text">
+
+                Your payment is securely processed.
+                After successful payment,
+                <strong>
+                    WorkMitra will assign a suitable
+                    nearby professional.
+                </strong>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- PAYMENT BUTTON -->
+
+        <button
+            type="button"
+            class="payment-btn"
+            onclick="proceedToPayment()"
+        >
+            Proceed to Payment →
+        </button>
+
+
+    </div>
+
+
+</main>
+
+
+
+<script>
+
+/* =====================================================
+   SERVICE ICONS
+===================================================== */
+
+const serviceIcons = {
+
+    "Electrician":"⚡",
+    "Plumber":"🔧",
+    "Carpenter":"🪚",
+    "Painter":"🎨",
+    "AC Repair":"❄️",
+    "RO Repair":"💧",
+    "Cleaning":"🧹",
+    "Appliance Repair":"🔌",
+    "Washing Machine":"🫧",
+    "Refrigerator":"🧊",
+    "TV Repair":"📺",
+    "Roof Repair":"🏠",
+    "Mechanic":"🔩",
+    "Gardener":"🌱",
+    "Pest Control":"🐜",
+    "Packers":"📦",
+    "AC Installation":"🛠️",
+    "Other":"✨"
+
+};
+
+
+/* =====================================================
+   GET BOOKING DATA
+===================================================== */
+
+const bookingData =
+    JSON.parse(
+        sessionStorage.getItem(
+            "workmitraBooking"
+        )
+    );
+
+
+/* =====================================================
+   CHECK BOOKING
+===================================================== */
+
+if(
+    !bookingData ||
+    !bookingData.category ||
+    !bookingData.address
+){
+
+    window.location.href =
+        "/customer/home";
+
+}
+
+
+/* =====================================================
+   DISPLAY SERVICE
+===================================================== */
+
+document.getElementById(
+    "serviceName"
+).textContent =
+    bookingData.category;
+
+
+document.getElementById(
+    "serviceIcon"
+).textContent =
+    serviceIcons[
+        bookingData.category
+    ] || "✨";
+
+
+/* =====================================================
+   DESCRIPTION
+===================================================== */
+
+document.getElementById(
+    "description"
+).textContent =
+    bookingData.description;
+
+
+/* =====================================================
+   FORMAT DATE
+===================================================== */
+
+function formatDate(dateString){
+
+    const date =
+        new Date(
+            dateString +
+            "T00:00:00"
+        );
+
+
+    return date.toLocaleDateString(
+        "en-IN",
+        {
+            day:"numeric",
+            month:"short",
+            year:"numeric"
+        }
+    );
+
+}
+
+
+/* =====================================================
+   FORMAT TIME
+===================================================== */
+
+function formatTime(timeString){
+
+    const parts =
+        timeString.split(":");
+
+
+    let hour =
+        parseInt(
+            parts[0]
+        );
+
+
+    const minute =
+        parts[1];
+
+
+    const ampm =
+        hour >= 12
+        ? "PM"
+        : "AM";
+
+
+    hour =
+        hour % 12 ||
+        12;
+
+
+    return (
+        hour +
+        ":" +
+        minute +
+        " " +
+        ampm
+    );
+
+}
+
+
+/* =====================================================
+   DISPLAY DATE & TIME
+===================================================== */
+
+document.getElementById(
+    "dateTime"
+).textContent =
+    formatDate(
+        bookingData.date
+    )
+    +
+    " • "
+    +
+    formatTime(
+        bookingData.time
+    );
+
+
+/* =====================================================
+   DISPLAY ADDRESS
+===================================================== */
+
+const fullAddress =
+
+    bookingData.address
+    +
+    ", "
+    +
+    bookingData.area
+    +
+    ", "
+    +
+    bookingData.city
+    +
+    " - "
+    +
+    bookingData.pincode;
+
+
+document.getElementById(
+    "address"
+).textContent =
+    fullAddress;
+
+
+/* =====================================================
+   PAYMENT AMOUNT
+===================================================== */
+
+/*
+   Abhi temporary fixed pricing hai.
+
+   Backend mein later category ke hisab se
+   pricing set karenge.
+*/
+
+const serviceFee = 99;
+
+const platformFee = 10;
+
+const totalAmount =
+    serviceFee +
+    platformFee;
+
+
+/* =====================================================
+   DISPLAY AMOUNT
+===================================================== */
+
+document.getElementById(
+    "serviceFee"
+).textContent =
+    "₹" + serviceFee;
+
+
+document.getElementById(
+    "platformFee"
+).textContent =
+    "₹" + platformFee;
+
+
+document.getElementById(
+    "totalAmount"
+).textContent =
+    "₹" + totalAmount;
+
+
+/* =====================================================
+   SAVE PAYMENT DATA
+===================================================== */
+
+bookingData.serviceFee =
+    serviceFee;
+
+bookingData.platformFee =
+    platformFee;
+
+bookingData.totalAmount =
+    totalAmount;
+
+
+sessionStorage.setItem(
+    "workmitraBooking",
+    JSON.stringify(
+        bookingData
+    )
+);
+
+
+/* =====================================================
+   PROCEED TO PAYMENT
+===================================================== */
+
+function proceedToPayment(){
+
+    window.location.href =
+        "/customer/payment";
+
+}
+
+</script>
+
+
+</body>
+
+</html>
+```
