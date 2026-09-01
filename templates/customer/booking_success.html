@@ -1,1075 +1,429 @@
 ```html
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>Booking Confirmed | WorkMitra</title>
-
-<style>
-
-/* =====================================================
-   RESET
-===================================================== */
-
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-    -webkit-tap-highlight-color:transparent;
-}
-
-body{
-    font-family:Poppins, Inter, Arial, sans-serif;
-    background:#faf9fc;
-    color:#24152f;
-    min-height:100vh;
-}
-
-
-/* =====================================================
-   MAIN
-===================================================== */
-
-.success-page{
-    width:100%;
-    max-width:760px;
-    min-height:100vh;
-    margin:auto;
-    padding:35px 16px 30px;
-
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-}
-
-
-/* =====================================================
-   SUCCESS ICON
-===================================================== */
-
-.success-icon-wrapper{
-    width:92px;
-    height:92px;
-    border-radius:30px;
-
-    display:flex;
-    align-items:center;
-    justify-content:center;
-
-    background:#f1e9ff;
-
-    margin-bottom:20px;
-
-    box-shadow:
-        0 12px 30px rgba(124,58,237,.12);
-}
-
-.success-icon{
-    width:60px;
-    height:60px;
-    border-radius:20px;
-
-    display:flex;
-    align-items:center;
-    justify-content:center;
-
-    background:#7c3aed;
-    color:#ffffff;
-
-    font-size:30px;
-
-    box-shadow:
-        0 8px 20px rgba(124,58,237,.22);
-
-    animation:
-        successPop .45s ease;
-}
-
-@keyframes successPop{
-
-    0%{
-        transform:scale(.5);
-        opacity:0;
-    }
-
-    70%{
-        transform:scale(1.08);
-    }
-
-    100%{
-        transform:scale(1);
-        opacity:1;
-    }
-
-}
-
-
-/* =====================================================
-   TITLE
-===================================================== */
-
-.success-title{
-    font-size:23px;
-    font-weight:850;
-    color:#291536;
-    text-align:center;
-    letter-spacing:-.6px;
-}
-
-.success-subtitle{
-    max-width:330px;
-    margin-top:7px;
-
-    font-size:10.5px;
-    line-height:1.6;
-
-    color:#9b8da5;
-    text-align:center;
-}
-
-
-/* =====================================================
-   STATUS
-===================================================== */
-
-.status-box{
-    width:100%;
-    margin-top:25px;
-
-    display:flex;
-    align-items:center;
-    gap:12px;
-
-    padding:14px;
-
-    background:#ffffff;
-
-    border:1px solid #eee8f3;
-    border-radius:18px;
-
-    box-shadow:
-        0 7px 22px rgba(67,35,85,.05);
-}
-
-.status-icon{
-    width:40px;
-    height:40px;
-
-    min-width:40px;
-
-    display:flex;
-    align-items:center;
-    justify-content:center;
-
-    border-radius:13px;
-
-    background:#f1e9ff;
-
-    font-size:19px;
-}
-
-.status-content{
-    flex:1;
-}
-
-.status-label{
-    font-size:8.5px;
-    font-weight:700;
-    color:#9b8da5;
-}
-
-.status-text{
-    margin-top:3px;
-
-    font-size:11px;
-    font-weight:750;
-
-    color:#6d28d9;
-}
-
-
-/* =====================================================
-   BOOKING CARD
-===================================================== */
-
-.booking-card{
-    width:100%;
-    margin-top:14px;
-
-    background:#ffffff;
-
-    border:1px solid #eee8f3;
-    border-radius:20px;
-
-    padding:17px;
-
-    box-shadow:
-        0 7px 22px rgba(67,35,85,.05);
-}
-
-
-/* =====================================================
-   BOOKING ID
-===================================================== */
-
-.booking-id-row{
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-
-    padding-bottom:14px;
-
-    border-bottom:1px solid #f0ebf4;
-}
-
-.booking-id-label{
-    font-size:9px;
-    color:#9b8da5;
-    font-weight:650;
-}
-
-.booking-id{
-    font-size:10px;
-    color:#5b2fa3;
-    font-weight:800;
-    background:#f4edff;
-    padding:6px 9px;
-    border-radius:9px;
-}
-
-
-/* =====================================================
-   SERVICE
-===================================================== */
-
-.service-row{
-    display:flex;
-    align-items:center;
-    gap:12px;
-
-    padding:15px 0;
-
-    border-bottom:1px solid #f0ebf4;
-}
-
-.service-icon{
-    width:44px;
-    height:44px;
-
-    min-width:44px;
-
-    display:flex;
-    align-items:center;
-    justify-content:center;
-
-    border-radius:13px;
-
-    background:#f1e9ff;
-
-    font-size:21px;
-}
-
-.service-content{
-    flex:1;
-}
-
-.service-label{
-    font-size:8.5px;
-    color:#9b8da5;
-    font-weight:650;
-}
-
-.service-name{
-    margin-top:3px;
-
-    font-size:13px;
-    color:#382246;
-    font-weight:800;
-}
-
-
-/* =====================================================
-   DETAIL ROWS
-===================================================== */
-
-.detail-row{
-    display:flex;
-    align-items:flex-start;
-    gap:11px;
-
-    padding-top:15px;
-}
-
-.detail-icon{
-    width:34px;
-    height:34px;
-
-    min-width:34px;
-
-    display:flex;
-    align-items:center;
-    justify-content:center;
-
-    border-radius:11px;
-
-    background:#faf6ff;
-
-    font-size:15px;
-}
-
-.detail-content{
-    flex:1;
-}
-
-.detail-label{
-    font-size:8.5px;
-    color:#9b8da5;
-    font-weight:650;
-}
-
-.detail-value{
-    margin-top:3px;
-
-    font-size:10.5px;
-    line-height:1.5;
-
-    color:#382246;
-    font-weight:650;
-}
-
-
-/* =====================================================
-   PAYMENT
-===================================================== */
-
-.payment-row{
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-
-    margin-top:16px;
-    padding-top:15px;
-
-    border-top:1px solid #f0ebf4;
-}
-
-.payment-label{
-    font-size:9px;
-    color:#9b8da5;
-    font-weight:650;
-}
-
-.payment-status{
-    display:flex;
-    align-items:center;
-    gap:5px;
-
-    font-size:10px;
-    color:#16a34a;
-    font-weight:750;
-}
-
-.payment-dot{
-    width:7px;
-    height:7px;
-
-    border-radius:50%;
-
-    background:#22c55e;
-}
-
-
-/* =====================================================
-   ASSIGNMENT INFO
-===================================================== */
-
-.assignment-box{
-    width:100%;
-
-    display:flex;
-    gap:11px;
-
-    margin-top:14px;
-    padding:14px;
-
-    background:#f4edff;
-
-    border:1px solid #eadcfb;
-
-    border-radius:17px;
-}
-
-.assignment-icon{
-    font-size:18px;
-}
-
-.assignment-text{
-    font-size:9.5px;
-    line-height:1.6;
-    color:#6d527d;
-}
-
-.assignment-text strong{
-    color:#5b2fa3;
-}
-
-
-/* =====================================================
-   BUTTONS
-===================================================== */
-
-.buttons{
-    width:100%;
-    margin-top:22px;
-
-    display:flex;
-    flex-direction:column;
-    gap:10px;
-}
-
-.primary-btn,
-.secondary-btn{
-
-    width:100%;
-    height:54px;
-
-    border-radius:16px;
-
-    display:flex;
-    align-items:center;
-    justify-content:center;
-
-    text-decoration:none;
-
-    font-family:inherit;
-    font-size:12px;
-    font-weight:750;
-
-    transition:.2s;
-}
-
-.primary-btn{
-    background:#7c3aed;
-    color:#ffffff;
-
-    box-shadow:
-        0 10px 25px rgba(124,58,237,.20);
-}
-
-.primary-btn:hover{
-    background:#6d28d9;
-}
-
-.secondary-btn{
-    background:#ffffff;
-    color:#6d28d9;
-
-    border:1px solid #e5d8f5;
-}
-
-.primary-btn:active,
-.secondary-btn:active{
-    transform:scale(.98);
-}
-
-
-/* =====================================================
-   FOOTER
-===================================================== */
-
-.footer-note{
-    margin-top:22px;
-
-    text-align:center;
-
-    font-size:8.5px;
-    line-height:1.5;
-
-    color:#aaa0b2;
-}
-
-
-/* =====================================================
-   DESKTOP
-===================================================== */
-
-@media(min-width:600px){
-
-    .success-page{
-        padding-left:25px;
-        padding-right:25px;
-    }
-
-}
-
-</style>
-
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Booking Successful | WorkMitra</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            background: #f5f7fb;
+            color: #111827;
+        }
+
+        .page {
+            width: 100%;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 24px 18px 40px;
+        }
+
+        .success-card {
+            background: #ffffff;
+            border-radius: 22px;
+            padding: 30px 20px;
+            text-align: center;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.07);
+            margin-bottom: 18px;
+        }
+
+        .success-icon {
+            width: 76px;
+            height: 76px;
+            margin: 0 auto 18px;
+            border-radius: 50%;
+            background: #dcfce7;
+            color: #15803d;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 40px;
+            font-weight: bold;
+        }
+
+        .success-card h1 {
+            font-size: 25px;
+            margin-bottom: 10px;
+        }
+
+        .success-card p {
+            color: #6b7280;
+            line-height: 1.5;
+            font-size: 14px;
+        }
+
+        .booking-id {
+            margin-top: 20px;
+            background: #f3f4f6;
+            border-radius: 14px;
+            padding: 14px;
+        }
+
+        .booking-id span {
+            display: block;
+            color: #6b7280;
+            font-size: 12px;
+            margin-bottom: 5px;
+        }
+
+        .booking-id strong {
+            font-size: 20px;
+            letter-spacing: 1px;
+        }
+
+        .card {
+            background: #ffffff;
+            border-radius: 18px;
+            padding: 20px;
+            margin-bottom: 18px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+        }
+
+        .card h2 {
+            font-size: 18px;
+            margin-bottom: 15px;
+        }
+
+        .row {
+            display: flex;
+            justify-content: space-between;
+            gap: 15px;
+            padding: 11px 0;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .row:last-child {
+            border-bottom: none;
+        }
+
+        .label {
+            color: #6b7280;
+            font-size: 14px;
+        }
+
+        .value {
+            text-align: right;
+            font-size: 14px;
+            font-weight: 600;
+            max-width: 62%;
+            word-break: break-word;
+        }
+
+        .paid {
+            color: #15803d;
+        }
+
+        .actions {
+            display: grid;
+            gap: 12px;
+        }
+
+        .btn {
+            display: block;
+            width: 100%;
+            padding: 15px;
+            border-radius: 14px;
+            text-align: center;
+            text-decoration: none;
+            font-size: 15px;
+            font-weight: 700;
+            cursor: pointer;
+            border: none;
+        }
+
+        .primary {
+            background: #111827;
+            color: #ffffff;
+        }
+
+        .secondary {
+            background: #ffffff;
+            color: #111827;
+            border: 1px solid #d1d5db;
+        }
+
+        .error {
+            background: #ffffff;
+            border-radius: 18px;
+            padding: 25px 20px;
+            text-align: center;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+        }
+
+        .error h2 {
+            margin-bottom: 8px;
+        }
+
+        .error p {
+            color: #6b7280;
+            margin-bottom: 18px;
+        }
+
+        @media (max-width: 480px) {
+
+            .page {
+                padding: 18px 14px 30px;
+            }
+
+            .success-card {
+                padding: 25px 16px;
+            }
+
+            .card {
+                padding: 17px;
+            }
+        }
+    </style>
 </head>
-
 
 <body>
 
+<div class="page">
 
-<main class="success-page">
+    {% if booking %}
 
+        <!-- SUCCESS -->
+        <section class="success-card">
 
-    <!-- =================================================
-         SUCCESS
-    ================================================= -->
-
-    <div class="success-icon-wrapper">
-
-        <div class="success-icon">
-            ✓
-        </div>
-
-    </div>
-
-
-    <h1 class="success-title">
-        Booking Confirmed!
-    </h1>
-
-
-    <p class="success-subtitle">
-        Your payment was successful and your service
-        request has been received.
-    </p>
-
-
-
-    <!-- =================================================
-         ASSIGNMENT STATUS
-    ================================================= -->
-
-    <div class="status-box">
-
-        <div class="status-icon">
-            🔎
-        </div>
-
-        <div class="status-content">
-
-            <div class="status-label">
-                Service Assignment
+            <div class="success-icon">
+                ✓
             </div>
 
-            <div class="status-text">
-                Finding a nearby professional...
+            <h1>Booking Confirmed!</h1>
+
+            <p>
+                Your service booking has been successfully created.
+                Your booking details are shown below.
+            </p>
+
+            <div class="booking-id">
+
+                <span>Booking ID</span>
+
+                <strong>
+                    {{ booking["booking_id"] }}
+                </strong>
+
             </div>
 
-        </div>
-
-    </div>
+        </section>
 
 
+        <!-- BOOKING DETAILS -->
+        <section class="card">
 
-    <!-- =================================================
-         BOOKING CARD
-    ================================================= -->
+            <h2>Booking Details</h2>
 
-    <section class="booking-card">
+            <div class="row">
 
-
-        <!-- BOOKING ID -->
-
-        <div class="booking-id-row">
-
-            <div class="booking-id-label">
-                Booking ID
-            </div>
-
-            <div
-                class="booking-id"
-                id="bookingId"
-            >
-                WM-000000
-            </div>
-
-        </div>
-
-
-
-        <!-- SERVICE -->
-
-        <div class="service-row">
-
-            <div
-                class="service-icon"
-                id="serviceIcon"
-            >
-                🔧
-            </div>
-
-            <div class="service-content">
-
-                <div class="service-label">
+                <span class="label">
                     Service
-                </div>
+                </span>
 
-                <div
-                    class="service-name"
-                    id="serviceName"
-                >
-                    Service
-                </div>
+                <span class="value">
+                    {{ booking["category"] or "Service" }}
+                </span>
 
             </div>
 
-        </div>
 
+            <div class="row">
 
+                <span class="label">
+                    Date
+                </span>
 
-        <!-- DATE & TIME -->
-
-        <div class="detail-row">
-
-            <div class="detail-icon">
-                📅
-            </div>
-
-            <div class="detail-content">
-
-                <div class="detail-label">
-                    Date & Time
-                </div>
-
-                <div
-                    class="detail-value"
-                    id="dateTime"
-                >
-                    —
-                </div>
+                <span class="value">
+                    {{ booking["preferred_date"] or "-" }}
+                </span>
 
             </div>
 
-        </div>
 
+            <div class="row">
 
+                <span class="label">
+                    Time
+                </span>
 
-        <!-- LOCATION -->
-
-        <div class="detail-row">
-
-            <div class="detail-icon">
-                📍
-            </div>
-
-            <div class="detail-content">
-
-                <div class="detail-label">
-                    Service Location
-                </div>
-
-                <div
-                    class="detail-value"
-                    id="address"
-                >
-                    —
-                </div>
+                <span class="value">
+                    {{ booking["preferred_time"] or "-" }}
+                </span>
 
             </div>
 
-        </div>
 
+            <div class="row">
+
+                <span class="label">
+                    Address
+                </span>
+
+                <span class="value">
+                    {{ booking["address"] or "-" }}
+                </span>
+
+            </div>
+
+
+            {% if booking["city"] %}
+
+            <div class="row">
+
+                <span class="label">
+                    City
+                </span>
+
+                <span class="value">
+                    {{ booking["city"] }}
+                </span>
+
+            </div>
+
+            {% endif %}
+
+        </section>
 
 
         <!-- PAYMENT -->
+        <section class="card">
 
-        <div class="payment-row">
+            <h2>Payment</h2>
 
-            <div class="payment-label">
-                Payment
+            <div class="row">
+
+                <span class="label">
+                    Service Charge
+                </span>
+
+                <span class="value">
+                    ₹{{ "%.0f"|format(booking["service_charge"] or 0) }}
+                </span>
+
             </div>
 
-            <div class="payment-status">
 
-                <span class="payment-dot"></span>
+            <div class="row">
 
-                Paid
+                <span class="label">
+                    Platform Fee
+                </span>
+
+                <span class="value">
+                    ₹{{ "%.0f"|format(booking["platform_fee"] or 0) }}
+                </span>
 
             </div>
 
+
+            <div class="row">
+
+                <span class="label">
+                    Total Amount
+                </span>
+
+                <span class="value">
+                    ₹{{ "%.0f"|format(booking["total_amount"] or 0) }}
+                </span>
+
+            </div>
+
+
+            <div class="row">
+
+                <span class="label">
+                    Payment Method
+                </span>
+
+                <span class="value">
+                    {{ booking["payment_method"] or "-" }}
+                </span>
+
+            </div>
+
+
+            <div class="row">
+
+                <span class="label">
+                    Payment Status
+                </span>
+
+                <span class="value paid">
+                    {{ (booking["payment_status"] or "paid")|title }}
+                </span>
+
+            </div>
+
+        </section>
+
+
+        <!-- ACTIONS -->
+        <div class="actions">
+
+            <a
+                class="btn primary"
+                href="{{ url_for(
+                    'customer.booking_details_query',
+                    id=booking['booking_id']
+                ) }}"
+            >
+                View Booking Details
+            </a>
+
+
+            <a
+                class="btn secondary"
+                href="{{ url_for('customer.bookings') }}"
+            >
+                Go to My Bookings
+            </a>
+
+
+            <a
+                class="btn secondary"
+                href="{{ url_for('customer.home') }}"
+            >
+                Back to Home
+            </a>
+
         </div>
 
 
-    </section>
+    {% else %}
 
+        <!-- BOOKING NOT FOUND -->
+        <section class="error">
 
+            <h2>Booking Not Found</h2>
 
-    <!-- =================================================
-         ASSIGNMENT MESSAGE
-    ================================================= -->
+            <p>
+                We could not find this booking.
+                Please open your bookings to check your recent bookings.
+            </p>
 
-    <div class="assignment-box">
+            <a
+                class="btn primary"
+                href="{{ url_for('customer.bookings') }}"
+            >
+                Go to My Bookings
+            </a>
 
-        <div class="assignment-icon">
-            🛡️
-        </div>
+        </section>
 
-        <div class="assignment-text">
+    {% endif %}
 
-            <strong>
-                No worker selection required.
-            </strong>
-
-            WorkMitra will automatically assign an
-            available nearby professional according to
-            your selected service and location.
-
-        </div>
-
-    </div>
-
-
-
-    <!-- =================================================
-         BUTTONS
-    ================================================= -->
-
-    <div class="buttons">
-
-
-        <a
-            href="/customer/bookings"
-            class="primary-btn"
-        >
-            View My Bookings
-        </a>
-
-
-        <a
-            href="/customer/home"
-            class="secondary-btn"
-        >
-            Back to Home
-        </a>
-
-
-    </div>
-
-
-
-    <div class="footer-note">
-        WorkMitra • Reliable services at your doorstep
-    </div>
-
-
-</main>
-
-
-
-<script>
-
-/* =====================================================
-   SERVICE ICONS
-===================================================== */
-
-const serviceIcons = {
-
-    "Electrician":"⚡",
-    "Plumber":"🔧",
-    "Carpenter":"🪚",
-    "Painter":"🎨",
-    "AC Repair":"❄️",
-    "RO Repair":"💧",
-    "Cleaning":"🧹",
-    "Appliance Repair":"🔌",
-    "Washing Machine":"🫧",
-    "Refrigerator":"🧊",
-    "TV Repair":"📺",
-    "Roof Repair":"🏠",
-    "Mechanic":"🔩",
-    "Gardener":"🌱",
-    "Pest Control":"🐜",
-    "Packers":"📦",
-    "AC Installation":"🛠️",
-    "Other":"✨"
-
-};
-
-
-/* =====================================================
-   GET BOOKING
-===================================================== */
-
-const bookingData =
-    JSON.parse(
-        sessionStorage.getItem(
-            "workmitraBooking"
-        )
-    );
-
-
-/* =====================================================
-   CHECK
-===================================================== */
-
-if(!bookingData){
-
-    window.location.href =
-        "/customer/home";
-
-}
-
-
-/* =====================================================
-   BOOKING ID
-===================================================== */
-
-let bookingId =
-    bookingData.bookingId;
-
-
-/*
-   Demo ID only.
-
-   Backend connect hone ke baad
-   actual database booking ID yahan
-   backend se aayegi.
-*/
-
-if(!bookingId){
-
-    bookingId =
-        "WM-" +
-        Date.now()
-            .toString()
-            .slice(-6);
-
-}
-
-
-document.getElementById(
-    "bookingId"
-).textContent =
-    bookingId;
-
-
-/* =====================================================
-   SERVICE
-===================================================== */
-
-document.getElementById(
-    "serviceName"
-).textContent =
-    bookingData.category;
-
-
-document.getElementById(
-    "serviceIcon"
-).textContent =
-    serviceIcons[
-        bookingData.category
-    ] || "✨";
-
-
-/* =====================================================
-   DATE
-===================================================== */
-
-function formatDate(dateString){
-
-    if(!dateString){
-        return "—";
-    }
-
-    const date =
-        new Date(
-            dateString +
-            "T00:00:00"
-        );
-
-    return date.toLocaleDateString(
-        "en-IN",
-        {
-            day:"numeric",
-            month:"short",
-            year:"numeric"
-        }
-    );
-
-}
-
-
-/* =====================================================
-   TIME
-===================================================== */
-
-function formatTime(timeString){
-
-    if(!timeString){
-        return "—";
-    }
-
-    const parts =
-        timeString.split(":");
-
-
-    let hour =
-        parseInt(
-            parts[0]
-        );
-
-
-    const minute =
-        parts[1];
-
-
-    const ampm =
-        hour >= 12
-        ? "PM"
-        : "AM";
-
-
-    hour =
-        hour % 12 ||
-        12;
-
-
-    return (
-        hour +
-        ":" +
-        minute +
-        " " +
-        ampm
-    );
-
-}
-
-
-/* =====================================================
-   DATE TIME
-===================================================== */
-
-document.getElementById(
-    "dateTime"
-).textContent =
-
-    formatDate(
-        bookingData.date
-    )
-    +
-    " • "
-    +
-    formatTime(
-        bookingData.time
-    );
-
-
-/* =====================================================
-   ADDRESS
-===================================================== */
-
-let fullAddress = "—";
-
-
-if(bookingData.address){
-
-    fullAddress =
-        bookingData.address;
-
-
-    if(bookingData.area){
-
-        fullAddress +=
-            ", " +
-            bookingData.area;
-
-    }
-
-
-    if(bookingData.city){
-
-        fullAddress +=
-            ", " +
-            bookingData.city;
-
-    }
-
-
-    if(bookingData.pincode){
-
-        fullAddress +=
-            " - " +
-            bookingData.pincode;
-
-    }
-
-}
-
-
-document.getElementById(
-    "address"
-).textContent =
-    fullAddress;
-
-
-/* =====================================================
-   SAVE BOOKING ID
-===================================================== */
-
-bookingData.bookingId =
-    bookingId;
-
-
-bookingData.paymentStatus =
-    "paid";
-
-
-bookingData.assignmentStatus =
-    "pending";
-
-
-sessionStorage.setItem(
-    "workmitraBooking",
-    JSON.stringify(
-        bookingData
-    )
-);
-
-
-/* =====================================================
-   ASSIGNMENT STATUS DEMO
-===================================================== */
-
-/*
-   Real backend mein ye status database se
-   aayega.
-
-   Customer ko worker ka mobile number,
-   personal contact details ya direct worker
-   selection yahan nahi diya jayega.
-*/
-
-
-setTimeout(
-    function(){
-
-        const statusText =
-            document.querySelector(
-                ".status-text"
-            );
-
-        if(statusText){
-
-            statusText.textContent =
-                "Finding the best nearby professional...";
-
-        }
-
-    },
-    1800
-);
-
-</script>
-
+</div>
 
 </body>
-
 </html>
 ```
