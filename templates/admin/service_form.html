@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0">
+
+<title>{{ page_title }} | Workmitra Admin</title>
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial,sans-serif;
+}
+
+body{
+    background:#f1f5f9;
+    color:#0f172a;
+}
+
+.header{
+    background:linear-gradient(135deg,#2563eb,#0f172a);
+
+    color:white;
+
+    padding:25px 30px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-between;
+}
+
+.header h1{
+    font-size:25px;
+}
+
+.header p{
+    margin-top:6px;
+
+    font-size:14px;
+
+    opacity:.8;
+}
+
+.back{
+    color:white;
+
+    text-decoration:none;
+
+    background:rgba(255,255,255,.15);
+
+    padding:11px 18px;
+
+    border-radius:10px;
+}
+
+.container{
+    max-width:850px;
+
+    margin:30px auto;
+
+    padding:0 20px;
+}
+
+.card{
+    background:white;
+
+    border-radius:20px;
+
+    padding:30px;
+
+    box-shadow:
+        0 7px 25px rgba(15,23,42,.07);
+}
+
+.card h2{
+    margin-bottom:25px;
+
+    font-size:21px;
+}
+
+.form-group{
+    margin-bottom:20px;
+}
+
+label{
+    display:block;
+
+    margin-bottom:8px;
+
+    font-weight:600;
+
+    font-size:14px;
+}
+
+input,
+textarea,
+select{
+
+    width:100%;
+
+    padding:13px 15px;
+
+    border:1px solid #e2e8f0;
+
+    border-radius:10px;
+
+    outline:none;
+
+    font-size:14px;
+
+}
+
+textarea{
+    min-height:130px;
+
+    resize:vertical;
+}
+
+input:focus,
+textarea:focus,
+select:focus{
+
+    border-color:#2563eb;
+
+}
+
+.icon-preview{
+
+    margin-top:10px;
+
+    font-size:30px;
+
+    min-height:35px;
+}
+
+.actions{
+
+    display:flex;
+
+    gap:10px;
+
+    margin-top:25px;
+}
+
+button,
+.cancel{
+
+    padding:12px 20px;
+
+    border-radius:10px;
+
+    font-size:14px;
+
+    font-weight:bold;
+
+    cursor:pointer;
+
+}
+
+button{
+
+    border:none;
+
+    background:#2563eb;
+
+    color:white;
+}
+
+.cancel{
+
+    background:#f1f5f9;
+
+    color:#334155;
+
+    text-decoration:none;
+
+}
+
+@media(max-width:600px){
+
+    .header{
+
+        padding:20px;
+
+    }
+
+    .container{
+
+        padding:0 12px;
+
+        margin:20px auto;
+
+    }
+
+    .card{
+
+        padding:20px;
+
+    }
+
+    .actions{
+
+        flex-direction:column;
+
+    }
+
+    button,
+    .cancel{
+
+        text-align:center;
+
+        width:100%;
+
+    }
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<div class="header">
+
+<div>
+
+<h1>
+🛠️ {{ page_title }}
+</h1>
+
+<p>
+Workmitra Service Management
+</p>
+
+</div>
+
+
+<a
+    href="/admin/services"
+    class="back"
+>
+    ← Services
+</a>
+
+</div>
+
+
+<div class="container">
+
+
+<div class="card">
+
+
+<h2>
+{{ page_title }}
+</h2>
+
+
+<form method="POST">
+
+
+<div class="form-group">
+
+<label>
+Service Name *
+</label>
+
+<input
+    type="text"
+    name="name"
+    required
+    maxlength="100"
+    value="{{ service['name'] if service else '' }}"
+    placeholder="Example: Electrician"
+>
+
+</div>
+
+
+<div class="form-group">
+
+<label>
+Service Icon
+</label>
+
+<input
+    type="text"
+    name="icon"
+    maxlength="20"
+    value="{{ service['icon'] if service else '' }}"
+    placeholder="Example: ⚡"
+    oninput="previewIcon(this.value)"
+>
+
+<div
+    class="icon-preview"
+    id="iconPreview"
+>
+{% if service and service["icon"] %}
+{{ service["icon"] }}
+{% else %}
+🛠️
+{% endif %}
+</div>
+
+</div>
+
+
+<div class="form-group">
+
+<label>
+Description
+</label>
+
+<textarea
+    name="description"
+    maxlength="500"
+    placeholder="Enter service description..."
+>{{ service["description"] if service else '' }}</textarea>
+
+</div>
+
+
+{% if service %}
+
+<div class="form-group">
+
+<label>
+Status
+</label>
+
+<select name="active">
+
+<option
+    value="1"
+    {% if service["active"] == 1 %}
+    selected
+    {% endif %}
+>
+Active
+</option>
+
+<option
+    value="0"
+    {% if service["active"] == 0 %}
+    selected
+    {% endif %}
+>
+Inactive
+</option>
+
+</select>
+
+</div>
+
+{% endif %}
+
+
+<div class="actions">
+
+<button type="submit">
+
+{% if service %}
+    Save Changes
+{% else %}
+    Add Service
+{% endif %}
+
+</button>
+
+
+<a
+    href="/admin/services"
+    class="cancel"
+>
+    Cancel
+</a>
+
+</div>
+
+
+</form>
+
+
+</div>
+
+</div>
+
+
+<script>
+
+function previewIcon(value){
+
+    const preview =
+        document.getElementById(
+            "iconPreview"
+        );
+
+    preview.textContent =
+        value.trim() || "🛠️";
+
+}
+
+</script>
+
+
+</body>
+
+</html>
