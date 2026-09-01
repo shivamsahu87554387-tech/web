@@ -11,7 +11,7 @@ from routes.auth import auth_bp
 from routes.worker import worker_bp
 from routes.partner import partner_bp
 from routes.admin import admin_bp
-from routes.customer import customer
+from routes.customer import customer_bp
 
 # ==========================
 # Flask App
@@ -38,7 +38,7 @@ app.register_blueprint(auth_bp)
 app.register_blueprint(worker_bp)
 app.register_blueprint(partner_bp)
 app.register_blueprint(admin_bp)
-app.register_blueprint(customer)
+app.register_blueprint(customer_bp)
 
 # ==========================
 # Run Server
