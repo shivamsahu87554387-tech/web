@@ -1,597 +1,290 @@
 ```html
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>My Bookings | WorkMitra</title>
-
-<style>
-
-/* =====================================================
-   RESET
-===================================================== */
-
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-    -webkit-tap-highlight-color:transparent;
-}
-
-body{
-    font-family:Poppins, Inter, Arial, sans-serif;
-    background:#faf9fc;
-    color:#24152f;
-    min-height:100vh;
-    padding-bottom:95px;
-}
-
-
-/* =====================================================
-   MAIN
-===================================================== */
-
-.bookings-page{
-    width:100%;
-    max-width:760px;
-    margin:auto;
-    padding:20px 16px 30px;
-}
-
-
-/* =====================================================
-   HEADER
-===================================================== */
-
-.header{
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    margin-bottom:22px;
-}
-
-.header-left{
-    display:flex;
-    flex-direction:column;
-    gap:3px;
-}
-
-.header-small{
-    font-size:9px;
-    font-weight:650;
-    color:#9b8da5;
-}
-
-.header-title{
-    font-size:22px;
-    font-weight:850;
-    color:#291536;
-    letter-spacing:-.5px;
-}
-
-.header-title span{
-    color:#7c3aed;
-}
-
-
-/* =====================================================
-   FILTER
-===================================================== */
-
-.filter-row{
-    display:flex;
-    gap:8px;
-    overflow-x:auto;
-    padding-bottom:4px;
-    margin-bottom:18px;
-
-    scrollbar-width:none;
-}
-
-.filter-row::-webkit-scrollbar{
-    display:none;
-}
-
-.filter-btn{
-    flex:0 0 auto;
-    height:35px;
-    padding:0 14px;
-
-    border:none;
-    border-radius:11px;
-
-    background:#ffffff;
-    border:1px solid #eee8f3;
-
-    color:#8f8199;
-
-    font-family:inherit;
-    font-size:9px;
-    font-weight:700;
-
-    cursor:pointer;
-    transition:.2s;
-}
-
-.filter-btn.active{
-    background:#f1e9ff;
-    border-color:#dfcef7;
-    color:#6d28d9;
-}
-
-.filter-btn:active{
-    transform:scale(.95);
-}
-
-
-/* =====================================================
-   BOOKING CARD
-===================================================== */
-
-.booking-card{
-    display:block;
-    text-decoration:none;
-    background:#ffffff;
-
-    border:1px solid #eee8f3;
-    border-radius:19px;
-
-    padding:15px;
-    margin-bottom:12px;
-
-    box-shadow:
-        0 7px 22px rgba(67,35,85,.05);
-
-    transition:.2s;
-}
-
-.booking-card:hover{
-    border-color:#d9c5f5;
-    box-shadow:
-        0 10px 27px rgba(67,35,85,.08);
-}
-
-.booking-card:active{
-    transform:scale(.985);
-}
-
-.booking-card.hidden{
-    display:none;
-}
-
-
-/* =====================================================
-   CARD TOP
-===================================================== */
-
-.card-top{
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    gap:10px;
-}
-
-.service-wrap{
-    display:flex;
-    align-items:center;
-    gap:11px;
-    min-width:0;
-}
-
-.service-icon{
-    width:46px;
-    height:46px;
-    min-width:46px;
-
-    display:flex;
-    align-items:center;
-    justify-content:center;
-
-    border-radius:14px;
-
-    background:#f1e9ff;
-
-    font-size:21px;
-}
-
-.service-info{
-    min-width:0;
-}
-
-.service-label{
-    font-size:8px;
-    color:#9b8da5;
-    font-weight:650;
-    margin-bottom:3px;
-}
-
-.service-name{
-    font-size:12px;
-    font-weight:800;
-    color:#382246;
-
-    white-space:nowrap;
-    overflow:hidden;
-    text-overflow:ellipsis;
-}
-
-
-/* =====================================================
-   STATUS
-===================================================== */
-
-.status{
-    flex:0 0 auto;
-
-    padding:6px 9px;
-
-    border-radius:9px;
-
-    font-size:8px;
-    font-weight:750;
-}
-
-.status-pending{
-    background:#fff7ed;
-    color:#c2410c;
-}
-
-.status-assigned{
-    background:#f1e9ff;
-    color:#6d28d9;
-}
-
-.status-progress{
-    background:#eff6ff;
-    color:#2563eb;
-}
-
-.status-completed{
-    background:#ecfdf5;
-    color:#15803d;
-}
-
-.status-cancelled{
-    background:#fff1f2;
-    color:#be123c;
-}
-
-
-/* =====================================================
-   DIVIDER
-===================================================== */
-
-.card-divider{
-    height:1px;
-    background:#f1edf3;
-    margin:13px 0;
-}
-
-
-/* =====================================================
-   DETAILS
-===================================================== */
-
-.details{
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:12px;
-}
-
-.detail{
-    display:flex;
-    align-items:flex-start;
-    gap:8px;
-    min-width:0;
-}
-
-.detail-icon{
-    width:28px;
-    height:28px;
-    min-width:28px;
-
-    display:flex;
-    align-items:center;
-    justify-content:center;
-
-    border-radius:9px;
-
-    background:#faf6ff;
-
-    font-size:13px;
-}
-
-.detail-content{
-    min-width:0;
-}
-
-.detail-label{
-    font-size:7.5px;
-    color:#a093a9;
-    font-weight:650;
-    margin-bottom:2px;
-}
-
-.detail-value{
-    font-size:9px;
-    color:#5a4564;
-    font-weight:700;
-
-    white-space:nowrap;
-    overflow:hidden;
-    text-overflow:ellipsis;
-}
-
-
-/* =====================================================
-   CARD BOTTOM
-===================================================== */
-
-.card-bottom{
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-
-    margin-top:13px;
-    padding-top:11px;
-
-    border-top:1px solid #f1edf3;
-}
-
-.booking-id{
-    font-size:8px;
-    color:#a093a9;
-}
-
-.booking-id strong{
-    color:#6d28d9;
-    font-weight:750;
-}
-
-.view-details{
-    display:flex;
-    align-items:center;
-    gap:4px;
-
-    color:#7c3aed;
-
-    font-size:8.5px;
-    font-weight:750;
-}
-
-
-/* =====================================================
-   EMPTY STATE
-===================================================== */
-
-.empty-state{
-    display:none;
-
-    background:#ffffff;
-
-    border:1px solid #eee8f3;
-    border-radius:20px;
-
-    padding:45px 20px;
-
-    text-align:center;
-
-    box-shadow:
-        0 7px 22px rgba(67,35,85,.05);
-}
-
-.empty-icon{
-    width:58px;
-    height:58px;
-
-    margin:0 auto 13px;
-
-    border-radius:18px;
-
-    display:flex;
-    align-items:center;
-    justify-content:center;
-
-    background:#f1e9ff;
-
-    font-size:25px;
-}
-
-.empty-state h3{
-    font-size:14px;
-    font-weight:800;
-    color:#291536;
-}
-
-.empty-state p{
-    margin-top:5px;
-
-    font-size:9.5px;
-    line-height:1.6;
-
-    color:#9b8da5;
-}
-
-.home-btn{
-    display:inline-flex;
-    align-items:center;
-    justify-content:center;
-
-    height:42px;
-
-    margin-top:16px;
-    padding:0 18px;
-
-    border-radius:13px;
-
-    background:#7c3aed;
-    color:#ffffff;
-
-    text-decoration:none;
-
-    font-size:9px;
-    font-weight:750;
-
-    box-shadow:
-        0 8px 20px rgba(124,58,237,.18);
-}
-
-
-/* =====================================================
-   BOTTOM NAVIGATION
-===================================================== */
-
-.bottom-nav{
-    position:fixed;
-    z-index:1000;
-
-    left:50%;
-    bottom:12px;
-
-    transform:translateX(-50%);
-
-    width:calc(100% - 24px);
-    max-width:700px;
-
-    height:68px;
-
-    display:grid;
-    grid-template-columns:repeat(3,1fr);
-
-    align-items:center;
-
-    padding:6px;
-
-    background:rgba(255,255,255,.97);
-
-    backdrop-filter:blur(16px);
-    -webkit-backdrop-filter:blur(16px);
-
-    border:1px solid #e9e1f0;
-    border-radius:22px;
-
-    box-shadow:
-        0 12px 35px rgba(67,35,85,.13);
-}
-
-.nav-item{
-    height:56px;
-
-    display:flex;
-    flex-direction:column;
-
-    align-items:center;
-    justify-content:center;
-
-    gap:4px;
-
-    text-decoration:none;
-
-    color:#a294aa;
-
-    border-radius:17px;
-
-    transition:.2s;
-}
-
-.nav-icon{
-    font-size:19px;
-    line-height:1;
-}
-
-.nav-text{
-    font-size:8.5px;
-    font-weight:650;
-}
-
-.nav-item.active{
-    color:#7c3aed;
-    background:#f2eaff;
-}
-
-.nav-item:active{
-    transform:scale(.93);
-}
-
-
-/* =====================================================
-   DESKTOP
-===================================================== */
-
-@media(min-width:600px){
-
-    .bookings-page{
-        padding-left:25px;
-        padding-right:25px;
-    }
-
-}
-
-
-/* =====================================================
-   SMALL MOBILE
-===================================================== */
-
-@media(max-width:360px){
-
-    .bookings-page{
-        padding-left:12px;
-        padding-right:12px;
-    }
-
-    .details{
-        gap:8px;
-    }
-
-    .status{
-        padding:5px 7px;
-        font-size:7px;
-    }
-
-}
-
-</style>
-
+    <meta charset="UTF-8">
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>My Bookings | WorkMitra</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background: #f5f7fb;
+            color: #111827;
+            min-height: 100vh;
+        }
+
+        .header {
+            background: #ffffff;
+            border-bottom: 1px solid #e5e7eb;
+            padding: 18px 20px;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+
+        .header-inner {
+            width: 100%;
+            max-width: 700px;
+            margin: auto;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .back-btn {
+            width: 40px;
+            height: 40px;
+            border: none;
+            border-radius: 50%;
+            background: #f3f4f6;
+            font-size: 21px;
+            cursor: pointer;
+        }
+
+        .header h1 {
+            font-size: 21px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 700px;
+            margin: auto;
+            padding: 20px;
+        }
+
+        .filters {
+            display: flex;
+            gap: 8px;
+            overflow-x: auto;
+            padding-bottom: 4px;
+            margin-bottom: 18px;
+        }
+
+        .filter-btn {
+            flex-shrink: 0;
+            border: 1px solid #d1d5db;
+            background: #ffffff;
+            color: #374151;
+            padding: 9px 15px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 13px;
+        }
+
+        .filter-btn.active {
+            background: #111827;
+            color: #ffffff;
+            border-color: #111827;
+        }
+
+        .booking-card {
+            background: #ffffff;
+            border-radius: 18px;
+            padding: 18px;
+            margin-bottom: 15px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+        }
+
+        .booking-top {
+            display: flex;
+            justify-content: space-between;
+            gap: 15px;
+            align-items: flex-start;
+            margin-bottom: 14px;
+        }
+
+        .service-name {
+            font-size: 17px;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+
+        .booking-id {
+            color: #6b7280;
+            font-size: 12px;
+        }
+
+        .status {
+            display: inline-flex;
+            align-items: center;
+            padding: 6px 10px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 700;
+            white-space: nowrap;
+        }
+
+        .status-pending {
+            background: #fef3c7;
+            color: #92400e;
+        }
+
+        .status-confirmed {
+            background: #dcfce7;
+            color: #166534;
+        }
+
+        .status-completed {
+            background: #dbeafe;
+            color: #1e40af;
+        }
+
+        .status-cancelled {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+
+        .status-default {
+            background: #f3f4f6;
+            color: #374151;
+        }
+
+        .info {
+            border-top: 1px solid #f0f0f0;
+            border-bottom: 1px solid #f0f0f0;
+            padding: 12px 0;
+            margin-bottom: 14px;
+        }
+
+        .info-row {
+            display: flex;
+            gap: 12px;
+            padding: 5px 0;
+        }
+
+        .info-label {
+            width: 75px;
+            flex-shrink: 0;
+            color: #6b7280;
+            font-size: 13px;
+        }
+
+        .info-value {
+            color: #111827;
+            font-size: 13px;
+            font-weight: 600;
+            word-break: break-word;
+        }
+
+        .booking-bottom {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .amount {
+            font-size: 18px;
+            font-weight: 700;
+        }
+
+        .details-btn {
+            text-decoration: none;
+            background: #111827;
+            color: #ffffff;
+            padding: 10px 15px;
+            border-radius: 10px;
+            font-size: 13px;
+            font-weight: 700;
+        }
+
+        .empty {
+            background: #ffffff;
+            border-radius: 18px;
+            padding: 40px 20px;
+            text-align: center;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+        }
+
+        .empty-icon {
+            font-size: 42px;
+            margin-bottom: 12px;
+        }
+
+        .empty h2 {
+            font-size: 19px;
+            margin-bottom: 8px;
+        }
+
+        .empty p {
+            color: #6b7280;
+            font-size: 14px;
+            line-height: 1.5;
+            margin-bottom: 18px;
+        }
+
+        .home-btn {
+            display: inline-block;
+            text-decoration: none;
+            background: #111827;
+            color: #ffffff;
+            padding: 12px 18px;
+            border-radius: 11px;
+            font-size: 14px;
+            font-weight: 700;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        @media (max-width: 480px) {
+
+            .container {
+                padding: 15px;
+            }
+
+            .booking-card {
+                padding: 16px;
+            }
+
+            .booking-top {
+                flex-direction: column;
+            }
+
+            .status {
+                align-self: flex-start;
+            }
+        }
+    </style>
 </head>
-
 
 <body>
 
+<header class="header">
 
-<main class="bookings-page">
+    <div class="header-inner">
 
+        <button
+            class="back-btn"
+            onclick="history.back()"
+        >
+            ‹
+        </button>
 
-    <!-- =================================================
-         HEADER
-    ================================================= -->
+        <h1>My Bookings</h1>
 
-    <header class="header">
+    </div>
 
-        <div class="header-left">
-
-            <div class="header-small">
-                WorkMitra
-            </div>
-
-            <h1 class="header-title">
-                My <span>Bookings</span>
-            </h1>
-
-        </div>
-
-    </header>
+</header>
 
 
+<main class="container">
 
-    <!-- =================================================
-         FILTERS
-    ================================================= -->
+    <!-- FILTERS -->
 
-    <div class="filter-row">
+    <div class="filters">
 
         <button
             class="filter-btn active"
@@ -611,18 +304,10 @@ body{
 
         <button
             class="filter-btn"
-            data-filter="assigned"
-            onclick="filterBookings('assigned', this)"
+            data-filter="confirmed"
+            onclick="filterBookings('confirmed', this)"
         >
-            Assigned
-        </button>
-
-        <button
-            class="filter-btn"
-            data-filter="progress"
-            onclick="filterBookings('progress', this)"
-        >
-            In Progress
+            Confirmed
         </button>
 
         <button
@@ -633,631 +318,253 @@ body{
             Completed
         </button>
 
+        <button
+            class="filter-btn"
+            data-filter="cancelled"
+            onclick="filterBookings('cancelled', this)"
+        >
+            Cancelled
+        </button>
+
     </div>
 
 
+    <!-- BOOKINGS -->
 
-    <!-- =================================================
-         BOOKINGS
-    ================================================= -->
+    <div id="bookingList">
 
-    <section id="bookingsList">
+        {% if bookings %}
 
+            {% for booking in bookings %}
 
+                {% set status = (booking["booking_status"] or "pending")|lower %}
 
-        <!-- =================================================
-             BOOKING 1
-        ================================================= -->
+                <article
+                    class="booking-card"
+                    data-status="{{ status }}"
+                >
 
-        <a
-            href="/customer/booking-details?id=WM-240921"
-            class="booking-card"
-            data-status="assigned"
-        >
+                    <div class="booking-top">
 
-            <div class="card-top">
+                        <div>
 
+                            <div class="service-name">
+                                {{ booking["category"] or "Service" }}
+                            </div>
 
-                <div class="service-wrap">
+                            <div class="booking-id">
+                                Booking ID:
+                                {{ booking["booking_id"] }}
+                            </div>
 
-                    <div class="service-icon">
-                        ⚡
-                    </div>
-
-                    <div class="service-info">
-
-                        <div class="service-label">
-                            Service
                         </div>
 
-                        <div class="service-name">
-                            Electrician
+
+                        {% if status == "pending" %}
+
+                            <span class="status status-pending">
+                                Pending
+                            </span>
+
+                        {% elif status == "confirmed" %}
+
+                            <span class="status status-confirmed">
+                                Confirmed
+                            </span>
+
+                        {% elif status == "completed" %}
+
+                            <span class="status status-completed">
+                                Completed
+                            </span>
+
+                        {% elif status == "cancelled" %}
+
+                            <span class="status status-cancelled">
+                                Cancelled
+                            </span>
+
+                        {% else %}
+
+                            <span class="status status-default">
+                                {{ status|title }}
+                            </span>
+
+                        {% endif %}
+
+                    </div>
+
+
+                    <div class="info">
+
+                        <div class="info-row">
+
+                            <span class="info-label">
+                                Date
+                            </span>
+
+                            <span class="info-value">
+                                {{ booking["preferred_date"] or "-" }}
+                            </span>
+
+                        </div>
+
+
+                        <div class="info-row">
+
+                            <span class="info-label">
+                                Time
+                            </span>
+
+                            <span class="info-value">
+                                {{ booking["preferred_time"] or "-" }}
+                            </span>
+
+                        </div>
+
+
+                        <div class="info-row">
+
+                            <span class="info-label">
+                                Address
+                            </span>
+
+                            <span class="info-value">
+                                {{ booking["address"] or "-" }}
+                            </span>
+
                         </div>
 
                     </div>
 
+
+                    <div class="booking-bottom">
+
+                        <div class="amount">
+                            ₹{{ "%.0f"|format(
+                                booking["total_amount"] or 0
+                            ) }}
+                        </div>
+
+
+                        <a
+                            class="details-btn"
+                            href="{{ url_for(
+                                'customer.booking_details_query',
+                                id=booking['booking_id']
+                            ) }}"
+                        >
+                            View Details
+                        </a>
+
+                    </div>
+
+                </article>
+
+            {% endfor %}
+
+        {% else %}
+
+            <div class="empty">
+
+                <div class="empty-icon">
+                    📋
                 </div>
 
+                <h2>No Bookings Yet</h2>
 
-                <div class="status status-assigned">
-                    Assigned
-                </div>
+                <p>
+                    You don't have any bookings yet.
+                    Book a service to see it here.
+                </p>
 
+                <a
+                    class="home-btn"
+                    href="{{ url_for('customer.home') }}"
+                >
+                    Book a Service
+                </a>
 
             </div>
 
+        {% endif %}
 
-            <div class="card-divider"></div>
+    </div>
 
 
-            <div class="details">
+    <!-- FILTER EMPTY MESSAGE -->
 
+    <div
+        id="filterEmpty"
+        class="empty hidden"
+    >
 
-                <div class="detail">
-
-                    <div class="detail-icon">
-                        📅
-                    </div>
-
-                    <div class="detail-content">
-
-                        <div class="detail-label">
-                            Date
-                        </div>
-
-                        <div class="detail-value">
-                            24 Sep 2026
-                        </div>
-
-                    </div>
-
-                </div>
-
-
-                <div class="detail">
-
-                    <div class="detail-icon">
-                        🕐
-                    </div>
-
-                    <div class="detail-content">
-
-                        <div class="detail-label">
-                            Time
-                        </div>
-
-                        <div class="detail-value">
-                            10:30 AM
-                        </div>
-
-                    </div>
-
-                </div>
-
-
-                <div class="detail">
-
-                    <div class="detail-icon">
-                        📍
-                    </div>
-
-                    <div class="detail-content">
-
-                        <div class="detail-label">
-                            Location
-                        </div>
-
-                        <div class="detail-value">
-                            Bareilly
-                        </div>
-
-                    </div>
-
-                </div>
-
-
-                <div class="detail">
-
-                    <div class="detail-icon">
-                        💰
-                    </div>
-
-                    <div class="detail-content">
-
-                        <div class="detail-label">
-                            Amount
-                        </div>
-
-                        <div class="detail-value">
-                            ₹109
-                        </div>
-
-                    </div>
-
-                </div>
-
-
-            </div>
-
-
-            <div class="card-bottom">
-
-                <div class="booking-id">
-                    ID:
-                    <strong>
-                        WM-240921
-                    </strong>
-                </div>
-
-                <div class="view-details">
-                    View Details →
-                </div>
-
-            </div>
-
-        </a>
-
-
-
-        <!-- =================================================
-             BOOKING 2
-        ================================================= -->
-
-        <a
-            href="/customer/booking-details?id=WM-240817"
-            class="booking-card"
-            data-status="completed"
-        >
-
-            <div class="card-top">
-
-
-                <div class="service-wrap">
-
-                    <div class="service-icon">
-                        🔧
-                    </div>
-
-                    <div class="service-info">
-
-                        <div class="service-label">
-                            Service
-                        </div>
-
-                        <div class="service-name">
-                            Plumber
-                        </div>
-
-                    </div>
-
-                </div>
-
-
-                <div class="status status-completed">
-                    Completed
-                </div>
-
-
-            </div>
-
-
-            <div class="card-divider"></div>
-
-
-            <div class="details">
-
-
-                <div class="detail">
-
-                    <div class="detail-icon">
-                        📅
-                    </div>
-
-                    <div class="detail-content">
-
-                        <div class="detail-label">
-                            Date
-                        </div>
-
-                        <div class="detail-value">
-                            18 Sep 2026
-                        </div>
-
-                    </div>
-
-                </div>
-
-
-                <div class="detail">
-
-                    <div class="detail-icon">
-                        🕐
-                    </div>
-
-                    <div class="detail-content">
-
-                        <div class="detail-label">
-                            Time
-                        </div>
-
-                        <div class="detail-value">
-                            02:00 PM
-                        </div>
-
-                    </div>
-
-                </div>
-
-
-                <div class="detail">
-
-                    <div class="detail-icon">
-                        📍
-                    </div>
-
-                    <div class="detail-content">
-
-                        <div class="detail-label">
-                            Location
-                        </div>
-
-                        <div class="detail-value">
-                            Bareilly
-                        </div>
-
-                    </div>
-
-                </div>
-
-
-                <div class="detail">
-
-                    <div class="detail-icon">
-                        💰
-                    </div>
-
-                    <div class="detail-content">
-
-                        <div class="detail-label">
-                            Amount
-                        </div>
-
-                        <div class="detail-value">
-                            ₹149
-                        </div>
-
-                    </div>
-
-                </div>
-
-
-            </div>
-
-
-            <div class="card-bottom">
-
-                <div class="booking-id">
-                    ID:
-                    <strong>
-                        WM-240817
-                    </strong>
-                </div>
-
-                <div class="view-details">
-                    View Details →
-                </div>
-
-            </div>
-
-        </a>
-
-
-
-        <!-- =================================================
-             BOOKING 3
-        ================================================= -->
-
-        <a
-            href="/customer/booking-details?id=WM-240712"
-            class="booking-card"
-            data-status="pending"
-        >
-
-            <div class="card-top">
-
-
-                <div class="service-wrap">
-
-                    <div class="service-icon">
-                        ❄️
-                    </div>
-
-                    <div class="service-info">
-
-                        <div class="service-label">
-                            Service
-                        </div>
-
-                        <div class="service-name">
-                            AC Repair
-                        </div>
-
-                    </div>
-
-                </div>
-
-
-                <div class="status status-pending">
-                    Pending
-                </div>
-
-
-            </div>
-
-
-            <div class="card-divider"></div>
-
-
-            <div class="details">
-
-
-                <div class="detail">
-
-                    <div class="detail-icon">
-                        📅
-                    </div>
-
-                    <div class="detail-content">
-
-                        <div class="detail-label">
-                            Date
-                        </div>
-
-                        <div class="detail-value">
-                            12 Sep 2026
-                        </div>
-
-                    </div>
-
-                </div>
-
-
-                <div class="detail">
-
-                    <div class="detail-icon">
-                        🕐
-                    </div>
-
-                    <div class="detail-content">
-
-                        <div class="detail-label">
-                            Time
-                        </div>
-
-                        <div class="detail-value">
-                            11:00 AM
-                        </div>
-
-                    </div>
-
-                </div>
-
-
-                <div class="detail">
-
-                    <div class="detail-icon">
-                        📍
-                    </div>
-
-                    <div class="detail-content">
-
-                        <div class="detail-label">
-                            Location
-                        </div>
-
-                        <div class="detail-value">
-                            Bareilly
-                        </div>
-
-                    </div>
-
-                </div>
-
-
-                <div class="detail">
-
-                    <div class="detail-icon">
-                        💰
-                    </div>
-
-                    <div class="detail-content">
-
-                        <div class="detail-label">
-                            Amount
-                        </div>
-
-                        <div class="detail-value">
-                            ₹199
-                        </div>
-
-                    </div>
-
-                </div>
-
-
-            </div>
-
-
-            <div class="card-bottom">
-
-                <div class="booking-id">
-                    ID:
-                    <strong>
-                        WM-240712
-                    </strong>
-                </div>
-
-                <div class="view-details">
-                    View Details →
-                </div>
-
-            </div>
-
-        </a>
-
-
-
-        <!-- =================================================
-             EMPTY STATE
-        ================================================= -->
-
-        <div
-            class="empty-state"
-            id="emptyState"
-        >
-
-            <div class="empty-icon">
-                📅
-            </div>
-
-            <h3>
-                No bookings found
-            </h3>
-
-            <p>
-                You don't have any bookings in this
-                category yet.
-            </p>
-
-            <a
-                href="/customer/home"
-                class="home-btn"
-            >
-                Book a Service
-            </a>
-
+        <div class="empty-icon">
+            🔍
         </div>
 
+        <h2>No Matching Bookings</h2>
 
-    </section>
+        <p>
+            There are no bookings with this status.
+        </p>
 
+    </div>
 
 </main>
 
 
-
-<!-- =====================================================
-     BOTTOM NAVIGATION
-===================================================== -->
-
-<nav class="bottom-nav">
-
-
-    <a
-        href="/customer/home"
-        class="nav-item"
-    >
-
-        <span class="nav-icon">
-            🏠
-        </span>
-
-        <span class="nav-text">
-            Home
-        </span>
-
-    </a>
-
-
-    <a
-        href="/customer/bookings"
-        class="nav-item active"
-    >
-
-        <span class="nav-icon">
-            📅
-        </span>
-
-        <span class="nav-text">
-            Bookings
-        </span>
-
-    </a>
-
-
-    <a
-        href="/customer/profile"
-        class="nav-item"
-    >
-
-        <span class="nav-icon">
-            👤
-        </span>
-
-        <span class="nav-text">
-            Profile
-        </span>
-
-    </a>
-
-
-</nav>
-
-
-
 <script>
 
-/* =====================================================
-   FILTER BOOKINGS
-===================================================== */
+    function filterBookings(
+        filter,
+        button
+    ) {
 
-function filterBookings(
-    filter,
-    button
-){
+        // ----------------------------------------------
+        // Active button
+        // ----------------------------------------------
 
-    const buttons =
-        document.querySelectorAll(
-            ".filter-btn"
+        document
+            .querySelectorAll(".filter-btn")
+            .forEach(function(btn) {
+
+                btn.classList.remove(
+                    "active"
+                );
+
+            });
+
+        button.classList.add(
+            "active"
         );
 
 
-    buttons.forEach(
-        function(btn){
+        // ----------------------------------------------
+        // Cards
+        // ----------------------------------------------
 
-            btn.classList.remove(
-                "active"
+        const cards =
+            document.querySelectorAll(
+                ".booking-card"
             );
 
-        }
-    );
+        let visible = 0;
 
 
-    button.classList.add(
-        "active"
-    );
-
-
-    const cards =
-        document.querySelectorAll(
-            ".booking-card"
-        );
-
-
-    let visible = 0;
-
-
-    cards.forEach(
-        function(card){
+        cards.forEach(function(card) {
 
             const status =
-                card.dataset.status;
+                (
+                    card.dataset.status ||
+                    ""
+                ).toLowerCase();
 
 
-            if(
+            if (
                 filter === "all" ||
                 status === filter
-            ){
+            ) {
 
                 card.classList.remove(
                     "hidden"
@@ -1265,8 +572,7 @@ function filterBookings(
 
                 visible++;
 
-            }
-            else{
+            } else {
 
                 card.classList.add(
                     "hidden"
@@ -1274,57 +580,40 @@ function filterBookings(
 
             }
 
+        });
+
+
+        // ----------------------------------------------
+        // Filter empty message
+        // ----------------------------------------------
+
+        const filterEmpty =
+            document.getElementById(
+                "filterEmpty"
+            );
+
+
+        if (
+            cards.length > 0 &&
+            visible === 0
+        ) {
+
+            filterEmpty.classList.remove(
+                "hidden"
+            );
+
+        } else {
+
+            filterEmpty.classList.add(
+                "hidden"
+            );
+
         }
-    );
-
-
-    const emptyState =
-        document.getElementById(
-            "emptyState"
-        );
-
-
-    if(visible === 0){
-
-        emptyState.style.display =
-            "block";
 
     }
-    else{
-
-        emptyState.style.display =
-            "none";
-
-    }
-
-}
-
-
-/* =====================================================
-   REAL BACKEND NOTE
-===================================================== */
-
-/*
-   Abhi cards demo data hain.
-
-   Backend connect hone ke baad:
-
-   - Customer ki bookings database se aayengi
-   - Booking ID database se aayegi
-   - Service database se aayegi
-   - Status database se aayega
-   - Date/time database se aayega
-   - Amount database se aayega
-
-   Customer ko worker ka mobile number
-   ya personal contact information
-   yahan nahi dikhaya jayega.
-*/
 
 </script>
 
-
 </body>
-
 </html>
 ```
