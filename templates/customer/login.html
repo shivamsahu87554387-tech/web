@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Customer Login | WorkMitra</title>
+
+    <style>
+
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+            -webkit-tap-highlight-color:transparent;
+        }
+
+        body{
+            font-family:
+                Poppins,
+                Inter,
+                Arial,
+                sans-serif;
+
+            min-height:100vh;
+            background:#faf9fc;
+            color:#291536;
+
+            display:flex;
+            align-items:center;
+            justify-content:center;
+
+            padding:20px;
+        }
+
+        .page{
+            width:100%;
+            max-width:420px;
+        }
+
+        /* ================================
+           BRAND
+        ================================= */
+
+        .brand{
+            text-align:center;
+            margin-bottom:28px;
+        }
+
+        .brand-icon{
+            width:64px;
+            height:64px;
+
+            margin:0 auto 13px;
+
+            display:flex;
+            align-items:center;
+            justify-content:center;
+
+            border-radius:20px;
+
+            background:#f1e9ff;
+
+            color:#7c3aed;
+
+            font-size:30px;
+
+            box-shadow:
+                0 10px 28px rgba(67,35,85,.08);
+        }
+
+        .brand-name{
+            font-size:25px;
+            font-weight:800;
+            letter-spacing:-.7px;
+        }
+
+        .brand-name span{
+            color:#7c3aed;
+        }
+
+        .brand-text{
+            margin-top:5px;
+
+            font-size:11px;
+            color:#9b8da5;
+            font-weight:500;
+        }
+
+        /* ================================
+           CARD
+        ================================= */
+
+        .card{
+            background:#ffffff;
+
+            border:1px solid #eee8f3;
+
+            border-radius:25px;
+
+            padding:26px 22px 24px;
+
+            box-shadow:
+                0 16px 45px rgba(67,35,85,.08);
+        }
+
+        .heading{
+            margin-bottom:22px;
+        }
+
+        .heading h1{
+            font-size:22px;
+            font-weight:800;
+            letter-spacing:-.5px;
+        }
+
+        .heading p{
+            margin-top:5px;
+
+            font-size:10.5px;
+            color:#9b8da5;
+        }
+
+        /* ================================
+           FLASH
+        ================================= */
+
+        .message{
+            padding:11px 12px;
+
+            border-radius:12px;
+
+            margin-bottom:15px;
+
+            font-size:10px;
+            font-weight:600;
+
+            background:#f4edff;
+            color:#6d28d9;
+        }
+
+        /* ================================
+           FORM
+        ================================= */
+
+        .field{
+            margin-bottom:16px;
+        }
+
+        .field label{
+            display:block;
+
+            margin-bottom:7px;
+
+            font-size:10px;
+            font-weight:700;
+
+            color:#5b3b6d;
+        }
+
+        .input-wrap{
+            position:relative;
+        }
+
+        .input-icon{
+            position:absolute;
+
+            left:14px;
+            top:50%;
+
+            transform:translateY(-50%);
+
+            font-size:16px;
+            color:#927aa0;
+
+            pointer-events:none;
+        }
+
+        .input{
+            width:100%;
+            height:52px;
+
+            padding:0 14px 0 43px;
+
+            border:1px solid #eee8f3;
+
+            border-radius:15px;
+
+            outline:none;
+
+            background:#fcfbfd;
+
+            color:#291536;
+
+            font-size:11px;
+            font-weight:500;
+
+            transition:.2s;
+        }
+
+        .input::placeholder{
+            color:#b2a7b9;
+        }
+
+        .input:focus{
+            background:#ffffff;
+
+            border-color:#c4a7ef;
+
+            box-shadow:
+                0 0 0 3px rgba(124,58,237,.06);
+        }
+
+        /* ================================
+           FORGOT
+        ================================= */
+
+        .forgot-row{
+            display:flex;
+            justify-content:flex-end;
+
+            margin-top:-4px;
+            margin-bottom:20px;
+        }
+
+        .forgot{
+            text-decoration:none;
+
+            font-size:9.5px;
+            font-weight:700;
+
+            color:#7c3aed;
+        }
+
+        /* ================================
+           BUTTON
+        ================================= */
+
+        .login-btn{
+            width:100%;
+            height:53px;
+
+            border:none;
+            border-radius:16px;
+
+            background:#7c3aed;
+            color:white;
+
+            font-size:11px;
+            font-weight:750;
+
+            cursor:pointer;
+
+            box-shadow:
+                0 9px 22px rgba(124,58,237,.20);
+
+            transition:.2s;
+        }
+
+        .login-btn:hover{
+            background:#6d28d9;
+            transform:translateY(-1px);
+        }
+
+        .login-btn:active{
+            transform:scale(.97);
+        }
+
+        /* ================================
+           SIGNUP
+        ================================= */
+
+        .signup-text{
+            text-align:center;
+
+            margin-top:21px;
+
+            font-size:10px;
+            color:#9b8da5;
+        }
+
+        .signup-text a{
+            color:#7c3aed;
+
+            text-decoration:none;
+
+            font-weight:750;
+        }
+
+        /* ================================
+           BACK
+        ================================= */
+
+        .back{
+            display:block;
+
+            text-align:center;
+
+            margin-top:18px;
+
+            text-decoration:none;
+
+            font-size:9.5px;
+
+            color:#9b8da5;
+            font-weight:600;
+        }
+
+        .back:hover{
+            color:#7c3aed;
+        }
+
+        /* ================================
+           MOBILE
+        ================================= */
+
+        @media(max-width:360px){
+
+            body{
+                padding:14px;
+            }
+
+            .card{
+                padding:22px 17px;
+                border-radius:22px;
+            }
+
+            .brand{
+                margin-bottom:22px;
+            }
+
+            .brand-icon{
+                width:58px;
+                height:58px;
+            }
+
+            .brand-name{
+                font-size:23px;
+            }
+        }
+
+    </style>
+</head>
+
+<body>
+
+<div class="page">
+
+    <!-- BRAND -->
+
+    <div class="brand">
+
+        <div class="brand-icon">
+            🛠️
+        </div>
+
+        <div class="brand-name">
+            Work<span>Mitra</span>
+        </div>
+
+        <div class="brand-text">
+            Trusted services, right at your doorstep
+        </div>
+
+    </div>
+
+
+    <!-- LOGIN CARD -->
+
+    <div class="card">
+
+        <div class="heading">
+
+            <h1>
+                Welcome back 👋
+            </h1>
+
+            <p>
+                Login to continue with WorkMitra
+            </p>
+
+        </div>
+
+
+        <!-- FLASH MESSAGES -->
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+
+            {% if messages %}
+
+                {% for category, message in messages %}
+
+                    <div class="message">
+                        {{ message }}
+                    </div>
+
+                {% endfor %}
+
+            {% endif %}
+
+        {% endwith %}
+
+
+        <!-- LOGIN FORM -->
+
+        <form
+            method="POST"
+            action="{{ url_for('customer.login') }}"
+            autocomplete="on"
+        >
+
+            <!-- EMAIL / MOBILE -->
+
+            <div class="field">
+
+                <label>
+                    Email or Mobile Number
+                </label>
+
+                <div class="input-wrap">
+
+                    <span class="input-icon">
+                        📱
+                    </span>
+
+                    <input
+                        type="text"
+                        name="login"
+                        class="input"
+                        placeholder="Enter email or mobile number"
+                        autocomplete="username"
+                        required
+                    >
+
+                </div>
+
+            </div>
+
+
+            <!-- PASSWORD -->
+
+            <div class="field">
+
+                <label>
+                    Password
+                </label>
+
+                <div class="input-wrap">
+
+                    <span class="input-icon">
+                        🔒
+                    </span>
+
+                    <input
+                        type="password"
+                        name="password"
+                        id="password"
+                        class="input"
+                        placeholder="Enter your password"
+                        autocomplete="current-password"
+                        required
+                    >
+
+                </div>
+
+            </div>
+
+
+            <!-- FORGOT -->
+
+            <div class="forgot-row">
+
+                <a
+                    href="{{ url_for('customer.forgot_password') }}"
+                    class="forgot"
+                >
+                    Forgot Password?
+                </a>
+
+            </div>
+
+
+            <!-- BUTTON -->
+
+            <button
+                type="submit"
+                class="login-btn"
+            >
+                Login to WorkMitra
+            </button>
+
+        </form>
+
+
+        <!-- SIGNUP -->
+
+        <div class="signup-text">
+
+            Don't have an account?
+
+            <a
+                href="{{ url_for('customer.signup') }}"
+            >
+                Create Account
+            </a>
+
+        </div>
+
+    </div>
+
+
+    <a
+        href="/"
+        class="back"
+    >
+        ← Back to WorkMitra
+    </a>
+
+</div>
+
+</body>
+</html>
